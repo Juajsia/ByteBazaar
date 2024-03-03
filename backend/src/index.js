@@ -1,5 +1,6 @@
 import app from "./app.js";
 import { sequelize } from "./database/connection.js";
+import "./models/productCategory.model.js"
 
 try {
   // await sequelize.sync({ force: true })
