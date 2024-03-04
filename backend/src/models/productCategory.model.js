@@ -1,14 +1,13 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../database/connection.js";
-import { Category } from "./category.model.js";
-import { Product } from "./product.model.js";
+import { sequelize } from '../database/connection.js'
+import { Category } from './category.model.js'
+import { Product } from './product.model.js'
 
-export const ProductCategory = sequelize.define("ProductCategory");
+export const ProductCategory = sequelize.define('ProductCategory')
 
 Category.belongsToMany(Product, {
-  through: ProductCategory,
-});
+  through: ProductCategory
+})
 
 Product.belongsToMany(Category, {
-  through: ProductCategory,
-});
+  through: ProductCategory
+})
