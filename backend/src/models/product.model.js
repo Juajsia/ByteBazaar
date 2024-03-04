@@ -9,21 +9,26 @@ export const Product = sequelize.define("Product", {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     stock: {
         type: DataTypes.INTEGER,
         validate: {
             min: 0,
-        }
+        },
+        allowNull: false,
     },
     price: {
         type: DataTypes.FLOAT,
+        allowNull: false,
         validate: {
             min: 0,
         }
+
     },
     description: {
         type: DataTypes.TEXT,
+        allowNull: false,
     },
     specs: {
         type: DataTypes.TEXT,
@@ -36,8 +41,10 @@ export const Product = sequelize.define("Product", {
     },
     status: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
     },
     provider: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
 });
