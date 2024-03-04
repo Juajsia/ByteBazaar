@@ -1,6 +1,6 @@
 import app from "./app.js";
 import { sequelize } from "./database/connection.js";
-import "./models/client.model.js";
+
 try {
   // await sequelize.sync({ force: true })
   await sequelize.authenticate();
