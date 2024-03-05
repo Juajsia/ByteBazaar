@@ -1,5 +1,6 @@
 import { Client } from '../models/client.model.js'
 import { Person } from '../models/person.model.js'
+import { Credentialcontroller } from './credential.controller.js'
 
 export class ClientController {
   getAllClients = async (req, res) => {
@@ -15,10 +16,11 @@ export class ClientController {
 
   createClient = async (req, res) => {
     try {
-      const { id, firstName, secondName, lastName1, lastName2 } = req.body
+      const { id, firstName, secondName, lastName1, lastName2, email, password } = req.body
       const person = await Person.findByPk(id)
       if (!person) {
-        const newPerson = await Person.findOrCreate({
+        const credentialcontroller = new Credentialcontroller()
+        const newPerson = await Person.create({
           id,
           firstName,
           secondName,
@@ -26,7 +28,8 @@ export class ClientController {
           lastName2
         })
         await Client.create({ personId: id })
-        return res.status(201).json(newPerson)
+        const newCred = await credentialcontroller.createCredential({ personId: id, email, password })
+        return res.status(201).json({ newPerson, newCred })
       }
       return res.status(400).json({ msg: 'Client already exists' })
     } catch (error) {
