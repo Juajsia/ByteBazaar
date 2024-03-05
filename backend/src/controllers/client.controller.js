@@ -18,7 +18,7 @@ export class ClientController {
       const { id, firstName, secondName, lastName1, lastName2 } = req.body
       const person = await Person.findByPk(id)
       if (!person) {
-        const newPerson = await Person.findOrCreate({
+        const newPerson = await Person.create({
           id,
           firstName,
           secondName,

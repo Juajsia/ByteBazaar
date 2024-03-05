@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/connection.js'
-import { Client } from 'pg'
+import { Client } from './client.model.js'
 
 export const Order = sequelize.define('Order', {
   id: {
@@ -10,7 +10,6 @@ export const Order = sequelize.define('Order', {
   }
 })
 
-Order.hasOne(Client, {
-  foreignKey: 'clientId',
-  sourceKey: 'id'
-})
+Client.hasMany(Order)
+
+Order.belongsTo(Client)

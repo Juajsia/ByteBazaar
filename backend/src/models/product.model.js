@@ -22,6 +22,7 @@ export const Product = sequelize.define('Product', {
     type: DataTypes.FLOAT,
     allowNull: false,
     validate: {
+      isFloat: true,
       min: 0
     }
 
