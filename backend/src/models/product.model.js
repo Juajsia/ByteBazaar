@@ -9,11 +9,16 @@ export const Product = sequelize.define('Product', {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true,
+    validate: {
+      isAlpha: true
+    }
   },
   stock: {
     type: DataTypes.INTEGER,
     validate: {
+      isInt: true,
       min: 0
     },
     allowNull: false
@@ -42,10 +47,19 @@ export const Product = sequelize.define('Product', {
   },
   status: {
     type: DataTypes.BOOLEAN,
-    allowNull: false
+    allowNull: false,
+    defaultValue: true,
+    validate: {
+      isBoolean: function (val) {
+        return (typeof (val) === 'boolean')
+      }
+    }
   },
   provider: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isAlpha: true
+    }
   }
 })

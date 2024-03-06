@@ -5,10 +5,16 @@ export const Category = sequelize.define('Category', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
+    validate: {
+      isNumeric: true
+    }
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isAlpha: true
+    }
   }
 })

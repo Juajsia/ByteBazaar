@@ -4,14 +4,17 @@ import { sequelize } from '../database/connection.js'
 export const Person = sequelize.define('Person', {
   id: {
     type: DataTypes.BIGINT,
-    primaryKey: true
+    primaryKey: true,
+    validate: {
+      isNumeric: true
+    }
   },
   firstName: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       isAlpha: true
-    },
-    allowNull: false
+    }
   },
   secondName: {
     type: DataTypes.STRING,
@@ -23,16 +26,16 @@ export const Person = sequelize.define('Person', {
 
   lastName1: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       isAlpha: true
-    },
-    allowNull: false
+    }
   },
   lastName2: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       isAlpha: true
-    },
-    allowNull: false
+    }
   }
 })

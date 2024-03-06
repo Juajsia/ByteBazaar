@@ -5,7 +5,10 @@ import { Person } from './person.model.js'
 export const SalesAgent = sequelize.define('SalesAgent', {
   personId: {
     type: DataTypes.BIGINT,
-    primaryKey: true
+    primaryKey: true,
+    validate: {
+      isNumeric: true
+    }
   }
 })
 

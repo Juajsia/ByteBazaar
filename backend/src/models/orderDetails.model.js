@@ -7,6 +7,7 @@ export const OrderDetail = sequelize.define('OrderDetail', {
   quantity: {
     type: DataTypes.INTEGER,
     validate: {
+      isInt: true,
       min: 0
     },
     allowNull: false

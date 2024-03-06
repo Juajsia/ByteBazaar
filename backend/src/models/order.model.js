@@ -10,6 +10,12 @@ export const Order = sequelize.define('Order', {
   }
 })
 
-Client.hasMany(Order)
+Client.hasMany(Order, {
+  foreignKey: 'clientId',
+  sourceKey: 'personId'
+})
 
-Order.belongsTo(Client)
+Order.belongsTo(Client, {
+  foreignKey: 'clientId',
+  targetKey: 'personId'
+})

@@ -1,9 +1,15 @@
 import { Category } from '../models/category.model.js'
+import { Product } from '../models/product.model.js'
+import '../models/productCategory.model.js'
 
 export class CategoryController {
   getAllCategories = async (req, res) => {
     try {
-      const categories = await Category.findAll()
+      const categories = await Category.findAll({
+        include: {
+          model: Product
+        }
+      })
       res.json(categories)
     } catch (error) {
       return res.status(500).json({ message: error.message })

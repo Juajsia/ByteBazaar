@@ -1,9 +1,15 @@
 import { Product } from '../models/product.model.js'
+import { Category } from '../models/category.model.js'
+import { ProductCategory } from '../models/productCategory.model.js'
 
 export class ProductController {
   getAllProducts = async (req, res) => {
     try {
-      const products = await Product.findAll()
+      const products = await Product.findAll({
+        include: {
+          model: Category
+        }
+      })
       res.json(products)
     } catch (error) {
       return res.status(500).json({ message: error.message })
@@ -16,9 +22,26 @@ export class ProductController {
       name = name.toLowerCase()
       const product = await Product.findOne({ where: { name } })
       if (!product) {
+        const { categories } = req.body
+        const cats = []
+        const promise = categories.map(async (element) => {
+          console.log(cats)
+          cats.push((await Category.findOne({ where: { name: element } })).id)
+        })
+        await Promise.all(promise)
+        console.log(cats)
+        if (categories.length !== cats.length) {
+          return res.status(400).json({ msg: 'Some Category does not exist' })
+        }
+
         const newProduct = await Product.create(req.body)
-        return res.status(201).json(newProduct)
+        cats.forEach(async (element) => {
+          await ProductCategory.create({ CategoryId: element, ProductId: newProduct.id })
+        })
+
+        return res.status(201).json({ newProduct, categories })
       }
+
       return res.status(400).json({ msg: 'Product already exists' })
     } catch (error) {
       return res.status(500).json({ message: error.message })

@@ -48,16 +48,4 @@ export class ProductCategoryController {
       return res.status(500).json({ message: error.message })
     }
   }
-
-//   updateProductCategory = async (req, res) => {
-//     try {
-//       const { CategoryId, ProductId } = req.params
-//       const productCategory = await ProductCategory.findByPk(CategoryId)
-//       productCategory.set(req.body)
-//       await productCategory.save()
-//       res.status(202).json(productCategory)
-//     } catch (error) {
-//       return res.status(500).json({ mesaage: error.message })
-//     }
-//   }
 }
