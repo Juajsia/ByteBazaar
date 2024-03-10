@@ -1,5 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
+import cors from 'cors'
 
 import { clientRouters } from './routes/client.routes.js'
 import { productRouters } from './routes/product.routes.js'
@@ -8,6 +9,7 @@ import { productCategoryRouters } from './routes/productCategory.routes.js'
 import { credentialRouters } from './routes/credential.routes.js'
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.use(clientRouters)
