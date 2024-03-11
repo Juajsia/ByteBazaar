@@ -34,17 +34,6 @@ export class NavbarComponent {
   toggleSearch() {
     this.nav.nativeElement.classList.toggle('openSearch');
     this.nav.nativeElement.classList.remove('openNav');
-    // if (this.nav.nativeElement.classList.contains('openSearch')) {
-    //   this.searchIcon.nativeElement.classList.replace(
-    //     'uil-search',
-    //     'uil-times'
-    //   );
-    // } else {
-    //   this.searchIcon.nativeElement.classList.replace(
-    //     'uil-times',
-    //     'uil-search'
-    //   );
-    // }
   }
 
   openNav() {

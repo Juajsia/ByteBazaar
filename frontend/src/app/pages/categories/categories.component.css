@@ -1,0 +1,113 @@
+.main {
+    position: relative;
+    top: 110px;
+    margin: 15px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.category {
+    position: relative;
+    width: 400px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.category .see-apps {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    text-decoration: none;
+    color: #1A2A5A;
+    font-weight: bold;
+}
+
+.category .see-apps:hover {
+    color: #55D555;
+    text-decoration: underline;
+    transition: all 0.5s;
+}
+
+.body-category {
+    margin: 30px;
+    padding-top: 30px;
+}
+
+h2,
+h3 {
+    color: #1A2A5A;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    color: #1f1f1f;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.icons {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.delIcon,
+.edIcon {
+    font-size: 30px;
+    margin: 10px;
+}
+
+.delIcon {
+    color: #ffffff;
+}
+
+.delIcon:hover {
+    color: #e21010;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.edIcon {
+    color: #ffffff;
+}
+
+.edIcon:hover {
+    color: #057FD7;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+button {
+    width: 400px;
+    height: 250px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    background-color: #969faac2;
+    color: #969FAA;
+}
+
+button:hover {
+    background-color: #969FAA;
+    transition: all 0.5s;
+    color: #70767e;
+}
