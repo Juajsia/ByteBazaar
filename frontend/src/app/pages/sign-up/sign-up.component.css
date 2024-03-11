@@ -7,8 +7,8 @@
 }
 
 #inner {
-    width: auto;
-    height: auto;
+    max-width: 700px;
+    max-height: auto;
     padding: 30px 50px;
     display: flex;
     flex-direction: column;
@@ -39,9 +39,10 @@ p {
 
 #form {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 input,
@@ -58,7 +59,7 @@ input {
 }
 
 button {
-    width: 100%;
+    width: 280px;
     padding: 15px 20px;
     border: unset;
     border-radius: 5px;
