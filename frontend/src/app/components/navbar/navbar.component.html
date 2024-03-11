@@ -1,1 +1,44 @@
-<p>navbar works!</p>
+<nav class="nav" #nav>
+  <i class="navOpenBtn" (click)="openNav()"
+    ><fa-icon class="icon" [icon]="barsIcon"></fa-icon
+  ></i>
+  <div class="logo-img">
+    <img src="../../../assets/LogoSinTexto.png" class="logo" />
+    <h3 href="#" class="title">ByteBazaar</h3>
+  </div>
+  <ul class="nav-links">
+    <i class="navCloseBtn" (click)="closeNav()">
+      <fa-icon [icon]="xIcon"></fa-icon>
+    </i>
+    <li>
+      <a href="#"><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a>
+    </li>
+    <li>
+      <a href="#"
+        ><fa-icon class="a-icon" [icon]="catIcon"></fa-icon>Categories</a
+      >
+    </li>
+    <li>
+      <a href="#"
+        ><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a
+      >
+    </li>
+    <li>
+      <a href="#"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
+    </li>
+  </ul>
+  <!-- <h3 href="#" class="title">Administrator</h3> -->
+  <div class="icons">
+    <i class="search-icon" id="searchIcon" #searchIcon (click)="toggleSearch()">
+      <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
+    </i>
+    <i class=".cart-icon"><fa-icon class="icon" [icon]="cartIcon"></fa-icon></i>
+    <a href="#">Log in</a>
+  </div>
+  <div class="search-box">
+    <i class="search-icon"
+      ><fa-icon class="icon" [icon]="loupeIcon"></fa-icon
+    ></i>
+    <input type="text" placeholder="Search here..." />
+  </div>
+</nav>
