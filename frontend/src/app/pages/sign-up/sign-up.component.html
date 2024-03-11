@@ -1,0 +1,22 @@
+<div id="container">
+    <div id="inner">
+        <img src="../../../assets\Logo.png" alt="" id="logo">
+        <h1 id="title">Sign Up</h1>
+        <p>Input the information required below</p>
+        <form id="form">
+            <input type="number" name="document" placeholder="Document">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password2" placeholder="Confirm password">
+            <input type="text" name="firstName" placeholder="First Name">
+            <input type="text" name="middleName" placeholder="Middle Name (optional)">
+            <input type="text" name="firstSurname" placeholder="First Surname">
+            <input type="text" name="secondSurname" placeholder="Second Surname">
+            <button type="button">Sign Up</button>
+        </form>
+        <div id="links">
+            <p>Do you have an account already?</p>
+            <a [routerLink]="['/login']">Log In</a>
+        </div>
+    </div>
+</div>
