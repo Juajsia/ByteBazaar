@@ -11,5 +11,5 @@ try {
     console.log(`app running in port ${PORT}`)
   })
 } catch (error) {
-  console.error('Error connecting to the database', error)
+  console.error('Error con// necting to the database', error)
 }

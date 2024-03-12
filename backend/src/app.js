@@ -1,5 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
+import cors from 'cors'
 
 import { clientRouters } from './routes/client.routes.js'
 import { productRouters } from './routes/product.routes.js'
@@ -11,6 +12,7 @@ import { orderDetailsRouter } from './routes/orderDetails.routes.js'
 import { cartRouter } from './routes/cart.routes.js'
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 app.use(clientRouters)
