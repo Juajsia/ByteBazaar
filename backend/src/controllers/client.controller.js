@@ -1,6 +1,7 @@
 import { Client } from '../models/client.model.js'
 import { Person } from '../models/person.model.js'
 import { Credentialcontroller } from './credential.controller.js'
+import { Cart } from '../models/cart.model.js'
 
 export class ClientController {
   getAllClients = async (req, res) => {
@@ -29,7 +30,8 @@ export class ClientController {
         })
         await Client.create({ personId: id })
         const newCred = await credentialcontroller.createCredential({ personId: id, email, password })
-        return res.status(201).json({ newPerson, newCred })
+        const newCart = await Cart.create({ clientId: id })
+        return res.status(201).json({ newPerson, newCred, newCart })
       }
       return res.status(400).json({ msg: 'Client already exists' })
     } catch (error) {

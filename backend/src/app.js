@@ -10,6 +10,7 @@ import { credentialRouters } from './routes/credential.routes.js'
 import { orderRouters } from './routes/order.routes.js'
 import { orderDetailsRouter } from './routes/orderDetails.routes.js'
 import { cartRouter } from './routes/cart.routes.js'
+import { cartProductRouter } from './routes/cartProduct.routes.js'
 
 const app = express()
 app.use(cors())
@@ -23,5 +24,6 @@ app.use(credentialRouters)
 app.use(orderRouters)
 app.use(orderDetailsRouter)
 app.use(cartRouter)
+app.use(cartProductRouter)
 
 export default app

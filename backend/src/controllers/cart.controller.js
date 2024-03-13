@@ -1,5 +1,6 @@
 import { Cart } from '../models/cart.model.js'
 import { Product } from '../models/product.model.js'
+import { CartProduct } from '../models/cartProduct.model.js'
 
 export class CartController {
   getAllcart = async (req, res) => {
@@ -10,6 +11,22 @@ export class CartController {
         }
       })
       res.json(cart)
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
+  createCart = async (req, res) => {
+    try {
+      const { clientId } = req.body
+      const cart = await Cart.findOne({ where: { clientId } })
+      if (!cart) {
+        const newCart = await Cart.create({
+          clientId
+        })
+        return res.status(201).json({ newCart })
+      }
+      return res.status(400).json({ msg: 'Cart already exists' })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }
@@ -48,7 +65,7 @@ export class CartController {
       const { id } = req.params
       const cart = await Cart.findByPk(id)
       if (!cart) {
-        return res.status(404).json({ err: 'Product does not exist' })
+        return res.status(404).json({ err: 'cart does not exist' })
       }
       cart.set(req.body)
       await cart.save()

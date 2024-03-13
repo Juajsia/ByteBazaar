@@ -5,7 +5,6 @@ const orderController = new OrderController()
 export const orderRouters = Router()
 
 orderRouters.get('/api/order', orderController.getAllOrder)
-orderRouters.post('/api/order')
+orderRouters.post('/api/order', orderController.createOrder)
 orderRouters.get('/api/order/:id', orderController.getOrder)
-orderRouters.put('/api/order/:id', orderController.updateOrder)
 orderRouters.delete('/api/order/:id', orderController.deleteOrder)

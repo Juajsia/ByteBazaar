@@ -7,9 +7,10 @@ export const CartProduct = sequelize.define('CartProduct', {
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 1,
     validate: {
       isInt: true,
-      min: 0
+      min: 1
     }
   }
 })

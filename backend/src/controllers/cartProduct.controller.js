@@ -14,12 +14,11 @@ export class CartProductController {
     try {
       const { CartId, ProductId } = req.body
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
-      console.log(cartProduct)
       if (!cartProduct) {
         const newCartProduct = await CartProduct.create(req.body)
         return res.status(201).json(newCartProduct)
       }
-      return res.status(400).json({ msg: 'CartProduct already exists' })
+      return res.status(400).json({ msg: 'Cart Item already exist' })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }
@@ -27,7 +26,7 @@ export class CartProductController {
 
   getCartProduct = async (req, res) => {
     try {
-      const { CartId, ProductId } = req.body
+      const { CartId, ProductId } = req.params
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
       if (cartProduct) {
         res.json(cartProduct)
@@ -41,9 +40,26 @@ export class CartProductController {
 
   deleteCartProduct = async (req, res) => {
     try {
-      const { CartId, ProductId } = req.body
+      const { CartId, ProductId } = req.params
       await CartProduct.destroy({ where: { CartId, ProductId } })
       res.json({ msg: 'CartProduct deleted' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
+  updateCartProduct = async (req, res) => {
+    try {
+      const { CartId, ProductId } = req.params
+      console.log(CartId, ProductId)
+      const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
+      console.log(cartProduct)
+      if (!cartProduct) {
+        return res.status(404).json({ err: 'Cart Item does not exist' })
+      }
+      cartProduct.set(req.body)
+      await cartProduct.save()
+      res.status(202).json(cartProduct)
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }

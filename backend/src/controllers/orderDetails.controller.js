@@ -36,7 +36,7 @@ export class OrderDetailController {
       if (orderdetails) {
         res.json(orderdetails)
       } else {
-        res.status(404).json({ err: 'order not found' })
+        res.status(404).json({ err: 'order Detail not found' })
       }
     } catch (error) {
       return res.status(500).json({ message: error.message })
@@ -52,9 +52,9 @@ export class OrderDetailController {
         }
       })
       if (orderdetails) {
-        res.json({ msg: 'order deleted' })
+        res.json({ msg: 'order detail deleted' })
       } else {
-        res.status(404).json({ err: 'order not found' })
+        res.status(404).json({ err: 'order detail not found' })
       }
     } catch (error) {
       return res.status(500).json({ message: error.message })
