@@ -59,6 +59,7 @@ a:hover {
 .nav .title {
     background: -webkit-linear-gradient(#057FD7, #55D555);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 22px;
     font-weight: bold;
@@ -122,6 +123,40 @@ a:hover {
     display: none;
 }
 
+.log-button {
+    display: block;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+    border: solid 1px #057FD7;
+    color: #057FD7;
+    font-weight: bold;
+    transition: all .5s ease;
+    background-color: transparent;
+}
+
+#logOut:hover {
+    color: #ff3737;
+    border-color: #ff3737;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#logIn {
+    display: block;
+}
+
+#logIn:hover {
+    color: #55D555;
+    border-color: #55D555;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.login-menu {
+    display: none;
+}
+
 /* responsive */
 @media screen and (max-width: 1160px) {
     .nav {
@@ -147,8 +182,13 @@ a:hover {
 @media screen and (max-width: 768px) {
 
     .nav .navOpenBtn,
-    .nav .navCloseBtn {
+    .nav .navCloseBtn,
+    .login-menu {
         display: block;
+    }
+
+    .login-bar {
+        display: none;
     }
 
     .nav {

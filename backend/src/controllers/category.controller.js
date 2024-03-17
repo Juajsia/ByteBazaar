@@ -18,10 +18,10 @@ export class CategoryController {
 
   createCategory = async (req, res) => {
     try {
-      const { id } = req.body
-      const category = await Category.findByPk(id)
+      const { name, description } = req.body
+      const category = await Category.findOne({ where: name })
       if (!category) {
-        const newCategory = await Category.create(req.body)
+        const newCategory = await Category.create({ name, description })
         return res.status(201).json(newCategory)
       }
       return res.status(400).json({ msg: 'Category already exists' })
