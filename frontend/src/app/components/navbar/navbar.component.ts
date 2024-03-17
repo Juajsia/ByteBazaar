@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faBars,
@@ -10,11 +11,12 @@ import {
   faUserGroup,
   faComments,
 } from '@fortawesome/free-solid-svg-icons';
+import { loginStatus } from '../../guards/login.guard';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -28,8 +30,15 @@ export class NavbarComponent {
   aboutIcon = faUserGroup;
   chatIcon = faComments;
 
+  loginStatus = loginStatus()
+  rol = localStorage.getItem('rol')
+
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
+
+  constructor(private router: Router) {
+
+  }
 
   toggleSearch() {
     this.nav.nativeElement.classList.toggle('openSearch');
@@ -44,5 +53,13 @@ export class NavbarComponent {
 
   closeNav() {
     this.nav.nativeElement.classList.remove('openNav');
+  }
+
+  logOut() {
+    this.loginStatus = false
+    this.rol = ''
+    localStorage.removeItem('token')
+    localStorage.removeItem('rol')
+    this.router.navigate([''])
   }
 }

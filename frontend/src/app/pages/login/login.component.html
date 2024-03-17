@@ -1,17 +1,30 @@
 <div id="container">
-    <div id="inner">
-        <img src="../../../assets\Logo.png" alt="" id="logo">
-        <h1 id="title">Log In</h1>
-        <p>Input the information required below</p>
-        <form id="form">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <button type="button">Log In</button>
-        </form>
-        <div id="links">
-            <a [routerLink]="['/login/changePassword']">Forgot your password?</a>
-            <p>Don't you have an account yet?</p>
-            <a [routerLink]="['/signUp']">Sign Up</a>
-        </div>
+  <div id="inner">
+    <img src="../../../assets\Logo.png" alt="" id="logo" />
+    <h1 id="title">Log In</h1>
+    <p>Input the information required below</p>
+    <form id="form">
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Password"
+      />
+      <button type="button" (click)="login()">Log In</button>
+      @if (error != '') {
+      <p id="error" class="error">{{ error }}</p>
+      }
+    </form>
+    <div id="links">
+      <a [routerLink]="['/login/changePassword']">Forgot your password?</a>
+      <p>Don't you have an account yet?</p>
+      <a [routerLink]="['/signUp']">Sign Up</a>
     </div>
+  </div>
 </div>
