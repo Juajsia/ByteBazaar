@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+<main>
+    <article class="basicInfo block">
+        <div id="summary">
+            <div>
+                <h1 id="productName">Microsoft Office</h1>
+                <p id="provider">Microsoft</p>
+                <p id="stock">Stock: 40</p>
+            </div>
+            <div id="lowerInfo">
+                <p id="price">$99.99</p>
+                <button type="button" class="btn">
+                    Buy <fa-icon class="btnIcon" [icon]="bag"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <div id="img">
+            <img id="productImg" src="/../../../assets\Logo.png">
+            <button type="button" class="btn">
+                Add <fa-icon class="btnIcon" [icon]="cart"></fa-icon>
+            </button>
+        </div>
+    </article>
+    <article class="aditionalInfo block">
+        <section class="infoItem">
+            <h2 class="itemTitle">Categories</h2>
+            <div class="line"></div>
+            <div class="elements">
+                <article class="element">Productivity</article>
+            </div>
+        </section>
+        <section class="infoItem">
+            <h2 class="itemTitle">Platforms</h2>
+            <div class="line"></div>
+            <div class="elements">
+                <article class="element"><fa-icon class="icon" [icon]="pc"></fa-icon> Computer</article>
+                <article class="element"><fa-icon class="icon" [icon]="phone"></fa-icon> Smartphone</article>
+                <article class="element"><fa-icon class="icon" [icon]="tablet"></fa-icon> Tablet</article>
+            </div>
+        </section>
+        <section class="infoItem">
+            <h2 class="itemTitle">Description</h2>
+            <div class="line"></div>
+            <p>
+                Microsoft Office is a suite of applications designed to help with productivity and completing common
+                tasks on a computer. You can create and edit documents containing text and images, work with data in
+                spreadsheets and databases, and create presentations and posters.
+            </p>
+        </section>
+        <section class="infoItem">
+            <h2 class="itemTitle">Specs</h2>
+            <div class="line"></div>
+            <ul>
+                <li><span>Applications:</span>
+                    <br>
+                    Microsoft Office typically includes several applications, such as:
+                    <br><br>
+                    Microsoft Word: A word processing program used for creating documents.
+                    <br>
+                    Microsoft Excel: A spreadsheet program for organizing, analyzing, and visualizing data.
+                    <br>
+                    Microsoft PowerPoint: A presentation program for creating slideshows.
+                    <br>
+                    Microsoft Outlook: An email client and personal information manager.
+                    <br>
+                    Microsoft Access: A database management system.
+                    <br>
+                    Microsoft OneNote: A note-taking application.
+                    <br>
+                    Microsoft Publisher: A desktop publishing program.
+                    <br>
+                    Microsoft Teams: Collaboration software for teams, including chat, video meetings, and file sharing.
+                    <br>
+                    Microsoft OneDrive: Cloud storage service for storing and sharing files.
+                </li>
+                <li><span>Compatibility:</span>
+                    <br>
+                    Microsoft Office is compatible with various operating systems, including Windows, macOS, iOS, and
+                    Android.
+                </li>
+                <li><span>Integration:</span>
+                    <br>
+                    Microsoft Office applications often integrate with each other, allowing users to easily transfer
+                    data and content between different programs. For example, you can embed an Excel spreadsheet in a
+                    Word document or import data from Outlook into Excel.
+                </li>
+                <li><span>Cloud Integration:</span>
+                    <br>
+                    Microsoft Office offers cloud integration through services like OneDrive and SharePoint, allowing
+                    users to access their files and collaborate with others from any device with an internet connection.
+                </li>
+                <li><span>Customization:</span>
+                    <br>
+                    Users can often customize the appearance and functionality of Microsoft Office applications to suit
+                    their preferences and workflow.
+                </li>
+            </ul>
+        </section>
+    </article>
+
+</main>

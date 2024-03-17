@@ -1,0 +1,149 @@
+* {
+    color: #47525E;
+    font-weight: normal;
+}
+
+main {
+    position: relative;
+    top: 110px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.block {
+    width: 70%;
+    background-color: #ffffff;
+}
+
+.basicInfo {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 30px 30px 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+}
+
+
+#summary {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#lowerInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px
+}
+
+#productName {
+    width: 100%;
+}
+
+#provider {
+    justify-self: start;
+}
+
+#price {
+    font-size: xx-large;
+}
+
+h1 {
+    font-size: 4.5vi
+}
+
+
+h2 {
+    font-size: 2vi
+}
+
+.btn {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #057FD7;
+    border-color: #057FD7;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    transition: all .5s ease;
+}
+
+.btnIcon {
+    color: #057FD7;
+    transition: all .5s ease;
+}
+
+.btn:hover {
+    background-color: #55D555;
+    color: #ffff;
+    border-color: #ffff;
+    transform: scale(1.15);
+
+    .btnIcon {
+        color: #ffff;
+    }
+}
+
+
+#img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#productImg {
+    width: 250px;
+}
+
+.aditionalInfo {
+    padding: 10px 30px 10px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.line {
+    border-width: thin;
+    border-top: solid 1px #55d555;
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.elements {
+    display: flex;
+    gap: 10px;
+}
+
+.element {
+    width: fit-content;
+    padding: 2px 10px;
+    border: solid 2px #47525E;
+    border-radius: 15px;
+}
+
+li {
+    margin-top: 20px;
+}
+
+span {
+    font-weight: bold;
+}
