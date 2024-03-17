@@ -50,7 +50,9 @@ export class OrderController {
   getOrder = async (req, res) => {
     try {
       const { id } = req.params
-      const order = await Order.findByPk(id)
+      const order = await Order.findByPk(id, {
+        include: Product
+      })
       if (order) {
         res.json(order)
       } else {

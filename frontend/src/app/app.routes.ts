@@ -4,6 +4,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PasswordComponent } from './pages/password/password.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { loginGuard } from './guards/login.guard';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -12,7 +13,7 @@ export const routes: Routes = [{
 }, {
     title: 'Login',
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
 }, {
     title: 'SignUp',
     path: 'signUp',

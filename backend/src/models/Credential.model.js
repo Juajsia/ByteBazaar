@@ -17,10 +17,7 @@ export const Credential = sequelize.define('Credential', {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isAlpha: true
-    }
+    allowNull: false
   }
 })
 

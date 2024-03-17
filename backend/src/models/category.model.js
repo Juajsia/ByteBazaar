@@ -16,5 +16,12 @@ export const Category = sequelize.define('Category', {
     validate: {
       isAlpha: true
     }
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isAlpha: true
+    }
   }
 })
