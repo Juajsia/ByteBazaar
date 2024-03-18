@@ -22,6 +22,12 @@
 
 #logo {
     width: 150px;
+    transition: all .50s ease;
+}
+
+#logo:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 h1 {

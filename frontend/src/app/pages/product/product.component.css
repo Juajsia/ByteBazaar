@@ -6,7 +6,6 @@
 main {
     position: relative;
     top: 110px;
-    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,8 +47,9 @@ main {
     width: 100%;
 }
 
-#provider {
-    justify-self: start;
+#provider,
+#stock {
+    font-size: x-large;
 }
 
 #price {
@@ -89,6 +89,7 @@ h2 {
     color: #ffff;
     border-color: #ffff;
     transform: scale(1.15);
+    cursor: pointer;
 
     .btnIcon {
         color: #ffff;
@@ -112,6 +113,7 @@ h2 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
