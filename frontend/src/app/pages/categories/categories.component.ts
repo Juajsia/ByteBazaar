@@ -3,11 +3,12 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { faArrowRight, faTrash, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule],
+  imports: [NavbarComponent, FontAwesomeModule, RouterLink],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
