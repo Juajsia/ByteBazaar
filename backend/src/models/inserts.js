@@ -60,7 +60,7 @@ export async function inserts () {
     password
   }, {
     personId: newClients[2].id,
-    email: 'juanjo@bytebazaar.com',
+    email: 'juan@bytebazaar.com',
     password
   }]
 

@@ -1,11 +1,19 @@
 <app-navbar></app-navbar>
 
 <main class="main">
-  <article>
-    <h2>Category Aplications</h2>
-    <p>this is a product description - this is a product description</p>
-    <button>Filter</button>
-    <button>Sort by</button>
+  <article class="category">
+    <section class="cat-info">
+      <h2>Category Aplications</h2>
+      <p>this is a product description - this is a product description</p>
+    </section>
+    <section class="filters">
+      <button>
+        Filter <span><fa-icon [icon]="filterCaret"></fa-icon></span>
+      </button>
+      <button>
+        Sort by <span><fa-icon [icon]="filterCaret"></fa-icon></span>
+      </button>
+    </section>
   </article>
 
   <div class="products">
