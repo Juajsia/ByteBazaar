@@ -1,3 +1,7 @@
+.container {
+    position: relative;
+}
+
 .nav {
     position: fixed;
     top: 0;
@@ -250,4 +254,12 @@ a:hover {
 
 .currentPage {
     color: #55D555;
+}
+
+.cart {
+    height: max-content;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 11;
 }

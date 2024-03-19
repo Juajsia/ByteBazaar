@@ -1,59 +1,66 @@
-<nav class="nav" #nav>
-  <i class="navOpenBtn" (click)="openNav()"><fa-icon class="icon" [icon]="barsIcon"></fa-icon></i>
-  <div class="logo-img">
-    <img src="../../../assets/LogoSinTexto.png" class="logo" />
-    <h3 class="title">ByteBazaar</h3>
-  </div>
-  <ul class="nav-links">
-    <i class="navCloseBtn" (click)="closeNav()">
-      <fa-icon [icon]="xIcon"></fa-icon>
-    </i>
-    <li>
-      <a [routerLink]="['/']" url="/"><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a>
-    </li>
-    <li>
-      <a [routerLink]="['/categories']" url="/categories"><fa-icon class="a-icon"
-          [icon]="catIcon"></fa-icon>Categories</a>
-    </li>
-    <li>
-      <a [routerLink]="['/']" url="/aboutUs"><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a>
-    </li>
-    @if (rol === 'salesAgent') {
-    <li>
-      <a [routerLink]="['/']" url="/chat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
-    </li>
-    }
-    <li class="login-menu">
-      @if (!loginStatus) {
-      <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
-      } @else {
-      <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
-      }
-    </li>
-  </ul>
-
-  @switch (rol) { @case ('administrator') {
-  <h3 class="title">Administrator</h3>
-  } @case ('salesAgent') {
-  <h3 class="title">Sales Agent</h3>
-  } }
-  <div class="icons">
-    <i class="search-icon" id="searchIcon" #searchIcon (click)="toggleSearch()">
-      <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
-    </i>
-    @if (rol === 'client') {
-    <i class=".cart-icon" [routerLink]="['/cart']"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
-    }
-    <div class="login-bar">
-      @if (!loginStatus) {
-      <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
-      } @else {
-      <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
-      }
+<div class="container">
+  <nav class="nav" #nav>
+    <i class="navOpenBtn" (click)="openNav()"><fa-icon class="icon" [icon]="barsIcon"></fa-icon></i>
+    <div class="logo-img">
+      <img src="../../../assets/LogoSinTexto.png" class="logo" />
+      <h3 class="title">ByteBazaar</h3>
     </div>
-  </div>
-  <div class="search-box">
-    <i class="search-icon"><fa-icon class="icon" [icon]="loupeIcon"></fa-icon></i>
-    <input type="text" placeholder="Search here..." />
-  </div>
-</nav>
+    <ul class="nav-links">
+      <i class="navCloseBtn" (click)="closeNav()">
+        <fa-icon [icon]="xIcon"></fa-icon>
+      </i>
+      <li>
+        <a [routerLink]="['/']" url="/"><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a>
+      </li>
+      <li>
+        <a [routerLink]="['/categories']" url="/categories"><fa-icon class="a-icon"
+            [icon]="catIcon"></fa-icon>Categories</a>
+      </li>
+      <li>
+        <a [routerLink]="['/']" url="/aboutUs"><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a>
+      </li>
+      @if (rol === 'salesAgent') {
+      <li>
+        <a [routerLink]="['/']" url="/chat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
+      </li>
+      }
+      <li class="login-menu">
+        @if (!loginStatus) {
+        <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
+        } @else {
+        <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
+        }
+      </li>
+    </ul>
+
+    @switch (rol) { @case ('administrator') {
+    <h3 class="title">Administrator</h3>
+    } @case ('salesAgent') {
+    <h3 class="title">Sales Agent</h3>
+    } }
+    <div class="icons">
+      <i class="search-icon" id="searchIcon" #searchIcon (click)="toggleSearch()">
+        <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
+      </i>
+      @if (rol === 'client') {
+      <i class=".cart-icon" (click)="showCart()"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      }
+      <div class="login-bar">
+        @if (!loginStatus) {
+        <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
+        } @else {
+        <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
+        }
+      </div>
+    </div>
+    <div class="search-box">
+      <i class="search-icon"><fa-icon class="icon" [icon]="loupeIcon"></fa-icon></i>
+      <input type="text" placeholder="Search here..." />
+    </div>
+  </nav>
+  @if (cart) {
+  <article class="cart">
+    <app-lateral-cart></app-lateral-cart>
+  </article>
+  }
+</div>

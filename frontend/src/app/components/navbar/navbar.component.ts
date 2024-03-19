@@ -12,11 +12,12 @@ import {
   faComments,
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
+import { LateralCartComponent } from '../lateral-cart/lateral-cart.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, LateralCartComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -33,16 +34,14 @@ export class NavbarComponent {
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
 
+  cart = false
+
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
   constructor(private router: Router) {
-
+    localStorage.setItem('cartStatus', `${this.cart}`)
   }
-
-  // ngOnInit(): void {
-  //   let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
-  // }
 
   ngAfterViewInit(): void {
       let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
@@ -69,5 +68,23 @@ export class NavbarComponent {
     localStorage.removeItem('token')
     localStorage.removeItem('rol')
     this.router.navigate([''])
+  }
+
+  showCart(){
+    // switch (localStorage.getItem('cartStatus')) {
+    //   case 'true':
+    //     this.cart = false
+    //     localStorage.setItem('cartStatus', `${this.cart}`)  
+    //     break;
+    //   default:
+    //     this.cart = true
+    //     localStorage.setItem('cartStatus', `${this.cart}`)
+    // } 
+
+    if(this.cart)
+      this.cart = false
+    else
+      this.cart = true
+    console.log('fuera: ', this.cart)
   }
 }
