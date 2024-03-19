@@ -210,3 +210,9 @@ p {
 #btnCheckout {
     align-self: center;
 }
+
+@media (width <=1201px) {
+    .summary {
+        position: static;
+    }
+}
