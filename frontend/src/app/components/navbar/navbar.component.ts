@@ -40,6 +40,14 @@ export class NavbarComponent {
 
   }
 
+  // ngOnInit(): void {
+  //   let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
+  // }
+
+  ngAfterViewInit(): void {
+      let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
+  }
+
   toggleSearch() {
     this.nav.nativeElement.classList.toggle('openSearch');
     this.nav.nativeElement.classList.remove('openNav');

@@ -1,7 +1,5 @@
 <nav class="nav" #nav>
-  <i class="navOpenBtn" (click)="openNav()"
-    ><fa-icon class="icon" [icon]="barsIcon"></fa-icon
-  ></i>
+  <i class="navOpenBtn" (click)="openNav()"><fa-icon class="icon" [icon]="barsIcon"></fa-icon></i>
   <div class="logo-img">
     <img src="../../../assets/LogoSinTexto.png" class="logo" />
     <h3 class="title">ByteBazaar</h3>
@@ -11,25 +9,18 @@
       <fa-icon [icon]="xIcon"></fa-icon>
     </i>
     <li>
-      <a [routerLink]="['/']"
-        ><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a
-      >
+      <a [routerLink]="['/']" url="/"><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a>
     </li>
     <li>
-      <a [routerLink]="['/categories']"
-        ><fa-icon class="a-icon" [icon]="catIcon"></fa-icon>Categories</a
-      >
+      <a [routerLink]="['/categories']" url="/categories"><fa-icon class="a-icon"
+          [icon]="catIcon"></fa-icon>Categories</a>
     </li>
     <li>
-      <a [routerLink]="['/']"
-        ><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a
-      >
+      <a [routerLink]="['/']" url="/aboutUs"><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a>
     </li>
     @if (rol === 'salesAgent') {
     <li>
-      <a [routerLink]="['/']"
-        ><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a
-      >
+      <a [routerLink]="['/']" url="/chat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
     </li>
     }
     <li class="login-menu">
@@ -51,7 +42,7 @@
       <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
     </i>
     @if (rol === 'client') {
-    <i class=".cart-icon"><fa-icon class="icon" [icon]="cartIcon"></fa-icon></i>
+    <i class=".cart-icon" [routerLink]="['/cart']"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
     }
     <div class="login-bar">
       @if (!loginStatus) {
@@ -62,9 +53,7 @@
     </div>
   </div>
   <div class="search-box">
-    <i class="search-icon"
-      ><fa-icon class="icon" [icon]="loupeIcon"></fa-icon
-    ></i>
+    <i class="search-icon"><fa-icon class="icon" [icon]="loupeIcon"></fa-icon></i>
     <input type="text" placeholder="Search here..." />
   </div>
 </nav>
