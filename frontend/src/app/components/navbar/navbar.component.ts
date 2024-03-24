@@ -10,14 +10,14 @@ import {
   faLayerGroup,
   faUserGroup,
   faComments,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
-import { LateralCartComponent } from '../lateral-cart/lateral-cart.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FontAwesomeModule, RouterLink, LateralCartComponent],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -30,17 +30,18 @@ export class NavbarComponent {
   catIcon = faLayerGroup;
   aboutIcon = faUserGroup;
   chatIcon = faComments;
+  trashIcon = faTrash;
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
 
-  cart = false
+  cartStatus = false
 
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
   constructor(private router: Router) {
-    localStorage.setItem('cartStatus', `${this.cart}`)
+    
   }
 
   ngAfterViewInit(): void {
@@ -68,23 +69,5 @@ export class NavbarComponent {
     localStorage.removeItem('token')
     localStorage.removeItem('rol')
     this.router.navigate([''])
-  }
-
-  showCart(){
-    // switch (localStorage.getItem('cartStatus')) {
-    //   case 'true':
-    //     this.cart = false
-    //     localStorage.setItem('cartStatus', `${this.cart}`)  
-    //     break;
-    //   default:
-    //     this.cart = true
-    //     localStorage.setItem('cartStatus', `${this.cart}`)
-    // } 
-
-    if(this.cart)
-      this.cart = false
-    else
-      this.cart = true
-    console.log('fuera: ', this.cart)
   }
 }
