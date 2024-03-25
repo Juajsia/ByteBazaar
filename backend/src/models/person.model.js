@@ -13,14 +13,14 @@ export const Person = sequelize.define('Person', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   },
   secondName: {
     type: DataTypes.STRING,
     allowNull: true,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   },
 
@@ -28,14 +28,14 @@ export const Person = sequelize.define('Person', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   },
   lastName2: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   }
 })

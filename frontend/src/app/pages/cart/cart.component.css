@@ -45,6 +45,7 @@ p {
 .cartItem {
     padding: 10px;
     border-radius: 15px;
+    background-color: #ffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
@@ -107,7 +108,7 @@ p {
     padding: 10px;
     border: 2px solid;
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #ffff;
     color: #057FD7;
     border-color: #057FD7;
     font-size: 14px;
@@ -118,7 +119,6 @@ p {
 
 .btnDelete {
     color: #e21010;
-    background-color: #f2f2f2;
     border-color: #e21010;
 }
 
@@ -159,6 +159,7 @@ p {
 }
 
 .summary {
+    background-color: #ffff;
     position: sticky;
     top: 110px;
     height: fit-content;

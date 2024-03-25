@@ -5,6 +5,7 @@ import { Person } from './person.model.js'
 import { SalesAgent } from './salesAgent.model.js'
 import { Credential } from './Credential.model.js'
 import { Client } from './client.model.js'
+import { Cart } from './cart.model.js'
 
 export async function inserts () {
   const newAdmin = {
@@ -74,11 +75,17 @@ export async function inserts () {
 
   await SalesAgent.create({ personId: newSalesAgent.id })
 
-  const clientsIds = newClients.map(client => {
+  let clientsIds = newClients.map(client => {
     const { id } = client
     return { personId: id }
   })
-
   console.log(clientsIds)
   await Client.bulkCreate(clientsIds)
+
+  clientsIds = clientsIds.map(client => {
+    const { personId } = client
+    return { clientId: personId }
+  })
+  console.log(clientsIds)
+  await Cart.bulkCreate(clientsIds)
 }
