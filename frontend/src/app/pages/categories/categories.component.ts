@@ -18,6 +18,8 @@ export class CategoriesComponent {
   editIcon = faPenToSquare
   addIcon = faPlus
 
+  rol = localStorage.getItem('rol')
+
   images: string[] = [
     'https://fotografias.lasexta.com/clipping/cmsimages01/2020/05/08/E3BC9A26-F5D7-4B1D-9497-72A52CE9CB79/98.jpg?crop=1300,731,x0,y19&width=1900&height=1069&optimize=high&format=webply',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2-HLOYkcsLxae3geq3egU82FTxpdo0e-weQ&usqp=CAU',
@@ -31,6 +33,7 @@ export class CategoriesComponent {
 
   ngOnInit(): void {
     this.loadImage();
+    console.log(this.rol)
   }
 
   loadImage(): void {
