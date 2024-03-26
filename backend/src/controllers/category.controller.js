@@ -33,7 +33,11 @@ export class CategoryController {
   getCategory = async (req, res) => {
     try {
       const { id } = req.params
-      const category = await Category.findByPk(id)
+      const category = await Category.findByPk(id, {
+        include: {
+          model: Product
+        }
+      })
       if (category) {
         res.json(category)
       } else {

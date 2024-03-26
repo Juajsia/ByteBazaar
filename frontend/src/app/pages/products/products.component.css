@@ -52,6 +52,30 @@
     margin-left: 5px;
 }
 
+.add-btn {
+    width: 170px;
+    height: 267px;
+    transition: all .5s ease;
+    border: none;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: #969faac2;
+    color: #969FAA;
+}
+
+.add-btn:hover {
+    background-color: #969FAA;
+    color: #70767e;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
+    transform: scale(1.05);
+}
+
 .products {
     display: flex;
     align-items: center;
@@ -62,6 +86,7 @@
 }
 
 .wrapper {
+    height: 267px;
     padding: 15px;
     width: 170px;
     border-radius: 7px;
@@ -107,22 +132,4 @@
 .price {
     position: absolute;
     right: 0px;
-}
-
-.addPr {
-    width: 170px;
-    height: 250px;
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-size: 20px;
-    background-color: #969faac2;
-    color: #969FAA;
-    transition: all 0.5s;
-}
-
-.addPr:hover {
-    cursor: pointer;
-    background-color: #969FAA;
-    color: #70767e;
 }
