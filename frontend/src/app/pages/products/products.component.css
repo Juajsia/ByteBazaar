@@ -108,3 +108,21 @@
     position: absolute;
     right: 0px;
 }
+
+.addPr {
+    width: 170px;
+    height: 250px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    background-color: #969faac2;
+    color: #969FAA;
+    transition: all 0.5s;
+}
+
+.addPr:hover {
+    cursor: pointer;
+    background-color: #969FAA;
+    color: #70767e;
+}

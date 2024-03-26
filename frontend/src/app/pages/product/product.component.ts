@@ -6,13 +6,16 @@ import {
   faBagShopping, 
   faDesktop,
   faMobileScreenButton,
-  faTabletScreenButton
+  faTabletScreenButton,
+  faTrash,
+  faPenToSquare
 } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule],
+  imports: [NavbarComponent, RouterLink, FontAwesomeModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -22,4 +25,8 @@ export class ProductComponent {
   pc = faDesktop
   phone = faMobileScreenButton
   tablet = faTabletScreenButton
+  trashIcon = faTrash
+  editIcon = faPenToSquare
+
+  role = localStorage.getItem('rol')
 }

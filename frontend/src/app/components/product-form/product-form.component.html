@@ -1,64 +1,63 @@
 <div id="container">
     <div id="inner">
-        <img src="../../../assets\Logo.png" alt="" id="logo">
-        <h1 id="title">Sign Up</h1>
+        <h1 id="title">Add new product</h1>
         <p>Input the information required below</p>
         @if (!formStatus) {
         <span class="error">*There are missing or incorrect fields*</span>
         }
         <form id="form" [formGroup]="form">
             <article class="field">
-                <input type="number" name="document" placeholder="Document" formControlName="document" required
+                <input type="text" name="name" placeholder="Product name" formControlName="name" required
                     (change)="validateFields()">
-                @if (form.get('document')?.hasError('required') && form.get('document')?.touched) {
+                @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
                 <span class="error">*Required field*</span>
                 }
-                @if (form.get('document')?.hasError('pattern')) {
-                <span class="error">*Document must be a number between 8 and 10 characters*</span>
+                @if (form.get('name')?.hasError('pattern')) {
+                <span class="error">*Invalid name*</span>
                 }
             </article>
             <article class="field">
-                <input type="email" name="email" placeholder="Email" formControlName="email" required
+                <input type="number" name="stock" placeholder="Stock" formControlName="stock" required
                     (change)="validateFields()">
-                @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+                @if (form.get('stock')?.hasError('required') && form.get('stock')?.touched) {
                 <span class="error">*Required field*</span>
                 }
-                @if (form.get('email')?.hasError('pattern')) {
-                <span class="error">*Invalid email*</span>
+                @if (form.get('stock')?.hasError('pattern')) {
+                <span class="error">*stock must be a number between 8 and 10 characters*</span>
                 }
             </article>
             <article class="field">
-                <input type="password" name="password" placeholder="Password" formControlName="password" required
+                <input type="number" name="price" placeholder="Price" formControlName="price" required
                     (change)="validateFields()">
-                @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+                @if (form.get('price')?.hasError('required') && form.get('price')?.touched) {
                 <span class="error">*Required field*</span>
                 }
-                @if (form.get('password')?.hasError('pattern')) {
-                <span class="error">*Password must include at least one letter, one digit and one special charater. The
+                @if (form.get('price')?.hasError('pattern')) {
+                <span class="error">*price must include at least one letter, one digit and one special charater. The
                     minimum length is 8 characters*</span>
                 }
             </article>
             <article class="field">
-                <input type="password" name="password2" placeholder="Confirm password" formControlName="password2"
-                    required (change)="validateFields()">
-                @if (form.get('password2')?.hasError('required') && form.get('password2')?.touched) {
+                <input type="text" name="categories" placeholder="Categories" formControlName="categories" required
+                    (change)="validateFields()">
+                @if (form.get('categories')?.hasError('required') && form.get('categories')?.touched) {
                 <span class="error">*Required field*</span>
                 }
             </article>
             <article class="field">
-                <input type="text" name="firstName" placeholder="First Name" formControlName="firstName" required
+                <input type="text" name="provider" placeholder="Provider" formControlName="provider" required
                     (change)="validateFields()">
-                @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+                @if (form.get('provider')?.hasError('required') && form.get('provider')?.touched) {
                 <span class="error">*Required field*</span>
                 }
-                @if (form.get('firstName')?.hasError('pattern')) {
+                @if (form.get('provider')?.hasError('pattern')) {
                 <span class="error">*This field only allows letters*</span>
                 }
             </article>
             <article class="field">
-                <input type="text" name="middleName" placeholder="Middle Name (optional)" formControlName="middleName"
-                    required (change)="validateFields()">
-                @if (form.get('middleName')?.hasError('pattern')) {
+                <input type="url" name="image" placeholder="Image URL" formControlName="image" required
+                    (change)="validateFields()">
+                @if (form.get('image')?.hasError('pattern')) {
                 <span class="error">*This field only allows letters*</span>
                 }
             </article>
@@ -89,9 +88,5 @@
             <button [disabled]="[true]" type="button" (click)="signUp()" class="btn disabled">Sign Up</button>
             }
         </form>
-        <div id="links">
-            <p>Do you have an account already?</p>
-            <a [routerLink]="['/login']">Log In</a>
-        </div>
     </div>
 </div>
