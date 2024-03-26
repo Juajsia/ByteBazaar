@@ -6,6 +6,7 @@ import { SalesAgent } from './salesAgent.model.js'
 import { Credential } from './Credential.model.js'
 import { Client } from './client.model.js'
 import { Cart } from './cart.model.js'
+import { Category } from './category.model.js'
 
 export async function inserts () {
   const newAdmin = {
@@ -79,13 +80,40 @@ export async function inserts () {
     const { id } = client
     return { personId: id }
   })
-  console.log(clientsIds)
   await Client.bulkCreate(clientsIds)
 
   clientsIds = clientsIds.map(client => {
     const { personId } = client
     return { clientId: personId }
   })
-  console.log(clientsIds)
   await Cart.bulkCreate(clientsIds)
+
+  const categories = [
+    {
+      name: 'Productivity',
+      description: 'take your productivity to the maximum with these applications'
+    },
+    {
+      name: 'Entertainment',
+      description: 'your movies, TV and music, whenever and wherever you want'
+    },
+    {
+      name: 'Personalization',
+      description: 'Create things your way, don\'t let anyone stop you'
+    },
+    {
+      name: 'Healthy',
+      description: 'take care of your health with these wonderful applications'
+    },
+    {
+      name: 'Education',
+      description: 'Let you be the limit, don\'t stop learning with these applications'
+    },
+    {
+      name: 'Time Management',
+      description: 'Don\'t let your time run out! install now'
+    }
+  ]
+
+  await Category.bulkCreate(categories)
 }

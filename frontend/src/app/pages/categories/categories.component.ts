@@ -4,11 +4,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { faArrowRight, faTrash, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../interfaces/category';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule, RouterLink],
+  imports: [NavbarComponent, FontAwesomeModule, RouterLink, NgStyle],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
@@ -29,22 +32,28 @@ export class CategoriesComponent {
     'https://wallpapers.com/images/hd/minimalist-purple-3840-x-2160-hxnydj83kghcgs8k.jpg'
   ];
   currentIndex: number = 0;
-  constructor() { }
 
-  ngOnInit(): void {
-    this.loadImage();
-    console.log(this.rol)
+  listCategory: Category[] = []
+
+  constructor(private _categoryService: CategoryService) {
   }
 
-  loadImage(): void {
-    const categories: NodeListOf<Element> =
-      document.querySelectorAll('.category');
-    categories.forEach((category: Element) => {
-      (category as HTMLElement).style.backgroundImage = `url("${this.images[this.currentIndex]}")`;
-      this.currentIndex++;
-      if (this.currentIndex >= this.images.length) {
-        this.currentIndex = 0;
-      }
-    });
+  ngOnInit(): void {
+    this.getCategories()
+  }
+
+  getCategories() {
+    this._categoryService.getAllCategory().subscribe((data) => {
+      this.listCategory = data
+    })
+  }
+
+  loadImage(): string {
+    const imageUrl = this.images[this.currentIndex]
+    this.currentIndex++
+    if (this.currentIndex >= this.images.length) {
+      this.currentIndex = 0
+    }
+    return imageUrl
   }
 }

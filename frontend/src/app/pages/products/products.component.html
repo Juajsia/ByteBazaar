@@ -17,6 +17,13 @@
   </article>
 
   <div class="products">
+    @if (rol === 'administrator') {
+    <button class="add-btn">
+      New Product
+      <fa-icon [icon]="addIcon"></fa-icon>
+    </button>
+    }
+
     <article class="wrapper">
       <section class="product-img">
         <img src="{{ photoshopImg }}" alt="" />

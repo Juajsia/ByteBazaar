@@ -4,18 +4,22 @@
   <h2>Collection</h2>
 
   <section class="main-container">
+    @if (rol === 'administrator') {
     <button [routerLink]="['/categories/categoryForm']">
       New Category
       <fa-icon [icon]="addIcon"></fa-icon>
     </button>
-
-    <article class="category">
+    } @for (item of listCategory; track item.id) {
+    <article
+      class="category"
+      [ngStyle]="{ 'background-image': 'url(' + loadImage() + ')' }"
+    >
       <a [routerLink]="['/products']" class="see-apps"
         >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
       ></a>
       <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
       </div>
       @if (rol === 'administrator') {
       <div class="icons">
@@ -24,117 +28,6 @@
       </div>
       }
     </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
-
-    <article class="category">
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
-      <div class="body-category">
-        <h3>Title Category</h3>
-        <p>this is a product description - this is a product description</p>
-      </div>
-      @if (rol === 'administrator') {
-      <div class="icons">
-        <a class="delIcon"><fa-icon [icon]="deleteIcon"></fa-icon></a>
-        <a class="edIcon"><fa-icon [icon]="editIcon"></fa-icon></a>
-      </div>
-      }
-    </article>
+    }
   </section>
 </div>
