@@ -3,16 +3,69 @@
         <img src="../../../assets\Logo.png" alt="" id="logo">
         <h1 id="title">Sign Up</h1>
         <p>Input the information required below</p>
-        <form id="form">
-            <input type="number" name="document" placeholder="Document">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <input type="password" name="password2" placeholder="Confirm password">
-            <input type="text" name="firstName" placeholder="First Name">
-            <input type="text" name="middleName" placeholder="Middle Name (optional)">
-            <input type="text" name="firstSurname" placeholder="First Surname">
-            <input type="text" name="secondSurname" placeholder="Second Surname">
-            <button type="button">Sign Up</button>
+        @if (!formStatus) {
+        <span class="error">*There are missing or incorrect fields*</span>
+        }
+        <form id="form" [formGroup]="form">
+            <article class="field">
+                <input type="number" name="document" placeholder="Document" formControlName="document" required
+                    (change)="validateFields()">
+                @if (form.get('document')?.hasError('required') && form.get('document')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="email" name="email" placeholder="Email" formControlName="email" required
+                    (change)="validateFields()">
+                @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="password" name="password" placeholder="Password" formControlName="password" required
+                    (change)="validateFields()">
+                @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="password" name="password2" placeholder="Confirm password" formControlName="password2"
+                    required (change)="validateFields()">
+                @if (form.get('password2')?.hasError('required') && form.get('password2')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="text" name="firstName" placeholder="First Name" formControlName="firstName" required
+                    (change)="validateFields()">
+                @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="text" name="middleName" placeholder="Middle Name (optional)" formControlName="middleName"
+                    required (change)="validateFields()">
+            </article>
+            <article class="field">
+                <input type="text" name="firstSurname" placeholder="First Surname" formControlName="firstSurname"
+                    required (change)="validateFields()">
+                @if (form.get('firstSurname')?.hasError('required') && form.get('firstSurname')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+            <article class="field">
+                <input type="text" name="secondSurname" placeholder="Second Surname" formControlName="secondSurname"
+                    required (change)="validateFields()">
+                @if (form.get('secondSurname')?.hasError('required') && form.get('secondSurname')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </article>
+
+            @if (formStatus) {
+            <button type="button" (click)="signUp()" class="btn">Sign Up</button>
+            } @else {
+            <button [disabled]="[true]" type="button" (click)="signUp()" class="btn disabled">Sign Up</button>
+            }
         </form>
         <div id="links">
             <p>Do you have an account already?</p>

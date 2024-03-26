@@ -1,7 +1,7 @@
 <div class="container">
   <nav class="nav" #nav>
     <i class="navOpenBtn" (click)="openNav()"><fa-icon class="icon" [icon]="barsIcon"></fa-icon></i>
-    <div class="logo-img">
+    <div class="logo-img" [routerLink]="['/']">
       <img src="../../../assets/LogoSinTexto.png" class="logo" />
       <h3 class="title">ByteBazaar</h3>
     </div>

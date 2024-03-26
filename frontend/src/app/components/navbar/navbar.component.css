@@ -40,6 +40,15 @@
     gap: 8px;
 }
 
+.logo-img {
+    transition: all .5s ease;
+}
+
+.logo-img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .nav li a {
     display: flex;
     justify-content: center;
@@ -255,21 +264,6 @@ a:hover {
 .currentPage {
     color: #55D555;
 }
-
-/* .cart {
-    height: max-content;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 11;
-} */
-
-/* .cart div {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 12;
-} */
 
 /* lateral Cart styles: */
 .CartText {

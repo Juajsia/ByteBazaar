@@ -25,7 +25,7 @@ export class Credentialcontroller {
       const newCred = await Credential.create({ personId, email, password: cryptedPassword })
       return newCred
     } catch (error) {
-      return { mesaage: error.message }
+      return { message: error.message }
     }
   }
 
