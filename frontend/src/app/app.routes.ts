@@ -53,7 +53,11 @@ export const routes: Routes = [{
     path: 'categories/categoryForm',
     component: CategoryFormComponent
 }, {
-    title: 'ProductForm',
-    path: 'products/productForm',
-    component: ProductFormComponent
+    title: 'EditProduct',
+    path: 'product/edit/:name',
+    component: ProductComponent
+}, {
+    title: 'AddProduct',
+    path: 'products/add',
+    component: ProductsComponent
 }];

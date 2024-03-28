@@ -25,40 +25,60 @@ export class ProductController {
         const { categories } = req.body
         const cats = []
         const promise = categories.map(async (element) => {
-          console.log(cats)
-          cats.push((await Category.findOne({ where: { name: element } })).id)
+          const catFormatted = element.charAt(0).toUpperCase() + element.slice(1)
+          const cat = await Category.findOne({ where: { name: catFormatted } })
+
+          if (cat) {
+            cats.push((await Category.findOne({ where: { name: catFormatted } })).id)
+          }
         })
         await Promise.all(promise)
-        console.log(cats)
+
         if (categories.length !== cats.length) {
           return res.status(400).json({ msg: 'Some Category does not exist' })
         }
 
-        const newProduct = await Product.create(req.body)
+        let newProduct = await Product.create(req.body)
         cats.forEach(async (element) => {
           await ProductCategory.create({ CategoryId: element, ProductId: newProduct.id })
         })
 
-        return res.status(201).json({ newProduct, categories })
+        const catsObject = { categories }
+        newProduct = { ...newProduct.dataValues, ...catsObject }
+
+        return res.status(201).json(newProduct)
       }
 
       return res.status(400).json({ msg: 'Product already exists' })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, error })
     }
   }
 
   getProduct = async (req, res) => {
     try {
-      const { id } = req.params
-      const product = await Product.findByPk(id)
+      const { name } = req.params
+      const product = await Product.findOne({
+        where: { name },
+        include: Category
+      })
       if (product) {
-        res.json(product)
+        const cats = product.Categories
+        const catsNames = []
+        cats.forEach(cat => {
+          catsNames.push(cat.name)
+        })
+
+        const { Categories, ...otherProperties } = product.dataValues
+        const catsNamesObject = { categories: catsNames }
+        const prodAndCats = { ...otherProperties, ...catsNamesObject }
+
+        res.json(prodAndCats)
       } else {
         res.status(404).json({ err: 'product not found' })
       }
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, error })
     }
   }
 

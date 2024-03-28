@@ -102,7 +102,7 @@ export async function inserts () {
       description: 'Create things your way, don\'t let anyone stop you'
     },
     {
-      name: 'Healthy',
+      name: 'Health',
       description: 'take care of your health with these wonderful applications'
     },
     {

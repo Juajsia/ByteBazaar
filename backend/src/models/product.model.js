@@ -12,7 +12,7 @@ export const Product = sequelize.define('Product', {
     allowNull: false,
     unique: true,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   },
   stock: {
@@ -59,7 +59,7 @@ export const Product = sequelize.define('Product', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
   }
 })

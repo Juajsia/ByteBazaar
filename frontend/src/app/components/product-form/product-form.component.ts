@@ -1,82 +1,211 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ClientService } from '../../services/client.service';
-import { Router, RouterLink } from '@angular/router';
-import { Client } from '../../interfaces/client';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { 
+  faXmark,
+  faFloppyDisk,
+  faCheck,
+  faChevronDown
+} from '@fortawesome/free-solid-svg-icons';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../interfaces/category';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../interfaces/product';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css'
 })
 export class ProductFormComponent {
+
+  xIcon = faXmark
+  diskIcon = faFloppyDisk
+  arrowIcon = faChevronDown
+  checkIcon = faCheck
+
   textRegex = /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/
-  numberRegex = /^\d+(\.\d{1,2})?$/
-  DocRegex = /^[0-9]\d{7,9}$/
-  emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  pwdRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  stockRegex = /^[1-9]\d*$/
+  priceRegex = /^\d*\.?\d+$/
+  urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/
 
   form =  new FormGroup({
-    document: new FormControl('', [Validators.required, Validators.pattern(this.DocRegex)]),
-    email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
-    password: new FormControl('', [Validators.required, Validators.pattern(this.pwdRegex)]),
-    password2: new FormControl('', [Validators.required, Validators.pattern(this.pwdRegex)]),
-    firstName: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
-    middleName: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
-    firstSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
-    secondSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)])
+    name: new FormControl('', Validators.required),
+    stock: new FormControl('', [Validators.required, Validators.pattern(this.stockRegex)]),
+    price: new FormControl('', [Validators.required, Validators.pattern(this.priceRegex)]),
+    provider: new FormControl('', Validators.required),
+    image: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
+    description: new FormControl('', Validators.required),
+    specs: new FormControl('', Validators.required)
   })
 
   btn = document.querySelector('button')
   formStatus = false
+  action = ''
+  productName = ''
 
-  constructor (private _clientService: ClientService, private router: Router) {
+  selectBtn = document.querySelector(".select-btn")
+  items = document.querySelectorAll(".item")
+  categoriesList: Category[] = []
+  checkedItems: string[] = []
+  selectFieldText = document.querySelector(".btn-text")
+  selectEmpty = false
 
+  constructor (private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.getCategories()
+    if (this.router.url === '/products/add'){
+      this.action = 'Add new'
+      this.validateFields()
+    }
+    else {
+      this.action = 'Edit'
+      this.productName = this.aRouter.snapshot.paramMap.get('name')!
+    }
+  }
+
+  ngAfterViewInit(){
+    // select field logic
+    this.selectBtn = document.querySelector(".select-btn")
+    this.items = document.querySelectorAll(".item")
+    this.selectFieldText = document.querySelector(".btn-text")
+    
+    this.selectBtn!.addEventListener("click", () => {
+      this.selectBtn!.classList.toggle("open")
+    });
+    // end of select field logic
+
+    if (this.action === 'Edit'){
+      this.getProduct()
+      this.validateFields()
+    }
+  }
+
+  AddSelectItemsEvents () {
+    this.items.forEach(item => {
+      item.addEventListener("click", () => {
+          item.classList.toggle("checked")
+  
+          let checked = document.querySelectorAll(".checked"),
+              btnText = document.querySelector(".btn-text");
+  
+              if(checked && checked.length > 0){
+                  btnText!.textContent = `${checked.length} Selected`
+              } else {
+                  btnText!.textContent = `Select Language`
+              }
+      })
+   })
+  }
+
+  checkItem (itemId: string) {
+    const checkedItem = document.getElementById(itemId)
+    checkedItem?.classList.toggle('checked')
+    const itemText = checkedItem?.textContent
+    const itemIndex = this.checkedItems.indexOf(itemText!)
+
+    if (itemIndex < 0)
+      this.checkedItems.push(itemText!)
+    else 
+      this.checkedItems = [...this.deleteItem(this.checkedItems, itemText!)]
+
+    if(this.checkedItems.length > 0) {
+      this.selectFieldText!.textContent = `(${this.checkedItems.length}) Categories`
+      this.selectEmpty = false
+    } else {
+      this.selectFieldText!.textContent = `Select Categories`
+      this.selectEmpty = true
+    }
+
     this.validateFields()
   }
 
-  signUp () {
-    if(!this.validatePwd()){
-      alert("password confirmation is not equal to password")
-      return false
-    }
-
-    const client: Client = {
-      id: Number(this.form.value.document!),
-      firstName: this.form.value.firstName!,
-      secondName: this.form.value.secondSurname!,
-      lastName1: this.form.value.firstSurname!,
-      lastName2: this.form.value.secondSurname!,
-      email: this.form.value.email!,
-      password:this.form.value.password!
-    }
-
-    this._clientService.createClient(client).subscribe( {
-      next:() => {
-        alert("Successful sign up")
-        this.router.navigate(['/login'])
-    }, error: (e: HttpErrorResponse) => {
-      alert("error signing up")
-    }
-  })
-
-  return true
-  }
-
-  validatePwd () {
-    return this.form.value.password === this.form.value.password2
+  deleteItem(arr: string[], toDelete: string): string[] {
+    let newArr: string[] = []
+    arr.forEach(item=>{
+      if (item !== toDelete)
+        newArr.push(item)
+    })
+    return newArr
   }
 
   validateFields () {  
-    if(this.form.invalid)
+    if(this.form.invalid && !this.selectEmpty)
       this.formStatus = false
     else
       this.formStatus = true
+  }
+
+  getCategories() {
+    this._categoryService.getAllCategory().subscribe((data) => {
+      this.categoriesList = data
+    })
+  }
+
+  saveData() {
+    const product: Product = {
+      name: this.form.value.name!,
+      stock: Number(this.form.value.stock!),
+      price: Number(this.form.value.price!),
+      provider: this.form.value.provider!,
+      image: this.form.value.image!,
+      description: this.form.value.description!,
+      specs: this.form.value.specs!,
+      categories: this.checkedItems
+    }
+
+    if (this.action === 'Add new'){
+      this._productService.createProduct(product).subscribe( {
+          next:() => {
+            alert("Product created sucessfully")
+            this.goBack()
+        }, error: (e: HttpErrorResponse) => {
+          alert("error creating product")
+        }
+      })
+    } else {
+      alert("Peding data update")
+    }
+
+  }
+
+  getProduct() {
+    this._productService.getProduct(this.productName).subscribe((res: Product) => {
+      this.form.setValue({
+        name: res.name,
+        stock: String(res.stock),
+        price: String(res.price),
+        provider: res.provider,
+        image: res.image,
+        description: res.description,
+        specs: res.specs,
+      })
+
+      this._categoryService.getAllCategory().subscribe((data) => {
+          res.categories.forEach(item=>{
+            data.forEach(element=>{
+              if (item === element.name)
+                this.checkItem(`item-${element.id}`)
+            })
+          })
+      })
+
+    })
+  }
+
+  goBack() {
+    const url = this.router.url
+    const splittedUrl = url.split('/')
+    let newUrl = ''
+    for (let index = 0; index <= 1; index++) {
+      newUrl = '/' + splittedUrl[index];
+    }
+    this.router.navigate([`${newUrl}`])
   }
 }

@@ -23,4 +23,15 @@ export class ProductsComponent {
   constructor(private router: Router){
 
   }
+
+  ngOnInit() {
+    if (this.router.url === '/products/add')
+      this.showForm = true
+    else
+      this.showForm = false
+  }
+
+  addProduct() {
+    this.router.navigate([`/products/add`])
+  }
 }
