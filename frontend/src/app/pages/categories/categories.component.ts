@@ -3,7 +3,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { faArrowRight, faTrash, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../interfaces/category';
 import { NgStyle } from '@angular/common';
@@ -35,7 +35,7 @@ export class CategoriesComponent {
 
   listCategory: Category[] = []
 
-  constructor(private _categoryService: CategoryService) {
+  constructor(private _categoryService: CategoryService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -55,5 +55,9 @@ export class CategoriesComponent {
       this.currentIndex = 0
     }
     return imageUrl
+  }
+
+  seeApps(catId: number){
+    this.router.navigate([`/products/${catId}`])
   }
 }

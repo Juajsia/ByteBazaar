@@ -49,4 +49,12 @@ export class ProductComponent {
     const productName = document.getElementById('productName')?.textContent
     this.router.navigate([`/product/edit/${productName}`])
   }
+
+  deleteProduct() {
+    const productName = document.getElementById('productName')?.textContent!
+    this._productService.deleteProduct(productName).subscribe(()=>{
+      alert('Product deleted')
+      this.router.navigate(['/'])
+    })
+  }
 }

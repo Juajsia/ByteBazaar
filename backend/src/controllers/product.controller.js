@@ -58,8 +58,9 @@ export class ProductController {
   getProduct = async (req, res) => {
     try {
       const { name } = req.params
+      const nameFormatted = this.capitalizeWords(name)
       const product = await Product.findOne({
-        where: { name },
+        where: { name: nameFormatted },
         include: Category
       })
       if (product) {
@@ -84,12 +85,10 @@ export class ProductController {
 
   deleteProduct = async (req, res) => {
     try {
-      const { id } = req.params
-      await Product.destroy({
-        where: {
-          id
-        }
-      })
+      const { name } = req.params
+      const product = await Product.findOne({ where: { name } })
+      product.set({ ...product, status: false })
+      await product.save()
       res.json({ msg: 'Product deleted' })
     } catch (error) {
       return res.status(500).json({ message: error.message })
@@ -103,11 +102,23 @@ export class ProductController {
       if (!product) {
         return res.status(404).json({ err: 'Product does not exist' })
       }
-      product.set(req.body)
+      const { categories: newCats, ...otherProperties } = req.body
+      await ProductCategory.destroy({ where: { ProductId: id } })
+      newCats.forEach(async cat => {
+        const { dataValues: getCat } = await Category.findOne({ where: { name: cat } })
+        await ProductCategory.create({ ProductId: id, CategoryId: getCat.id })
+      })
+      product.set(otherProperties)
       await product.save()
-      res.status(202).json(product)
+      res.status(202).json(req.body)
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }
+  }
+
+  capitalizeWords (str) {
+    return str.toLowerCase().replace(/(^|\s)\S/g, function (firstLetter) {
+      return firstLetter.toUpperCase()
+    })
   }
 }

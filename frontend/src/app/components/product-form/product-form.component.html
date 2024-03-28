@@ -81,7 +81,7 @@
             </article>
             <article class="field textArea">
                 <textarea formControlName="specs" id="specs" name="specs" required placeholder="Specs" rows="10"
-                    maxlength="1000" (change)="validateFields()"></textarea>
+                    maxlength="10000" (change)="validateFields()"></textarea>
                 @if (form.get('specs')?.hasError('required') && form.get('specs')?.touched) {
                 <span class="error">*Required field*</span>
                 }

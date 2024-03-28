@@ -25,7 +25,7 @@
             <img id="productImg" src="/../../../assets\Logo.png">
 
             @if (role === 'administrator') {
-            <button type="button" class="btn btnDelete">
+            <button type="button" class="btn btnDelete" (click)="deleteProduct()">
                 Delete <fa-icon class="deleteIcon btnIcon" [icon]="trashIcon"></fa-icon>
             </button>
             <button type="button" class="btn" id="btnEdit" (click)="editProduct()">

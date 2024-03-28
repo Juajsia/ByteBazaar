@@ -7,6 +7,7 @@ import { Credential } from './Credential.model.js'
 import { Client } from './client.model.js'
 import { Cart } from './cart.model.js'
 import { Category } from './category.model.js'
+import { ProductController } from '../controllers/product.controller.js'
 
 export async function inserts () {
   const newAdmin = {
@@ -112,8 +113,57 @@ export async function inserts () {
     {
       name: 'Time Management',
       description: 'Don\'t let your time run out! install now'
+    },
+    {
+      name: 'Design',
+      description: 'install and shape your ideas'
     }
   ]
 
   await Category.bulkCreate(categories)
+
+  const products = [
+    {
+      name: 'Microsoft Office',
+      stock: 6,
+      price: 119.99,
+      description: 'Microsoft Office is a suite of applications designed to help with productivity and completing common tasks on a computer. You can create and edit documents containing text and images, work with data in spreadsheets and databases, and create presentations and posters.',
+      specs: '- Applications:\n\tMicrosoft Office typically includes several applications, such as:\n\t- Microsoft Word: A word processing program used for creating documents.\n\t- Microsoft Excel: A spreadsheet program for organizing, analyzing, and visualizing data.\n\t- Microsoft PowerPoint: A presentation program for creating slideshows.\n\t- Microsoft Outlook: An email client and personal information manager.\n\t- Microsoft Access: A database management system.\n\t- Microsoft OneNote: A note- taking application.\n\t- Microsoft Publisher: A desktop publishing program.\n\t- Microsoft Teams: Collaboration software for teams, including chat, video meetings, and file sharing.\n\t- Microsoft OneDrive: Cloud storage service for storing and sharing files.\n- Compatibility:\n\tMicrosoft Office is compatible with various operating systems, including Windows, macOS, iOS, and Android.\n- Integration:\n\tMicrosoft Office applications often integrate with each other, allowing users to easily transfer data and content between different programs. For example, you can embed an Excel spreadsheet in a Word document or import data from Outlook into Excel.\n- Cloud Integration:\n\tMicrosoft Office offers cloud integration through services like OneDrive and SharePoint, allowing users to access their files and collaborate with others from any device with an internet connection.\n- Customization:\n\tUsers can often customize the appearance and functionality of Microsoft Office applications to suit their preferences and workflow.',
+      image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FArchivo%3AMicrosoft_Office_2013_logo.svg&psig=AOvVaw2iikar6X4Tby853Uw4Cp7f&ust=1711658213199000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLji7O-llYUDFQAAAAAdAAAAABAJ',
+      status: true,
+      provider: 'Microsoft',
+      categories: [
+        'Productivity',
+        'Time Management',
+        'Personalization'
+      ]
+    },
+    {
+      name: 'Adobe Photoshop',
+      stock: 10,
+      price: 69.99,
+      description: 'With Adobe Photoshop you can design, create, and edit photos as your imagination commands.',
+      specs: 'wwwwwwwwwwwww: fvjohdg\n\n-jjjjjjjjjjjjj: odfvhidfb\n\n-ttttttttt: ofhvijv',
+      image: 'https://w7.pngwing.com/pngs/301/722/png-transparent-adobe-logo-logos-photoshop-logos-and-brands-icon-thumbnail.png',
+      status: true,
+      provider: 'Adobe',
+      categories: [
+        'Design',
+        'Personalization'
+      ]
+    }
+  ]
+
+  const productController = new ProductController()
+  products.forEach(prod => {
+    productController.createProduct({ body: prod }, {
+      status (code) {
+        console.log('Status:', code)
+        return this
+      },
+      json (data) {
+        console.log('Response:', data)
+      }
+    })
+  })
 }

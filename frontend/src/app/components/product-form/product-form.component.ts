@@ -47,6 +47,7 @@ export class ProductFormComponent {
   formStatus = false
   action = ''
   productName = ''
+  productId = 0
 
   selectBtn = document.querySelector(".select-btn")
   items = document.querySelectorAll(".item")
@@ -54,13 +55,15 @@ export class ProductFormComponent {
   checkedItems: string[] = []
   selectFieldText = document.querySelector(".btn-text")
   selectEmpty = false
+  catId = 0
 
   constructor (private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
+    this.catId = Number(this.aRouter.snapshot.paramMap.get('catId')!)
   }
 
   ngOnInit() {
     this.getCategories()
-    if (this.router.url === '/products/add'){
+    if (this.router.url === `/products/${this.catId}/add`){
       this.action = 'Add new'
       this.validateFields()
     }
@@ -170,7 +173,14 @@ export class ProductFormComponent {
         }
       })
     } else {
-      alert("Peding data update")
+      this._productService.updateProduct(this.productId, product).subscribe( {
+        next:() => {
+          alert("Product updated sucessfully")
+          this.goBack()
+      }, error: (e: HttpErrorResponse) => {
+        alert("error updating product")
+      }
+    })
     }
 
   }
@@ -187,6 +197,8 @@ export class ProductFormComponent {
         specs: res.specs,
       })
 
+      this.productId = res.id!
+
       this._categoryService.getAllCategory().subscribe((data) => {
           res.categories.forEach(item=>{
             data.forEach(element=>{
@@ -202,10 +214,19 @@ export class ProductFormComponent {
   goBack() {
     const url = this.router.url
     const splittedUrl = url.split('/')
+    console.log(splittedUrl)
     let newUrl = ''
-    for (let index = 0; index <= 1; index++) {
-      newUrl = '/' + splittedUrl[index];
+    let limit = 0
+    if (this.action === 'Edit')
+      limit = splittedUrl.length - 2
+    else
+      limit = splittedUrl.length - 1
+
+    console.log(limit)
+    for (let index = 1; index < limit; index++) {
+      newUrl += '/' + splittedUrl[index];
     }
+    console.log(newUrl)
     this.router.navigate([`${newUrl}`])
   }
 }

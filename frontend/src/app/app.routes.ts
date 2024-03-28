@@ -38,7 +38,7 @@ export const routes: Routes = [{
     component: ProductComponent
 }, {
     title: 'List Prducts',
-    path: 'products',
+    path: 'products/:catId',
     component: ProductsComponent
 }, {
     title: 'Cart',
@@ -58,6 +58,6 @@ export const routes: Routes = [{
     component: ProductComponent
 }, {
     title: 'AddProduct',
-    path: 'products/add',
+    path: 'products/:catId/add',
     component: ProductsComponent
 }];

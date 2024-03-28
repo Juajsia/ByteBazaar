@@ -10,13 +10,9 @@
       <fa-icon [icon]="addIcon"></fa-icon>
     </button>
     } @for (item of listCategory; track item.id) {
-    <article
-      class="category"
-      [ngStyle]="{ 'background-image': 'url(' + loadImage() + ')' }"
-    >
-      <a [routerLink]="['/products']" class="see-apps"
-        >See apps <fa-icon [icon]="seeAppsIcon"></fa-icon
-      ></a>
+    <article class="category" [ngStyle]="{ 'background-image': 'url(' + loadImage() + ')' }">
+      <a class="see-apps" id="{{item.id}}" (click)="seeApps(item.id)">See apps <fa-icon
+          [icon]="seeAppsIcon"></fa-icon></a>
       <div class="body-category">
         <h3>{{ item.name }}</h3>
         <p>{{ item.description }}</p>
