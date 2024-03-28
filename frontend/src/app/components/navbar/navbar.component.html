@@ -1,6 +1,8 @@
 <div class="container">
   <nav class="nav" #nav>
-    <i class="navOpenBtn" (click)="openNav()"><fa-icon class="icon" [icon]="barsIcon"></fa-icon></i>
+    <i class="navOpenBtn" (click)="openNav()"
+      ><fa-icon class="icon" [icon]="barsIcon"></fa-icon
+    ></i>
     <div class="logo-img" [routerLink]="['/']">
       <img src="../../../assets/LogoSinTexto.png" class="logo" />
       <h3 class="title">ByteBazaar</h3>
@@ -10,25 +12,34 @@
         <fa-icon [icon]="xIcon"></fa-icon>
       </i>
       <li>
-        <a [routerLink]="['/']" url="/"><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a>
+        <a [routerLink]="['/']" url="/"
+          ><fa-icon class="a-icon" [icon]="homeicon"></fa-icon>Home</a
+        >
       </li>
       <li>
-        <a [routerLink]="['/categories']" url="/categories"><fa-icon class="a-icon"
-            [icon]="catIcon"></fa-icon>Categories</a>
+        <a [routerLink]="['/categories']" url="/categories"
+          ><fa-icon class="a-icon" [icon]="catIcon"></fa-icon>Categories</a
+        >
       </li>
       <li>
-        <a [routerLink]="['/aboutUs']" url="/aboutUs"><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a>
+        <a [routerLink]="['/aboutUs']" url="/aboutUs"
+          ><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a
+        >
       </li>
       @if (rol === 'salesAgent') {
       <li>
-        <a [routerLink]="['/']" url="/chat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
+        <a [routerLink]="['/']" url="/chat"
+          ><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a
+        >
       </li>
       }
       <li class="login-menu">
         @if (!loginStatus) {
         <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
         } @else {
-        <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
+        <button class="log-button" id="logOut" (click)="logOut()">
+          log Out
+        </button>
         }
       </li>
     </ul>
@@ -39,103 +50,169 @@
     <h3 class="title">Sales Agent</h3>
     } }
     <div class="icons">
-      <i class="search-icon" id="searchIcon" #searchIcon (click)="toggleSearch()">
+      <i
+        class="search-icon"
+        id="searchIcon"
+        #searchIcon
+        (click)="toggleSearch()"
+      >
         <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
       </i>
       @if (rol === 'client') {
-      <i class=".cart-icon" (click)="cartStatus=true"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      <i class=".cart-icon" (click)="cartStatus = true"
+        ><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon
+      ></i>
       }
       <div class="login-bar">
         @if (!loginStatus) {
         <a class="log-button" id="logIn" [routerLink]="['/login']">Log in</a>
         } @else {
-        <button class="log-button" id="logOut" (click)="logOut()">log Out</button>
+        <button class="log-button" id="logOut" (click)="logOut()">
+          log Out
+        </button>
         }
       </div>
     </div>
     <div class="search-box">
-      <i class="search-icon"><fa-icon class="icon" [icon]="loupeIcon"></fa-icon></i>
+      <i class="search-icon"
+        ><fa-icon class="icon" [icon]="loupeIcon"></fa-icon
+      ></i>
       <input type="text" placeholder="Search here..." />
     </div>
   </nav>
   @if (cartStatus) {
   <aside class="lateralCart">
     <article class="cartArticle cartHeader">
-      <i id="xMark" (click)="cartStatus=false"><fa-icon class="btnIcon" [icon]="xIcon"></fa-icon></i>
+      <i id="xMark" (click)="cartStatus = false"
+        ><fa-icon class="btnIcon" [icon]="xIcon"></fa-icon
+      ></i>
       <h1 class="cartTitle">Your Cart</h1>
-      <button type="button" class="btn" id="btnGoCart" [routerLink]="['/cart']">Go to cart</button>
+      <button type="button" class="btn" id="btnGoCart" [routerLink]="['/cart']">
+        Go to cart
+      </button>
       <p class="CartText"><b>Subtotal: $106.98</b></p>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
     <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-      <p class="text prName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+      <img
+        class="productImg"
+        src="/../../../assets\Logo.png"
+        [routerLink]="['/product']"
+      />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>Microsoft Office</b>
+      </p>
       <p class="CartText">$99.99</p>
       <div>
         <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete"><fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        <button type="button" class="btnDelete">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
     </article>
   </aside>
+  } @if (rol === 'client' || rol === null) {
+  <app-chatbox></app-chatbox>
   }
 </div>

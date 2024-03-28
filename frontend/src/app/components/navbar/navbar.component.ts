@@ -10,27 +10,30 @@ import {
   faLayerGroup,
   faUserGroup,
   faComments,
-  faTrash
+  faTrash,
+  faHeadset
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
+import { ChatboxComponent } from '../chatbox/chatbox.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, ChatboxComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  barsIcon = faBars;
-  loupeIcon = faSearch;
-  xIcon = faX;
-  cartIcon = faCartShopping;
-  homeicon = faHome;
-  catIcon = faLayerGroup;
-  aboutIcon = faUserGroup;
-  chatIcon = faComments;
-  trashIcon = faTrash;
+  barsIcon = faBars
+  loupeIcon = faSearch
+  xIcon = faX
+  cartIcon = faCartShopping
+  homeicon = faHome
+  catIcon = faLayerGroup
+  aboutIcon = faUserGroup
+  chatIcon = faComments
+  trashIcon = faTrash
+  bubbleIcon = faHeadset
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
@@ -41,11 +44,11 @@ export class NavbarComponent {
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
   constructor(private router: Router) {
-    
+
   }
 
   ngAfterViewInit(): void {
-      let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
+    let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
   }
 
   toggleSearch() {
