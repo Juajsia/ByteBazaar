@@ -1,11 +1,15 @@
 <app-navbar></app-navbar>
 
+@if (showForm) {
+<app-category-form></app-category-form>
+}
+
 <div class="main">
   <h2>Collection</h2>
 
   <section class="main-container">
     @if (rol === 'administrator') {
-    <button [routerLink]="['/categories/categoryForm']">
+    <button (click)="addCategory()">
       New Category
       <fa-icon [icon]="addIcon"></fa-icon>
     </button>

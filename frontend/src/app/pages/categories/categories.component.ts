@@ -7,11 +7,12 @@ import { Router, RouterLink } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../interfaces/category';
 import { NgStyle } from '@angular/common';
+import { CategoryFormComponent } from '../../components/category-form/category-form.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule, RouterLink, NgStyle],
+  imports: [NavbarComponent, FontAwesomeModule, RouterLink, NgStyle, CategoryFormComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
@@ -22,6 +23,7 @@ export class CategoriesComponent {
   addIcon = faPlus
 
   rol = localStorage.getItem('rol')
+  showForm = false
 
   images: string[] = [
     'https://fotografias.lasexta.com/clipping/cmsimages01/2020/05/08/E3BC9A26-F5D7-4B1D-9497-72A52CE9CB79/98.jpg?crop=1300,731,x0,y19&width=1900&height=1069&optimize=high&format=webply',
@@ -39,6 +41,10 @@ export class CategoriesComponent {
   }
 
   ngOnInit(): void {
+    if (this.router.url === '/categories/create')
+      this.showForm = true
+    else
+      this.showForm = false
     this.getCategories()
   }
 
@@ -58,7 +64,11 @@ export class CategoriesComponent {
     return imageUrl
   }
 
-  seeApps(catId: number){
+  seeApps(catId: number) {
     this.router.navigate([`/products/${catId}`])
+  }
+
+  addCategory() {
+    this.router.navigate(['/categories/create'])
   }
 }
