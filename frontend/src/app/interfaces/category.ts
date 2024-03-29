@@ -2,7 +2,9 @@ export interface Category {
     id: number,
     name: string,
     description: string,
-    Product: object
+    Products?: object,
+    createdAt?: string,
+    updatedAt?: string
 }
 
 export interface Platform {

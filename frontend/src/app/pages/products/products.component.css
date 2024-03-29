@@ -125,7 +125,10 @@
 }
 
 .cats {
+    /* display: inline-block; */
+    /* overflow: hidden; */
     font-size: 13px;
+    /* height: 20px; */
     color: #47525E;
 }
 
