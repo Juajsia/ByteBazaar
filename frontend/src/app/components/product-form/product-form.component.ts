@@ -10,9 +10,10 @@ import {
   faChevronDown
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../../interfaces/category';
+import { Category, Platform } from '../../interfaces/category';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product';
+import { switchAll } from 'rxjs';
 
 @Component({
   selector: 'app-product-form',
@@ -48,14 +49,19 @@ export class ProductFormComponent {
   action = ''
   productName = ''
   productId = 0
-
-  selectBtn = document.querySelector(".select-btn")
-  items = document.querySelectorAll(".item")
-  categoriesList: Category[] = []
-  checkedItems: string[] = []
-  selectFieldText = document.querySelector(".btn-text")
-  selectEmpty = false
   catId = 0
+  
+  categoriesList: Category[] = []
+  platformsList: Platform[] = [{id: 1,name:"Computer"},{id: 2,name:"Smartphone"},{id: 3,name:"Tablet"}]
+
+  selectBtn = document.querySelectorAll(".select-btn")
+  items = document.querySelectorAll(".item")
+  selectFieldText = document.querySelectorAll(".btn-text")
+  checkedItemsCat: string[] = []
+  selItemsPlat = 0
+  selItemsCat = 0
+  noPlatSelected = false
+  noCatSelected = false
 
   constructor (private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.catId = Number(this.aRouter.snapshot.paramMap.get('catId')!)
@@ -75,13 +81,16 @@ export class ProductFormComponent {
 
   ngAfterViewInit(){
     // select field logic
-    this.selectBtn = document.querySelector(".select-btn")
+    this.selectBtn = document.querySelectorAll(".select-btn")
+    console.log(this.selectBtn)
     this.items = document.querySelectorAll(".item")
-    this.selectFieldText = document.querySelector(".btn-text")
+    this.selectFieldText = document.querySelectorAll(".btn-text")
     
-    this.selectBtn!.addEventListener("click", () => {
-      this.selectBtn!.classList.toggle("open")
-    });
+    this.selectBtn!.forEach(e=>{
+      e.addEventListener("click", () => {
+        e.classList.toggle("open")
+      });
+    })
     // end of select field logic
 
     if (this.action === 'Edit'){
@@ -90,43 +99,55 @@ export class ProductFormComponent {
     }
   }
 
-  AddSelectItemsEvents () {
-    this.items.forEach(item => {
-      item.addEventListener("click", () => {
-          item.classList.toggle("checked")
-  
-          let checked = document.querySelectorAll(".checked"),
-              btnText = document.querySelector(".btn-text");
-  
-              if(checked && checked.length > 0){
-                  btnText!.textContent = `${checked.length} Selected`
-              } else {
-                  btnText!.textContent = `Select Language`
-              }
-      })
-   })
-  }
-
   checkItem (itemId: string) {
     const checkedItem = document.getElementById(itemId)
     checkedItem?.classList.toggle('checked')
     const itemText = checkedItem?.textContent
-    const itemIndex = this.checkedItems.indexOf(itemText!)
+    const itemIndex = this.checkedItemsCat.indexOf(itemText!)
+    const wsb = this.whichSelectBelongs(itemId)
+    let updateCounter = ``
+    if (wsb === 'Platform')
+      updateCounter = `this.selItemsPlat`
+    else
+      updateCounter = `this.selItemsCat`
 
-    if (itemIndex < 0)
-      this.checkedItems.push(itemText!)
-    else 
-      this.checkedItems = [...this.deleteItem(this.checkedItems, itemText!)]
-
-    if(this.checkedItems.length > 0) {
-      this.selectFieldText!.textContent = `(${this.checkedItems.length}) Categories`
-      this.selectEmpty = false
-    } else {
-      this.selectFieldText!.textContent = `Select Categories`
-      this.selectEmpty = true
+    if (itemIndex < 0){
+      this.checkedItemsCat.push(itemText!)
+      updateCounter += `+=1`
     }
+    else {
+      this.checkedItemsCat = [...this.deleteItem(this.checkedItemsCat, itemText!)]
+      updateCounter += `-=1`
+    }
+    eval(updateCounter)
 
+    if (wsb === 'Category'){
+      if(this.selItemsCat > 0)
+        this.selectFieldText[0]!.textContent = `(${this.selItemsCat}) Categories`
+      else {
+        this.selectFieldText[0]!.textContent = `Select Categories`
+        this.noCatSelected = true
+      }
+    } else {
+      if(this.selItemsPlat > 0)
+        this.selectFieldText[1]!.textContent = `(${this.selItemsPlat}) Platforms`
+      else {
+        this.selectFieldText[1]!.textContent = `Select Platforms`
+        this.noPlatSelected = true
+      }
+    }
     this.validateFields()
+  }
+
+  whichSelectBelongs(itemId: string): any {
+    switch (true) {
+      case /PlatItem-\d+/.test(itemId):
+        return 'Platform'
+      case /CatItem-\d+/.test(itemId):
+        return 'Category'
+      default:
+        return false
+    }
   }
 
   deleteItem(arr: string[], toDelete: string): string[] {
@@ -139,7 +160,7 @@ export class ProductFormComponent {
   }
 
   validateFields () {  
-    if(this.form.invalid && !this.selectEmpty)
+    if(this.form.invalid && this.selItemsCat < 1 && this.selItemsPlat < 1)
       this.formStatus = false
     else
       this.formStatus = true
@@ -147,7 +168,10 @@ export class ProductFormComponent {
 
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
-      this.categoriesList = data
+      for (let index = 0; index < data.length; index++) {
+        if (data[index].id > 2)
+          this.categoriesList.push(data[index])
+      }
     })
   }
 
@@ -160,7 +184,7 @@ export class ProductFormComponent {
       image: this.form.value.image!,
       description: this.form.value.description!,
       specs: this.form.value.specs!,
-      categories: this.checkedItems
+      categories: this.checkedItemsCat
     }
 
     if (this.action === 'Add new'){
@@ -202,8 +226,12 @@ export class ProductFormComponent {
       this._categoryService.getAllCategory().subscribe((data) => {
           res.categories.forEach(item=>{
             data.forEach(element=>{
-              if (item === element.name)
-                this.checkItem(`item-${element.id}`)
+              if (item === element.name){
+                if (element.id > 3)
+                  this.checkItem(`CatItem-${element.id}`)
+                else
+                  this.checkItem(`PlatItem-${element.id}`)
+              }
             })
           })
       })
@@ -214,7 +242,6 @@ export class ProductFormComponent {
   goBack() {
     const url = this.router.url
     const splittedUrl = url.split('/')
-    console.log(splittedUrl)
     let newUrl = ''
     let limit = 0
     if (this.action === 'Edit')
@@ -222,11 +249,9 @@ export class ProductFormComponent {
     else
       limit = splittedUrl.length - 1
 
-    console.log(limit)
     for (let index = 1; index < limit; index++) {
       newUrl += '/' + splittedUrl[index];
     }
-    console.log(newUrl)
     this.router.navigate([`${newUrl}`])
   }
 }

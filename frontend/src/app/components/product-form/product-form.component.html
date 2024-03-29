@@ -23,6 +23,48 @@
                 <span class="error">*Stock must be greater than 0 and it cannot have decimals*</span>
                 }
             </article>
+            <article class="selectContainer field input">
+                <div class="select-btn">
+                    <span class="btn-text">Select Categories</span>
+                    <span class="arrow-dwn">
+                        <fa-icon [icon]="arrowIcon"></fa-icon>
+                    </span>
+                </div>
+                @if (noCatSelected) { <span class="error">*Required field*</span>
+                }
+
+                <ul class="list-items">
+                    @for (item of categoriesList; track item.id) {
+                    <li class="item" id="CatItem-{{item.id}}" (click)="checkItem('CatItem-'+item.id)">
+                        <span class="checkbox">
+                            <fa-icon class="check-icon" [icon]="checkIcon"></fa-icon>
+                        </span>
+                        <span class="item-text">{{ item.name }}</span>
+                    </li>
+                    }
+                </ul>
+            </article>
+            <article class="selectContainer field input">
+                <div class="select-btn">
+                    <span class="btn-text">Select Platforms</span>
+                    <span class="arrow-dwn">
+                        <fa-icon [icon]="arrowIcon"></fa-icon>
+                    </span>
+                </div>
+                @if (noPlatSelected) { <span class="error">*Required field*</span>
+                }
+
+                <ul class="list-items">
+                    @for (item of platformsList; track item.id) {
+                    <li class="item" id="PlatItem-{{item.id}}" (click)="checkItem('PlatItem-'+item.id)">
+                        <span class="checkbox">
+                            <fa-icon class="check-icon" [icon]="checkIcon"></fa-icon>
+                        </span>
+                        <span class="item-text">{{ item.name }}</span>
+                    </li>
+                    }
+                </ul>
+            </article>
             <article class="field input">
                 <input type="number" name="price" placeholder="Price" formControlName="price" required
                     (change)="validateFields()">
@@ -32,28 +74,6 @@
                 @if (form.get('price')?.hasError('pattern')) {
                 <span class="error">*Price must be a greater than 0. (Decimals are allowed)*</span>
                 }
-            </article>
-            <article class="selectContainer field input">
-                <div class="select-btn">
-                    <span class="btn-text">Select Categories</span>
-                    <span class="arrow-dwn">
-                        <fa-icon [icon]="arrowIcon"></fa-icon>
-                    </span>
-                </div>
-                @if (selectEmpty) {
-                <span class="error">*Required field*</span>
-                }
-
-                <ul class="list-items">
-                    @for (item of categoriesList; track item.id) {
-                    <li class="item" id="item-{{item.id}}" (click)="checkItem('item-'+item.id)">
-                        <span class="checkbox">
-                            <fa-icon class="check-icon" [icon]="checkIcon"></fa-icon>
-                        </span>
-                        <span class="item-text">{{ item.name }}</span>
-                    </li>
-                    }
-                </ul>
             </article>
             <article class="field input">
                 <input type="text" name="provider" placeholder="Provider" formControlName="provider" required

@@ -91,6 +91,18 @@ export async function inserts () {
 
   const categories = [
     {
+      name: 'Computer',
+      description: 'Desktop applications'
+    },
+    {
+      name: 'Smartphone',
+      description: 'Mobile applications'
+    },
+    {
+      name: 'Tablet',
+      description: 'Apps supported on tablet'
+    },
+    {
       name: 'Productivity',
       description: 'take your productivity to the maximum with these applications'
     },
@@ -133,6 +145,9 @@ export async function inserts () {
       status: true,
       provider: 'Microsoft',
       categories: [
+        'Computer',
+        'Smartphone',
+        'Tablet',
         'Productivity',
         'Time Management',
         'Personalization'
@@ -148,6 +163,7 @@ export async function inserts () {
       status: true,
       provider: 'Adobe',
       categories: [
+        'Computer',
         'Design',
         'Personalization'
       ]

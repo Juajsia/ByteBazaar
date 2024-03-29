@@ -4,3 +4,8 @@ export interface Category {
     description: string,
     Product: object
 }
+
+export interface Platform {
+    id: number,
+    name: string,
+}
