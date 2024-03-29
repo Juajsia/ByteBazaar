@@ -1,0 +1,91 @@
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#inner {
+    max-width: 700px;
+    max-height: auto;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+
+h1 {
+    margin: 0;
+    font-size: 2.3rem;
+    letter-spacing: 0.06em;
+    color: #47525E;
+    font-weight: bold;
+}
+
+#form {
+    max-width: 800px;
+    max-height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+label {
+    color: #47525E;
+    align-self: flex-start;
+
+}
+
+input,
+textarea {
+    margin-bottom: 10px;
+    padding: 15px 30px;
+    border: 1px solid #4e4f5183;
+    border-radius: 5px;
+    background-color: transparent;
+    display: block;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+
+.btn {
+    width: 280px;
+    padding: 15px 20px;
+    border: unset;
+    border-radius: 5px;
+    background-color: #057FD7;
+    color: #ffff;
+    border-color: #ffff;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    transition: all .5s ease;
+}
+
+
+.btnCancel {
+    background-color: #e21010;
+    color: #ffff;
+}
+
+.btn:hover {
+    background-color: #55D555;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.btnCancel:hover {
+    background-color: #e21010;
+}
