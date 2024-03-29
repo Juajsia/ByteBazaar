@@ -86,6 +86,7 @@
 }
 
 .wrapper {
+    position: relative;
     height: 267px;
     padding: 15px;
     width: 170px;
@@ -134,5 +135,6 @@
 
 .price {
     position: absolute;
-    right: 0px;
+    right: 6px;
+    bottom: 6px;
 }

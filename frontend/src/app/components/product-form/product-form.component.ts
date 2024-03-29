@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { 
+import {
   faXmark,
   faFloppyDisk,
   faCheck,
@@ -34,7 +34,7 @@ export class ProductFormComponent {
   priceRegex = /^\d*\.?\d+$/
   urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/
 
-  form =  new FormGroup({
+  form = new FormGroup({
     name: new FormControl('', Validators.required),
     stock: new FormControl('', [Validators.required, Validators.pattern(this.stockRegex)]),
     price: new FormControl('', [Validators.required, Validators.pattern(this.priceRegex)]),
@@ -50,9 +50,9 @@ export class ProductFormComponent {
   productName = ''
   productId = 0
   catId = 0
-  
+
   categoriesList: Category[] = []
-  platformsList: Platform[] = [{id: 1,name:"Computer"},{id: 2,name:"Smartphone"},{id: 3,name:"Tablet"}]
+  platformsList: Platform[] = [{ id: 1, name: "Computer" }, { id: 2, name: "Smartphone" }, { id: 3, name: "Tablet" }]
 
   selectBtn = document.querySelectorAll(".select-btn")
   items = document.querySelectorAll(".item")
@@ -63,13 +63,13 @@ export class ProductFormComponent {
   noPlatSelected = false
   noCatSelected = false
 
-  constructor (private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.catId = Number(this.aRouter.snapshot.paramMap.get('catId')!)
   }
 
   ngOnInit() {
     this.getCategories()
-    if (this.router.url === `/products/${this.catId}/add`){
+    if (this.router.url === `/products/${this.catId}/add`) {
       this.action = 'Add new'
       this.validateFields()
     }
@@ -79,26 +79,26 @@ export class ProductFormComponent {
     }
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     // select field logic
     this.selectBtn = document.querySelectorAll(".select-btn")
     this.items = document.querySelectorAll(".item")
     this.selectFieldText = document.querySelectorAll(".btn-text")
-    
-    this.selectBtn!.forEach(e=>{
+
+    this.selectBtn!.forEach(e => {
       e.addEventListener("click", () => {
         e.classList.toggle("open")
       });
     })
     // end of select field logic
 
-    if (this.action === 'Edit'){
+    if (this.action === 'Edit') {
       this.getProduct()
       this.validateFields()
     }
   }
 
-  checkItem (itemId: string) {
+  checkItem(itemId: string) {
     const checkedItem = document.getElementById(itemId)
     checkedItem?.classList.toggle('checked')
     const itemText = checkedItem?.textContent
@@ -155,7 +155,7 @@ export class ProductFormComponent {
 
   deleteItem(arr: string[], toDelete: string): string[] {
     let newArr: string[] = []
-    arr.forEach(item=>{
+    arr.forEach(item => {
       if (item !== toDelete)
         newArr.push(item)
     })
@@ -190,24 +190,24 @@ export class ProductFormComponent {
       categories: this.checkedItemsCat
     }
 
-    if (this.action === 'Add new'){
-      this._productService.createProduct(product).subscribe( {
-          next:() => {
-            alert("Product created sucessfully")
-            this.goBack()
+    if (this.action === 'Add new') {
+      this._productService.createProduct(product).subscribe({
+        next: () => {
+          alert("Product created sucessfully")
+          this.goBack()
         }, error: (e: HttpErrorResponse) => {
           alert("error creating product")
         }
       })
     } else {
-      this._productService.updateProduct(this.productId, product).subscribe( {
-        next:() => {
+      this._productService.updateProduct(this.productId, product).subscribe({
+        next: () => {
           alert("Product updated sucessfully")
           this.goBack()
-      }, error: (e: HttpErrorResponse) => {
-        alert("error updating product")
-      }
-    })
+        }, error: (e: HttpErrorResponse) => {
+          alert("error updating product")
+        }
+      })
     }
 
   }
@@ -227,16 +227,16 @@ export class ProductFormComponent {
       this.productId = res.id!
 
       this._categoryService.getAllCategory().subscribe((data) => {
-          res.categories.forEach(item=>{
-            data.forEach(element=>{
-              if (item === element.name){
-                if (element.id > 3)
-                  this.checkItem(`CatItem-${element.id}`)
-                else
-                  this.checkItem(`PlatItem-${element.id}`)
-              }
-            })
+        res.categories.forEach(item => {
+          data.forEach(element => {
+            if (item === element.name) {
+              if (element.id > 3)
+                this.checkItem(`CatItem-${element.id}`)
+              else
+                this.checkItem(`PlatItem-${element.id}`)
+            }
           })
+        })
       })
 
     })

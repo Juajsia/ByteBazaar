@@ -1,6 +1,6 @@
 <div id="container">
     <div id="inner">
-        <h1 id="title">{{action}} product</h1>
+        <h1 id="title">{{ action }} product</h1>
         <p>Input the information required below</p>
         @if (!formStatus) {
         <span class="error">*There are missing or incorrect fields*</span>
@@ -9,19 +9,20 @@
             <article class="field input">
                 <label for="name" class="form-label">Name: </label>
                 <input type="text" name="name" placeholder="Product name" formControlName="name" required
-                    (change)="validateFields()">
-                @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+                    (change)="validateFields()" />
+                @if (form.get('name')?.hasError('required') &&
+                form.get('name')?.touched) {
                 <span class="error">*Required field*</span>
                 }
             </article>
             <article class="field input">
                 <label for="stock" class="form-label">Stock: </label>
                 <input type="number" name="stock" placeholder="Stock" formControlName="stock" required
-                    (change)="validateFields()">
-                @if (form.get('stock')?.hasError('required') && form.get('stock')?.touched) {
+                    (change)="validateFields()" />
+                @if (form.get('stock')?.hasError('required') &&
+                form.get('stock')?.touched) {
                 <span class="error">*Required field*</span>
-                }
-                @if (form.get('stock')?.hasError('pattern')) {
+                } @if (form.get('stock')?.hasError('pattern')) {
                 <span class="error">*Stock must be greater than 0 and it cannot have decimals*</span>
                 }
             </article>
@@ -38,7 +39,7 @@
 
                 <ul class="list-items">
                     @for (item of categoriesList; track item.id) {
-                    <li class="item" id="CatItem-{{item.id}}" (click)="checkItem('CatItem-'+item.id)">
+                    <li class="item" id="CatItem-{{ item.id }}" (click)="checkItem('CatItem-' + item.id)">
                         <span class="checkbox">
                             <fa-icon class="check-icon" [icon]="checkIcon"></fa-icon>
                         </span>
@@ -60,7 +61,7 @@
 
                 <ul class="list-items">
                     @for (item of platformsList; track item.id) {
-                    <li class="item" id="PlatItem-{{item.id}}" (click)="checkItem('PlatItem-'+item.id)">
+                    <li class="item" id="PlatItem-{{ item.id }}" (click)="checkItem('PlatItem-' + item.id)">
                         <span class="checkbox">
                             <fa-icon class="check-icon" [icon]="checkIcon"></fa-icon>
                         </span>
@@ -72,30 +73,31 @@
             <article class="field input">
                 <label for="price" class="form-label">Price: </label>
                 <input type="number" name="price" placeholder="Price" formControlName="price" required
-                    (change)="validateFields()">
-                @if (form.get('price')?.hasError('required') && form.get('price')?.touched) {
+                    (change)="validateFields()" />
+                @if (form.get('price')?.hasError('required') &&
+                form.get('price')?.touched) {
                 <span class="error">*Required field*</span>
-                }
-                @if (form.get('price')?.hasError('pattern')) {
+                } @if (form.get('price')?.hasError('pattern')) {
                 <span class="error">*Price must be a greater than 0. (Decimals are allowed)*</span>
                 }
             </article>
             <article class="field input">
                 <label for="provider" class="form-label">Provider: </label>
                 <input type="text" name="provider" placeholder="Provider" formControlName="provider" required
-                    (change)="validateFields()">
-                @if (form.get('provider')?.hasError('required') && form.get('provider')?.touched) {
+                    (change)="validateFields()" />
+                @if (form.get('provider')?.hasError('required') &&
+                form.get('provider')?.touched) {
                 <span class="error">*Required field*</span>
                 }
             </article>
             <article class="field input">
                 <label for="image" class="form-label">Image: </label>
                 <input type="url" name="image" placeholder="Image URL" formControlName="image" required
-                    (change)="validateFields()">
-                @if (form.get('image')?.hasError('required') && form.get('image')?.touched) {
+                    (change)="validateFields()" />
+                @if (form.get('image')?.hasError('required') &&
+                form.get('image')?.touched) {
                 <span class="error">*Required field*</span>
-                }
-                @if (form.get('image')?.hasError('pattern')) {
+                } @if (form.get('image')?.hasError('pattern')) {
                 <span class="error">*Invalid URL*</span>
                 }
             </article>
@@ -103,7 +105,8 @@
                 <label for="description" class="form-label">Description: </label>
                 <textarea formControlName="description" id="description" name="description" required
                     placeholder="Description" rows="10" maxlength="1000" (change)="validateFields()"></textarea>
-                @if (form.get('description')?.hasError('required') && form.get('description')?.touched) {
+                @if (form.get('description')?.hasError('required') &&
+                form.get('description')?.touched) {
                 <span class="error">*Required field*</span>
                 }
             </article>
@@ -111,21 +114,24 @@
                 <label for="specs" class="form-label">Specs: </label>
                 <textarea formControlName="specs" id="specs" name="specs" required placeholder="Specs" rows="10"
                     maxlength="10000" (change)="validateFields()"></textarea>
-                @if (form.get('specs')?.hasError('required') && form.get('specs')?.touched) {
+                @if (form.get('specs')?.hasError('required') &&
+                form.get('specs')?.touched) {
                 <span class="error">*Required field*</span>
                 }
             </article>
 
             <section class="btns">
-                <button type="button" class="btn btnCancel" (click)="goBack()">Cancel <fa-icon class="btnIcon"
-                        [icon]="xIcon"></fa-icon>
+                <button type="button" class="btn btnCancel" (click)="goBack()">
+                    Cancel <fa-icon class="btnIcon" [icon]="xIcon"></fa-icon>
                 </button>
                 @if (formStatus) {
-                <button type="button" class="btn" (click)="saveData()">Save <fa-icon class="btnIcon"
-                        [icon]="diskIcon"></fa-icon></button>
+                <button type="button" class="btn" (click)="saveData()">
+                    Save <fa-icon class="btnIcon" [icon]="diskIcon"></fa-icon>
+                </button>
                 } @else {
-                <button [disabled]="[true]" type="button" class="btn disabled" (click)="saveData()">Save <fa-icon
-                        class="btnIcon" [icon]="diskIcon"></fa-icon></button>
+                <button [disabled]="[true]" type="button" class="btn disabled" (click)="saveData()">
+                    Save <fa-icon class="btnIcon" [icon]="diskIcon"></fa-icon>
+                </button>
                 }
             </section>
         </form>
