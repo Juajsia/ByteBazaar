@@ -18,7 +18,7 @@
     max-width: 700px;
     max-height: 90%;
     overflow-y: scroll;
-    padding: 30px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,6 +54,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
 .error {
@@ -70,8 +71,6 @@ label {
 input,
 textarea,
 .btn {
-
-    margin-bottom: 10px;
     padding: 15px 30px;
     font-size: large;
 }
@@ -83,12 +82,17 @@ textarea {
     background-color: transparent;
 }
 
+input {
+    width: 100%;
+}
+
 textarea {
     width: 100%;
     resize: none;
 }
 
 .input {
+    min-width: 300px;
     max-width: 300px;
     flex: 1;
 }
@@ -152,8 +156,7 @@ textarea {
 
 .select-btn {
     position: relative;
-    width: 289px;
-    margin-top: 10px;
+    width: 100%;
     padding: 15px 30px;
     font-size: large;
     color: #777d93;
@@ -189,9 +192,7 @@ textarea {
 
 .list-items {
     z-index: 20;
-    position: absolute;
-    width: 289px;
-    margin-top: 80px;
+    width: 300px;
     border: 1px solid #4e4f5183;
     border-radius: 5px;
     padding: 16px;

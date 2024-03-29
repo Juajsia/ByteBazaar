@@ -7,7 +7,7 @@
         }
         <form id="form" [formGroup]="form">
             <article class="field input">
-                <label for="name" class="form-input">Name: </label>
+                <label for="name" class="form-label">Name: </label>
                 <input type="text" name="name" placeholder="Product name" formControlName="name" required
                     (change)="validateFields()">
                 @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
@@ -15,7 +15,7 @@
                 }
             </article>
             <article class="field input">
-                <label for="stock" class="form-input">Title: </label>
+                <label for="stock" class="form-label">Stock: </label>
                 <input type="number" name="stock" placeholder="Stock" formControlName="stock" required
                     (change)="validateFields()">
                 @if (form.get('stock')?.hasError('required') && form.get('stock')?.touched) {
@@ -26,7 +26,7 @@
                 }
             </article>
             <article class="selectContainer field input">
-                <label for="Category" class="form-input">Categories: </label>
+                <label for="Category" class="form-label">Categories: </label>
                 <div class="select-btn">
                     <span class="btn-text">Select Categories</span>
                     <span class="arrow-dwn">
@@ -48,7 +48,7 @@
                 </ul>
             </article>
             <article class="selectContainer field input">
-                <label for="platgorms" class="form-input">Platforms: </label>
+                <label for="platgorms" class="form-label">Platforms: </label>
                 <div class="select-btn">
                     <span class="btn-text">Select Platforms</span>
                     <span class="arrow-dwn">
@@ -70,7 +70,7 @@
                 </ul>
             </article>
             <article class="field input">
-                <label for="price" class="form-input">Price: </label>
+                <label for="price" class="form-label">Price: </label>
                 <input type="number" name="price" placeholder="Price" formControlName="price" required
                     (change)="validateFields()">
                 @if (form.get('price')?.hasError('required') && form.get('price')?.touched) {
@@ -81,7 +81,7 @@
                 }
             </article>
             <article class="field input">
-                <label for="provider" class="form-input">Provider: </label>
+                <label for="provider" class="form-label">Provider: </label>
                 <input type="text" name="provider" placeholder="Provider" formControlName="provider" required
                     (change)="validateFields()">
                 @if (form.get('provider')?.hasError('required') && form.get('provider')?.touched) {
@@ -89,7 +89,7 @@
                 }
             </article>
             <article class="field input">
-                <label for="image" class="form-input">Image: </label>
+                <label for="image" class="form-label">Image: </label>
                 <input type="url" name="image" placeholder="Image URL" formControlName="image" required
                     (change)="validateFields()">
                 @if (form.get('image')?.hasError('required') && form.get('image')?.touched) {
@@ -100,7 +100,7 @@
                 }
             </article>
             <article class="field textArea">
-                <label for="description" class="form-input">Description: </label>
+                <label for="description" class="form-label">Description: </label>
                 <textarea formControlName="description" id="description" name="description" required
                     placeholder="Description" rows="10" maxlength="1000" (change)="validateFields()"></textarea>
                 @if (form.get('description')?.hasError('required') && form.get('description')?.touched) {
@@ -108,7 +108,7 @@
                 }
             </article>
             <article class="field textArea">
-                <label for="specs" class="form-input">Specs: </label>
+                <label for="specs" class="form-label">Specs: </label>
                 <textarea formControlName="specs" id="specs" name="specs" required placeholder="Specs" rows="10"
                     maxlength="10000" (change)="validateFields()"></textarea>
                 @if (form.get('specs')?.hasError('required') && form.get('specs')?.touched) {

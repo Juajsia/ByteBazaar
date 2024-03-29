@@ -102,8 +102,8 @@
 
 .wrapper:hover {
     cursor: pointer;
-    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
     box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
     transform: scale(1.05);
 }

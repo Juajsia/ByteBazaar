@@ -29,7 +29,7 @@
     }
 
     @for (item of productsList; track item.id; let i = $index) {
-    <article class="wrapper" [routerLink]="['/product']">
+    <article class="wrapper" (click)="showProduct(item.name)">
       <section class="product-img">
         <img src="{{ item.image }}" alt="" />
       </section>

@@ -82,7 +82,6 @@ export class ProductFormComponent {
   ngAfterViewInit(){
     // select field logic
     this.selectBtn = document.querySelectorAll(".select-btn")
-    console.log(this.selectBtn)
     this.items = document.querySelectorAll(".item")
     this.selectFieldText = document.querySelectorAll(".btn-text")
     
@@ -105,32 +104,36 @@ export class ProductFormComponent {
     const itemText = checkedItem?.textContent
     const itemIndex = this.checkedItemsCat.indexOf(itemText!)
     const wsb = this.whichSelectBelongs(itemId)
-    let updateCounter = ``
-    if (wsb === 'Platform')
-      updateCounter = `this.selItemsPlat`
-    else
-      updateCounter = `this.selItemsCat`
-
+    
     if (itemIndex < 0){
       this.checkedItemsCat.push(itemText!)
-      updateCounter += `+=1`
+      if (wsb === 'Platform')
+        this.selItemsPlat += 1
+      else
+        this.selItemsCat += 1
     }
     else {
       this.checkedItemsCat = [...this.deleteItem(this.checkedItemsCat, itemText!)]
-      updateCounter += `-=1`
+      if (wsb === 'Platform')
+        this.selItemsPlat -= 1
+      else
+        this.selItemsCat -= 1
     }
-    eval(updateCounter)
 
     if (wsb === 'Category'){
-      if(this.selItemsCat > 0)
+      if(this.selItemsCat > 0) {
         this.selectFieldText[0]!.textContent = `(${this.selItemsCat}) Categories`
+        this.noCatSelected = false
+      }
       else {
         this.selectFieldText[0]!.textContent = `Select Categories`
         this.noCatSelected = true
       }
     } else {
-      if(this.selItemsPlat > 0)
+      if(this.selItemsPlat > 0){
         this.selectFieldText[1]!.textContent = `(${this.selItemsPlat}) Platforms`
+        this.noPlatSelected = false
+      }
       else {
         this.selectFieldText[1]!.textContent = `Select Platforms`
         this.noPlatSelected = true
@@ -160,7 +163,7 @@ export class ProductFormComponent {
   }
 
   validateFields () {  
-    if(this.form.invalid && this.selItemsCat < 1 && this.selItemsPlat < 1)
+    if(this.form.invalid || this.selItemsCat < 1 || this.selItemsPlat < 1)
       this.formStatus = false
     else
       this.formStatus = true
@@ -240,18 +243,9 @@ export class ProductFormComponent {
   }
 
   goBack() {
-    const url = this.router.url
-    const splittedUrl = url.split('/')
-    let newUrl = ''
-    let limit = 0
-    if (this.action === 'Edit')
-      limit = splittedUrl.length - 2
+    if(this.action === 'Edit')
+    this.router.navigate([`product/${this.productName}`])
     else
-      limit = splittedUrl.length - 1
-
-    for (let index = 1; index < limit; index++) {
-      newUrl += '/' + splittedUrl[index];
-    }
-    this.router.navigate([`${newUrl}`])
+      this.router.navigate([`products/${this.catId}`])
   }
 }

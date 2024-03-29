@@ -123,6 +123,7 @@ h2 {
 
 #productImg {
     width: 250px;
+    margin-bottom: 10px;
 }
 
 .aditionalInfo {
@@ -157,6 +158,15 @@ h2 {
     padding: 2px 10px;
     border: solid 2px #47525E;
     border-radius: 15px;
+    transition: all .5s ease;
+}
+
+.element:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
+    box-shadow: 0px 0px 32px 3px rgba(5, 127, 215, 0.5);
+    transform: scale(1.025);
 }
 
 li {
