@@ -51,7 +51,6 @@ export class CategoriesComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       this.listCategory = data
-      console.log(this.listCategory)
     })
   }
 

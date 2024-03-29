@@ -64,4 +64,9 @@ export class ProductsComponent {
   addProduct() {
     this.router.navigate([`/products/${this.catId}/add`])
   }
+
+  showProduct(prodId: any){
+    console.log(prodId)
+    this.router.navigate([`/product/${prodId}`])
+  }
 }

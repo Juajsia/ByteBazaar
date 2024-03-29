@@ -34,7 +34,7 @@ export const routes: Routes = [{
     component: CategoriesComponent
 }, {
     title: 'Product',
-    path: 'product',
+    path: 'product/:name',
     component: ProductComponent
 }, {
     title: 'List Prducts',
@@ -54,7 +54,7 @@ export const routes: Routes = [{
     component: CategoriesComponent
 }, {
     title: 'EditProduct',
-    path: 'product/edit/:name',
+    path: 'product/:name/edit',
     component: ProductComponent
 }, {
     title: 'AddProduct',
