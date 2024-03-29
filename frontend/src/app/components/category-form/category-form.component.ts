@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faXmark, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-category-form',
@@ -10,5 +11,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: './category-form.component.css'
 })
 export class CategoryFormComponent {
-
+  xIcon = faXmark
+  diskIcon = faFloppyDisk
 }
