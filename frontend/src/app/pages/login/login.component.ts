@@ -4,6 +4,7 @@ import { CredentialsService } from '../../services/credentials.service';
 import { FormsModule } from '@angular/forms';
 import { Credential } from '../../interfaces/credential';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,12 @@ export class LoginComponent {
         },
         error: (e: HttpErrorResponse) => {
           this.error = 'Invalid email or password'
+          Swal.fire({
+            icon: "error",
+            title: "Invalid email or password",
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       })
     }

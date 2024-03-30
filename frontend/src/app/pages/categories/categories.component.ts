@@ -36,6 +36,7 @@ export class CategoriesComponent {
   currentIndex: number = 0;
 
   listCategory: Category[] = []
+  listImages: string[] = []
 
   constructor(private _categoryService: CategoryService, private router: Router) {
   }
@@ -51,7 +52,16 @@ export class CategoriesComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       this.listCategory = data
+      this.loadListImages()
     })
+  }
+
+  loadListImages() {
+    let i = 0
+    while (i < this.listCategory.length) {
+      this.listImages.push(this.loadImage())
+      i++
+    }
   }
 
   loadImage(): string {

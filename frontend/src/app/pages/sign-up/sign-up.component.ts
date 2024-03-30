@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../interfaces/client';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-sign-up',
@@ -34,7 +34,7 @@ export class SignUpComponent {
   btn = document.querySelector('button')
   formStatus = false
 
-  constructor(private _clientService: ClientService, private router: Router, private toastr: ToastrService) {
+  constructor(private _clientService: ClientService, private router: Router) {
 
   }
 
@@ -60,10 +60,21 @@ export class SignUpComponent {
 
     this._clientService.createClient(client).subscribe({
       next: () => {
-        this.toastr.success('Successful sign up', `User ${client.firstName} Registered!!`)
+        Swal.fire({
+          icon: "success",
+          title: "Successful sign up",
+          text: `User ${client.firstName} Registered!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.router.navigate(['/login'])
       }, error: (e: HttpErrorResponse) => {
-        alert("error signing up")
+        Swal.fire({
+          icon: "error",
+          title: "error signing up",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     })
 
