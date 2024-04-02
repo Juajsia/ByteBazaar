@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../interfaces/client';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +20,7 @@ export class SignUpComponent {
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
   pwdRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
-  form =  new FormGroup({
+  form = new FormGroup({
     document: new FormControl('', [Validators.required, Validators.pattern(this.DocRegex)]),
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
     password: new FormControl('', [Validators.required, Validators.pattern(this.pwdRegex)]),
@@ -33,7 +34,7 @@ export class SignUpComponent {
   btn = document.querySelector('button')
   formStatus = false
 
-  constructor (private _clientService: ClientService, private router: Router) {
+  constructor(private _clientService: ClientService, private router: Router) {
 
   }
 
@@ -41,8 +42,8 @@ export class SignUpComponent {
     this.validateFields()
   }
 
-  signUp () {
-    if(!this.validatePwd()){
+  signUp() {
+    if (!this.validatePwd()) {
       alert("password confirmation is not equal to password")
       return false
     }
@@ -54,27 +55,38 @@ export class SignUpComponent {
       lastName1: this.form.value.firstSurname!,
       lastName2: this.form.value.secondSurname!,
       email: this.form.value.email!,
-      password:this.form.value.password!
+      password: this.form.value.password!
     }
 
-    this._clientService.createClient(client).subscribe( {
-      next:() => {
-        alert("Successful sign up")
+    this._clientService.createClient(client).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Successful sign up",
+          text: `User ${client.firstName} Registered!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.router.navigate(['/login'])
-    }, error: (e: HttpErrorResponse) => {
-      alert("error signing up")
-    }
-  })
+      }, error: (e: HttpErrorResponse) => {
+        Swal.fire({
+          icon: "error",
+          title: "error signing up",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    })
 
-  return true
+    return true
   }
 
-  validatePwd () {
+  validatePwd() {
     return this.form.value.password === this.form.value.password2
   }
 
-  validateFields () {  
-    if(this.form.invalid)
+  validateFields() {
+    if (this.form.invalid)
       this.formStatus = false
     else
       this.formStatus = true

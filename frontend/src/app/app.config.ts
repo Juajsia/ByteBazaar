@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
-    provideHttpClient(withInterceptors([addTokenInterceptor]))
+    provideHttpClient(withInterceptors([addTokenInterceptor])),
   ]
 };

@@ -140,8 +140,8 @@ export async function inserts () {
       stock: 6,
       price: 119.99,
       description: 'Microsoft Office is a suite of applications designed to help with productivity and completing common tasks on a computer. You can create and edit documents containing text and images, work with data in spreadsheets and databases, and create presentations and posters.',
-      specs: '- Applications:\n\tMicrosoft Office typically includes several applications, such as:\n\t- Microsoft Word: A word processing program used for creating documents.\n\t- Microsoft Excel: A spreadsheet program for organizing, analyzing, and visualizing data.\n\t- Microsoft PowerPoint: A presentation program for creating slideshows.\n\t- Microsoft Outlook: An email client and personal information manager.\n\t- Microsoft Access: A database management system.\n\t- Microsoft OneNote: A note- taking application.\n\t- Microsoft Publisher: A desktop publishing program.\n\t- Microsoft Teams: Collaboration software for teams, including chat, video meetings, and file sharing.\n\t- Microsoft OneDrive: Cloud storage service for storing and sharing files.\n- Compatibility:\n\tMicrosoft Office is compatible with various operating systems, including Windows, macOS, iOS, and Android.\n- Integration:\n\tMicrosoft Office applications often integrate with each other, allowing users to easily transfer data and content between different programs. For example, you can embed an Excel spreadsheet in a Word document or import data from Outlook into Excel.\n- Cloud Integration:\n\tMicrosoft Office offers cloud integration through services like OneDrive and SharePoint, allowing users to access their files and collaborate with others from any device with an internet connection.\n- Customization:\n\tUsers can often customize the appearance and functionality of Microsoft Office applications to suit their preferences and workflow.',
-      image: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FArchivo%3AMicrosoft_Office_2013_logo.svg&psig=AOvVaw2iikar6X4Tby853Uw4Cp7f&ust=1711658213199000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLji7O-llYUDFQAAAAAdAAAAABAJ',
+      specs: '- Applications:\n\tMicrosoft Office typically includes several applications, such as:\n\t- Microsoft Word: A word processing program used for creating documents.\n\t- Microsoft Excel: A spreadsheet program for organizing, analyzing, and visualizing data.\n\t- Microsoft PowerPoint: A presentation program for creating slideshows.\n\t- Microsoft Outlook: An email client and personal information manager.\n\t- Microsoft Access: A database management system.\n\t- Microsoft OneNote: A note- taking application.\n\t- Microsoft Publisher: A desktop publishing program.\n\t- Microsoft Teams: Collaboration software for teams, including chat, video meetings, and file sharing.\n\t- Microsoft OneDrive: Cloud storage service for storing and sharing files.\n\t\n- Compatibility:\n\tMicrosoft Office is compatible with various operating systems, including Windows, macOS, iOS, and Android.\n\t\n- Integration:\n\tMicrosoft Office applications often integrate with each other, allowing users to easily transfer data and content between different programs. For example, you can embed an Excel spreadsheet in a Word document or import data from Outlook into Excel.\n\t\n- Cloud Integration:\n\tMicrosoft Office offers cloud integration through services like OneDrive and SharePoint, allowing users to access their files and collaborate with others from any device with an internet connection.\n\t\n- Customization:\n\tUsers can often customize the appearance and functionality of Microsoft Office applications to suit their preferences and workflow.',
+      image: 'https://seeklogo.com/images/M/microsoft-office-logo-8B0EF31E09-seeklogo.com.png',
       status: true,
       provider: 'Microsoft',
       categories: [
@@ -174,11 +174,10 @@ export async function inserts () {
   products.forEach(prod => {
     productController.createProduct({ body: prod }, {
       status (code) {
-        console.log('Status:', code)
         return this
       },
       json (data) {
-        console.log('Response:', data)
+        console.log('Response: product created')
       }
     })
   })

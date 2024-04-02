@@ -18,7 +18,7 @@ export class CategoryService {
     return this.http.get<Category[]>(`${this.myAppUrl}${this.myApiUrl}/`)
   }
 
-  getCategory(id: number): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+  getCategory(id: number): Observable<Category | any> {
+    return this.http.get<Category | any>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
   }
 }

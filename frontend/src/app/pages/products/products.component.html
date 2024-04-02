@@ -7,8 +7,8 @@
 <main class="main">
   <article class="category">
     <section class="cat-info">
-      <h2>Category Aplications</h2>
-      <p>this is a product description - this is a product description</p>
+      <h2>{{category.name}}</h2>
+      <p>{{category.description}}</p>
     </section>
     <section class="filters">
       <button>
@@ -27,55 +27,18 @@
       <fa-icon [icon]="addIcon"></fa-icon>
     </button>
     }
-    <article class="wrapper" [routerLink]="['/product']">
+
+    @for (item of productsList; track item.id; let i = $index) {
+    <article class="wrapper" (click)="showProduct(item.name)">
       <section class="product-img">
-        <img src="{{ photoshopImg }}" alt="" />
+        <img src="{{ item.image }}" alt="" />
       </section>
       <section class="product-info">
-        <p class="title">Adobe Photoshop</p>
-        <p class="cats">Edition | Design | Pro</p>
-        <p class="price">$99.99</p>
+        <p class="title">{{item.name}}</p>
+        <p class="cats">{{prodCatsList[i]}}</p>
       </section>
+      <p class="price">{{item.price}}</p>
     </article>
-    <article class="wrapper">
-      <section class="product-img">
-        <img src="{{ photoshopImg }}" alt="" />
-      </section>
-      <section class="product-info">
-        <p class="title">Adobe Photoshop</p>
-        <p class="cats">Edition | Design | Pro</p>
-        <p class="price">$99.99</p>
-      </section>
-    </article>
-    <article class="wrapper">
-      <section class="product-img">
-        <img src="{{ photoshopImg }}" alt="" />
-      </section>
-      <section class="product-info">
-        <p class="title">Adobe Photoshop</p>
-        <p class="cats">Edition | Design | Pro</p>
-        <p class="price">$99.99</p>
-      </section>
-    </article>
-    <article class="wrapper">
-      <section class="product-img">
-        <img src="{{ photoshopImg }}" alt="" />
-      </section>
-      <section class="product-info">
-        <p class="title">Adobe Photoshop</p>
-        <p class="cats">Edition | Design | Pro</p>
-        <p class="price">$99.99</p>
-      </section>
-    </article>
-    <article class="wrapper">
-      <section class="product-img">
-        <img src="{{ photoshopImg }}" alt="" />
-      </section>
-      <section class="product-info">
-        <p class="title">Adobe Photoshop</p>
-        <p class="cats">Edition | Design | Pro</p>
-        <p class="price">$99.99</p>
-      </section>
-    </article>
+    } @empty {There are no items assigned to this category}
   </div>
 </main>
