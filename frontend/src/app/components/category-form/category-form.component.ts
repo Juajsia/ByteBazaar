@@ -21,6 +21,7 @@ export class CategoryFormComponent {
   diskIcon = faFloppyDisk
   pageTitle = 'Add New Category'
   id = 0
+  formStatus = false
 
   form = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -45,6 +46,13 @@ export class CategoryFormComponent {
 
   goBack() {
     this.router.navigate(['/categories'])
+  }
+
+  validateFields() {
+    if (this.form.invalid)
+      this.formStatus = false
+    else
+      this.formStatus = true
   }
 
   getCategory() {

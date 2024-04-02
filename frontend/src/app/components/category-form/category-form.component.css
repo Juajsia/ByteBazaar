@@ -26,6 +26,11 @@
     background-color: #ffff;
 }
 
+.btns {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
 h1 {
     margin: 0;
@@ -100,4 +105,14 @@ textarea {
 
 .btnCancel:hover {
     background-color: #e21010;
+}
+
+.disabled {
+    background-color: #47525E;
+}
+
+.disabled:hover {
+    cursor: not-allowed;
+    background-color: #47525E;
+    transform: none;
 }
