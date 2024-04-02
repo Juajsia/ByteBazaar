@@ -1,13 +1,19 @@
 <div id="container">
     <div id="inner">
         <h1 id="title">{{pageTitle}}</h1>
-        <form id="form">
+        <form id="form" [formGroup]="form">
 
-            <label for="name" class="form-input">Title: </label>
-            <input type="text" name="name" placeholder="Title..." required>
+            <label for="title" class="form-input">Title: </label>
+            <input type="text" name="title" formControlName="title" placeholder="Title..." required>
+            @if (form.get('title')?.hasError('required') && form.get('title')?.touched) {
+            <span class="error">*Required field*</span>
+            }
             <label for="description" class="form-input">Description: </label>
-            <textarea id="description" name="description" rows="5" cols="33" placeholder="Description..."
-                required></textarea>
+            <textarea id="description" formControlName="description" name="description" rows="5" cols="33"
+                placeholder="Description..." required></textarea>
+            @if (form.get('description')?.hasError('required') && form.get('description')?.touched) {
+            <span class="error">*Required field*</span>
+            }
         </form>
         <button type="discard" class="btn btnCancel" (click)="cancelForm()">Cancel <fa-icon class="btnIcon"
                 [icon]="xIcon"></fa-icon></button>

@@ -45,6 +45,12 @@ h1 {
     flex-direction: column;
 }
 
+
+.error {
+    color: #e21010;
+    text-align: center;
+}
+
 label {
     color: #47525E;
     align-self: flex-start;
