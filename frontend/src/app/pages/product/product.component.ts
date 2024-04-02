@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { 
-  faCartShopping, 
-  faBagShopping, 
+import {
+  faCartShopping,
+  faBagShopping,
   faDesktop,
   faMobileScreenButton,
   faTabletScreenButton,
@@ -43,7 +43,7 @@ export class ProductComponent {
   productPlats: string[] = []
   allCategories: Category[] = []
 
-  constructor (private _productService: ProductService, private _categoryService: CategoryService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _productService: ProductService, private _categoryService: CategoryService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
@@ -60,12 +60,12 @@ export class ProductComponent {
   getProduct() {
     this._productService.getProduct(this.productName).subscribe((res: Product) => {
       this.product = res
-      this.productCats = res.categories.filter(v => { 
-        if (["Computer","Smartphone","Tablet"].includes(v)){
+      this.productCats = res.categories.filter(v => {
+        if (["Computer", "Smartphone", "Tablet"].includes(v)) {
           this.productPlats.push(v)
           return false
         } else
-          return true 
+          return true
       })
 
       this.productSpecs = res.specs.split('\n')
@@ -84,7 +84,7 @@ export class ProductComponent {
 
   deleteProduct() {
     const productName = document.getElementById('productName')?.textContent!
-    this._productService.deleteProduct(productName).subscribe(()=>{
+    this._productService.deleteProduct(productName).subscribe(() => {
       alert('Product deleted')
       this.router.navigate(['/'])
     })
@@ -95,8 +95,8 @@ export class ProductComponent {
     let f = false
     let i = 0
     while (i < this.allCategories.length && f === false) {
-      if (this.allCategories[i].name === catName){
-        catId = this.allCategories[i].id
+      if (this.allCategories[i].name === catName) {
+        catId = this.allCategories[i].id!
         f = true
       }
       i++

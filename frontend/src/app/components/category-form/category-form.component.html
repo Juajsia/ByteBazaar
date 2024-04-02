@@ -15,8 +15,9 @@
             <span class="error">*Required field*</span>
             }
         </form>
-        <button type="discard" class="btn btnCancel" (click)="cancelForm()">Cancel <fa-icon class="btnIcon"
+        <button type="discard" class="btn btnCancel" (click)="goBack()">Cancel <fa-icon class="btnIcon"
                 [icon]="xIcon"></fa-icon></button>
-        <button type="save" class="btn">Save <fa-icon class="btnIcon" [icon]="diskIcon"></fa-icon></button>
+        <button type="save" class="btn" (click)="saveData()">Save <fa-icon class="btnIcon"
+                [icon]="diskIcon"></fa-icon></button>
     </div>
 </div>

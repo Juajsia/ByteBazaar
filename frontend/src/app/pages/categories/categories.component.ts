@@ -42,7 +42,7 @@ export class CategoriesComponent {
   }
 
   ngOnInit(): void {
-    if (this.router.url === '/categories/create')
+    if (this.router.url === '/categories/create' || /\/categories\/edit\/\d+/.test(this.router.url))
       this.showForm = true
     else
       this.showForm = false
@@ -76,7 +76,15 @@ export class CategoriesComponent {
   seeApps(catId: number) {
     this.router.navigate([`/products/${catId}`])
   }
-
+  deleteCategory(id: number) {
+    this._categoryService.deleteCategory(id).subscribe(() => {
+      alert('Product deleted')
+      window.location.reload()
+    })
+  }
+  editCategory(id: number) {
+    this.router.navigate([`/categories/edit/${id}`])
+  }
   addCategory() {
     this.router.navigate(['/categories/create'])
   }

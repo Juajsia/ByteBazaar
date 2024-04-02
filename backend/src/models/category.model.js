@@ -14,14 +14,14 @@ export const Category = sequelize.define('Category', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      isAlphanumeric: true
     }
   },
   description: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: true
+      isAlphanumeric: true
     }
   }
 })
