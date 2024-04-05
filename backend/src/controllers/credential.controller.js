@@ -6,6 +6,7 @@ import { Person } from '../models/person.model.js'
 import { Client } from '../models/client.model.js'
 import { Administrator } from '../models/administrator.model.js'
 import { SalesAgent } from '../models/salesAgent.model.js'
+import { Cart } from '../models/cart.model.js'
 
 export class Credentialcontroller {
   getAllCredentials = async (req, res) => {
@@ -96,7 +97,12 @@ export class Credentialcontroller {
       }
       const rol = await getRol({ id: cred.personId })
       const token = createToken({ data: { email: cred.email, rol } })
-      return res.json({ token, rol })
+      const cart = await Cart.findOne({ where: { clientId: cred.personId } })
+      let cartId = null
+      if (cart) {
+        cartId = cart.id
+      }
+      return res.json({ token, rol, cartId })
     } catch (error) {
       return res.status(500).json({ mesaage: error.message })
     }

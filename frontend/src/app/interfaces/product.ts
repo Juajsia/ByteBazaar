@@ -1,3 +1,5 @@
+import { CartProduct } from "./cart"
+
 export interface Product {
     id?: number,
     name: string,
@@ -10,7 +12,8 @@ export interface Product {
     provider: string,
     categories: string[],
     createdAt?: string,
-    updatedAt?: string
+    updatedAt?: string,
+    CartProduct?: CartProduct
 }
 
 export interface msg {

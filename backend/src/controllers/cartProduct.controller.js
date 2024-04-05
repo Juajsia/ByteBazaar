@@ -51,9 +51,7 @@ export class CartProductController {
   updateCartProduct = async (req, res) => {
     try {
       const { CartId, ProductId } = req.params
-      console.log(CartId, ProductId)
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
-      console.log(cartProduct)
       if (!cartProduct) {
         return res.status(404).json({ err: 'Cart Item does not exist' })
       }

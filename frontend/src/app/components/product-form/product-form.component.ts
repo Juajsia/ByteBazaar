@@ -172,7 +172,7 @@ export class ProductFormComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].id > 2)
+        if (data[index].id > 3)
           this.categoriesList.push(data[index])
       }
     })

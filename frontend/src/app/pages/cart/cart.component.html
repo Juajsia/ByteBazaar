@@ -4,192 +4,66 @@
         <article class="cartItems">
             <h1>Shopping Cart</h1>
             <ul class="itemsList">
+                @for (item of cartItems; track item.id) {
                 <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
+                    <img class="productImg" src="{{item.image}}" (click)="goToProduct(item.name!)">
                     <section class="productInfo">
-                        <p class="productName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
+                        <p class="productName" (click)="goToProduct(item.name!)"><b>{{item.name}}</b></p>
+                        @if (item.stock > 0) {
                         <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Microsoft</p>
-                        <p class="categories"><b>Categories:</b> Productivity</p>
+                        } @else {
+                        <p class="NoStock">Out of Stock</p>
+                        }
+                        <p class="provider"><b>Provider:</b> {{item.provider}}</p>
+                        <!-- <p class="categories"><b>Categories:</b> {{item.categories}}</p> -->
                         <div class="quantity">
                             <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
+                            @if (getQuantity(item.id!) === 1) {
+                            <i (click)="modifyQuantity(item.id!, item.stock!, false)"><fa-icon id="minusBtn-{{item.id}}"
+                                    class="btnQty disabled" [icon]="minusIcon"></fa-icon></i>
+                            } @else {
+                            <i (click)="modifyQuantity(item.id!, item.stock!, false)"><fa-icon id="minusBtn-{{item.id}}"
+                                    class="btnQty" [icon]="minusIcon"></fa-icon></i>
+                            }
+                            <p id="quantityVal-{{item.id}}" class="quantityVal">{{item.CartProduct?.quantity}}</p>
+                            @if (getQuantity(item.id!) === item.stock) {
+                            <i (click)="modifyQuantity(item.id!, item.stock!, true)"><fa-icon id="plusBtn-{{item.id}}"
+                                    class="btnQty disabled" [icon]="plusIcon"></fa-icon></i>
+                            } @else {
+                            <i (click)="modifyQuantity(item.id!, item.stock!, true)"><fa-icon id="plusBtn-{{item.id}}"
+                                    class="btnQty" [icon]="plusIcon"></fa-icon></i>
+                            }
                         </div>
                     </section>
                     <section class="actions">
-                        <button type="button" class="btn btnDelete">
+                        <button type="button" class="btn btnDelete" (click)="deleteItem(item.id!)">
                             Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
                         </button>
                         <button type="button" class="btn" id="btnBuy">
                             Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
                         </button>
                     </section>
-                    <p class="price"><b>$99.99</b></p>
+                    <p class="price"><b>${{item.price}}</b></p>
                 </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png">
-                    <section class="productInfo">
-                        <p class="productName"><b>Spotify</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Spotify</p>
-                        <p class="categories"><b>Categories:</b> Music</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">2</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$9.98</b></p>
-                </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png">
-                    <section class="productInfo">
-                        <p class="productName"><b>Angry Birds</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Rovio Ent</p>
-                        <p class="categories"><b>Categories:</b> Games</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$6.99</b></p>
-                </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-                    <section class="productInfo">
-                        <p class="productName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Microsoft</p>
-                        <p class="categories"><b>Categories:</b> Productivity</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$99.99</b></p>
-                </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-                    <section class="productInfo">
-                        <p class="productName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Microsoft</p>
-                        <p class="categories"><b>Categories:</b> Productivity</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$99.99</b></p>
-                </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-                    <section class="productInfo">
-                        <p class="productName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Microsoft</p>
-                        <p class="categories"><b>Categories:</b> Productivity</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$99.99</b></p>
-                </li>
-                <li class="cartItem">
-                    <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']">
-                    <section class="productInfo">
-                        <p class="productName" [routerLink]="['/product']"><b>Microsoft Office</b></p>
-                        <p class="stock">In Stock</p>
-                        <p class="provider"><b>Provider:</b> Microsoft</p>
-                        <p class="categories"><b>Categories:</b> Productivity</p>
-                        <div class="quantity">
-                            <p class="quantityLbl"><b>Quantity:</b></p>
-                            <i><fa-icon class="btnQty" [icon]="minusIcon"></fa-icon></i>
-                            <p class="quantityVal">1</p>
-                            <i><fa-icon class="btnQty" [icon]="plusIcon"></fa-icon></i>
-                        </div>
-                    </section>
-                    <section class="actions">
-                        <button type="button" class="btn btnDelete">
-                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
-                        </button>
-                        <button type="button" class="btn" id="btnBuy">
-                            Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
-                        </button>
-                    </section>
-                    <p class="price"><b>$99.99</b></p>
-                </li>
+                } @empty {There are no items added to your cart}
             </ul>
         </article>
         <aside class="summary">
             <h2 class="summaryTit">Purchase Summary</h2>
             <div class="costs">
                 <div>
-                    <p class="costElem">Products(3):</p>
+                    <p class="costElem">Products({{cartItems.length}}):</p>
                     <p class="costElem">Aditional costs:</p>
                 </div>
                 <div>
-                    <p class="costElem">$116.96</p>
-                    <p class="costElem">$0</p>
+                    <p class="costElem">${{summary.totProds}}</p>
+                    <p class="costElem">${{summary.adCosts}}</p>
                 </div>
             </div>
             <div class="line"></div>
             <div class="total">
                 <p class="totalElem">Total:</p>
-                <p class="totalElem">$116.96</p>
+                <p class="totalElem">${{summary.totProds + summary.adCosts}}</p>
             </div>
             <button type="button" class="btn" id="btnCheckout">
                 Checkout <fa-icon class="btnIcon" [icon]="cartIcon"></fa-icon>

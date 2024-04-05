@@ -27,6 +27,7 @@ export class LoginComponent {
         next: (data) => {
           localStorage.setItem('token', data.token)
           localStorage.setItem('rol', data.rol)
+          localStorage.setItem('cart', data.cartId)
           this.router.navigate([''])
         },
         error: (e: HttpErrorResponse) => {

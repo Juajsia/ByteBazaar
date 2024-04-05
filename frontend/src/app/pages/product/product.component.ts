@@ -16,6 +16,10 @@ import { Product } from '../../interfaces/product';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
 import { Category } from '../../interfaces/category';
 import { CategoryService } from '../../services/category.service';
+import { CartProductService } from '../../services/cart-product.service';
+import { CartProduct } from '../../interfaces/cart';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product',
@@ -43,7 +47,7 @@ export class ProductComponent {
   productPlats: string[] = []
   allCategories: Category[] = []
 
-  constructor (private _productService: ProductService, private _categoryService: CategoryService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor (private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
@@ -75,6 +79,33 @@ export class ProductComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       this.allCategories = data
+    })
+  }
+
+  addToCart() {
+    const cartProduct: CartProduct = {
+      CartId: Number(localStorage.getItem('cart')),
+      ProductId: this.product.id!,
+      quantity: 1
+    }
+
+    this._cartProductService.addCartItem(cartProduct).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Product added sucessfully",
+          text: `Product ${this.product.name} added!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }, error: (e: HttpErrorResponse) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error Adding product",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     })
   }
 

@@ -71,6 +71,7 @@ export class NavbarComponent {
     this.rol = ''
     localStorage.removeItem('token')
     localStorage.removeItem('rol')
+    localStorage.removeItem('cart')
     this.router.navigate([''])
   }
 }
