@@ -104,8 +104,8 @@ export class ProductFormComponent {
     const itemText = checkedItem?.textContent
     const itemIndex = this.checkedItemsCat.indexOf(itemText!)
     const wsb = this.whichSelectBelongs(itemId)
-    
-    if (itemIndex < 0){
+
+    if (itemIndex < 0) {
       this.checkedItemsCat.push(itemText!)
       if (wsb === 'Platform')
         this.selItemsPlat += 1
@@ -120,8 +120,8 @@ export class ProductFormComponent {
         this.selItemsCat -= 1
     }
 
-    if (wsb === 'Category'){
-      if(this.selItemsCat > 0) {
+    if (wsb === 'Category') {
+      if (this.selItemsCat > 0) {
         this.selectFieldText[0]!.textContent = `(${this.selItemsCat}) Categories`
         this.noCatSelected = false
       }
@@ -130,7 +130,7 @@ export class ProductFormComponent {
         this.noCatSelected = true
       }
     } else {
-      if(this.selItemsPlat > 0){
+      if (this.selItemsPlat > 0) {
         this.selectFieldText[1]!.textContent = `(${this.selItemsPlat}) Platforms`
         this.noPlatSelected = false
       }
@@ -162,8 +162,8 @@ export class ProductFormComponent {
     return newArr
   }
 
-  validateFields () {  
-    if(this.form.invalid || this.selItemsCat < 1 || this.selItemsPlat < 1)
+  validateFields() {
+    if (this.form.invalid || this.selItemsCat < 1 || this.selItemsPlat < 1)
       this.formStatus = false
     else
       this.formStatus = true
@@ -172,7 +172,7 @@ export class ProductFormComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].id > 3)
+        if (data[index].id! > 3)
           this.categoriesList.push(data[index])
       }
     })
@@ -230,7 +230,7 @@ export class ProductFormComponent {
         res.categories.forEach(item => {
           data.forEach(element => {
             if (item === element.name) {
-              if (element.id > 3)
+              if (element.id! > 3)
                 this.checkItem(`CatItem-${element.id}`)
               else
                 this.checkItem(`PlatItem-${element.id}`)
@@ -243,8 +243,8 @@ export class ProductFormComponent {
   }
 
   goBack() {
-    if(this.action === 'Edit')
-    this.router.navigate([`product/${this.productName}`])
+    if (this.action === 'Edit')
+      this.router.navigate([`product/${this.productName}`])
     else
       this.router.navigate([`products/${this.catId}`])
   }
