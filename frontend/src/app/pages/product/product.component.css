@@ -113,6 +113,10 @@ h2 {
     cursor: pointer;
 }
 
+.NoStock {
+    color: #e21010;
+}
+
 #img {
     display: flex;
     flex-direction: column;

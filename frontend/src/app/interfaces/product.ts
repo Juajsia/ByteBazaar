@@ -13,7 +13,8 @@ export interface Product {
     categories: string[],
     createdAt?: string,
     updatedAt?: string,
-    CartProduct?: CartProduct
+    CartProduct?: CartProduct,
+    quantity?: number
 }
 
 export interface msg {

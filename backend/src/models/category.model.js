@@ -19,9 +19,6 @@ export const Category = sequelize.define('Category', {
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isAlphanumeric: true
-    }
+    allowNull: false
   }
 })

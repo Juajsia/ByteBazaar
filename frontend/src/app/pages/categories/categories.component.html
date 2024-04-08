@@ -14,7 +14,6 @@
       <fa-icon [icon]="addIcon"></fa-icon>
     </button>
     } @for (item of listCategory; track item.id; ; let i = $index) {
-    <!-- <article class="category" [ngStyle]="{ 'background-image': 'url(' + loadImage() + ')' }"> -->
     <article class="category" style="background-image: url({{listImages[i]}});">
       <a class="see-apps" id="{{item.id}}" (click)="seeApps(item.id!)">See apps <fa-icon
           [icon]="seeAppsIcon"></fa-icon></a>
@@ -24,7 +23,9 @@
       </div>
       @if (rol === 'administrator') {
       <div class="icons">
+        @if(item.id! > 3){
         <a class="delIcon" (click)="deleteCategory(item.id!)"><fa-icon [icon]="deleteIcon"></fa-icon></a>
+        }
         <a class="edIcon" (click)="editCategory(item.id!)"><fa-icon [icon]="editIcon"></fa-icon></a>
       </div>
       }

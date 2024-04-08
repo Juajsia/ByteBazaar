@@ -42,7 +42,6 @@ export class CategoryFormComponent {
       this.pageTitle = 'Edit Category'
       this.getCategory()
     }
-    console.log(this.form.get('title'))
   }
 
   goBack() {

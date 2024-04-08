@@ -102,6 +102,9 @@ export class Credentialcontroller {
       if (cart) {
         cartId = cart.id
       }
+      if (rol === 'client') {
+        return res.json({ token, rol, cartId, cid: cred.personId })
+      }
       return res.json({ token, rol, cartId })
     } catch (error) {
       return res.status(500).json({ mesaage: error.message })

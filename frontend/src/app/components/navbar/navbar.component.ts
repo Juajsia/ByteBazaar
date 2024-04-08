@@ -93,6 +93,7 @@ export class NavbarComponent {
     localStorage.removeItem('token')
     localStorage.removeItem('rol')
     localStorage.removeItem('cart')
+    localStorage.removeItem('cid')
     this.router.navigate([''])
   }
 
@@ -105,6 +106,10 @@ export class NavbarComponent {
         this.subtotal += prod.price
       })
     })
+  }
+
+  goToProduct(prodName: string) {
+    this.router.navigate([`/product/${prodName}`])
   }
 
   deleteItem(prodId: number) {

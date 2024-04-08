@@ -30,7 +30,7 @@ export class ProductFormComponent {
   checkIcon = faCheck
 
   textRegex = /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/
-  stockRegex = /^[1-9]\d*$/
+  stockRegex = /^[0-9]\d*$/
   priceRegex = /^\d*\.?\d+$/
   urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/
 
