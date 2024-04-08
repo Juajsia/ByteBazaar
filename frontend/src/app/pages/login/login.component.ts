@@ -27,6 +27,8 @@ export class LoginComponent {
         next: (data) => {
           localStorage.setItem('token', data.token)
           localStorage.setItem('rol', data.rol)
+          if (data.rol === 'client')
+            localStorage.setItem('cid', data.cid)
           localStorage.setItem('cart', data.cartId)
           this.router.navigate([''])
         },

@@ -172,6 +172,28 @@ p {
     color: #797979;
 }
 
+.btn.disabled {
+    color: #797979;
+    border-color: #797979;
+
+    .btnIcon {
+        color: #797979;
+    }
+}
+
+.btn.disabled:hover {
+    background-color: #ffff;
+    color: #797979;
+    border-color: #797979;
+    cursor: not-allowed;
+    transform: none;
+
+    .btnIcon {
+        color: #797979;
+    }
+
+}
+
 .summary {
     background-color: #ffff;
     position: sticky;

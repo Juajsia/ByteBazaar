@@ -82,8 +82,8 @@
     </article>
     @for (item of cartItems; track item.id) {
     <article class="cartArticle cartItem">
-      <img class="productImg" src="{{item.image}}" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
+      <img class="productImg" src="{{item.image}}" (click)="goToProduct(item.name)" />
+      <p class="text prName" (click)="goToProduct(item.name)">
         <b>{{item.name}}</b>
       </p>
       <p class="CartText">${{item.price}}</p>

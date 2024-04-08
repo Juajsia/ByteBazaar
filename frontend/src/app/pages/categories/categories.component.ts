@@ -5,9 +5,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowRight, faTrash, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterLink } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../../interfaces/category';
+import { Category, Platform } from '../../interfaces/category';
 import { NgStyle } from '@angular/common';
 import { CategoryFormComponent } from '../../components/category-form/category-form.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-categories',
@@ -78,7 +79,13 @@ export class CategoriesComponent {
   }
   deleteCategory(id: number) {
     this._categoryService.deleteCategory(id).subscribe(() => {
-      alert('Product deleted')
+      Swal.fire({
+        icon: "success",
+        title: "Successful delete Category",
+        text: `Category ${CategoryFormComponent.name} deleted!!`,
+        showConfirmButton: false,
+        timer: 1500
+      })
       window.location.reload()
     })
   }

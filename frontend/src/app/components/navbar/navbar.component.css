@@ -386,6 +386,10 @@ a:hover {
     justify-content: space-between;
 }
 
+.prName {
+    text-align: center;
+}
+
 .productImg {
     width: 100px;
 }
