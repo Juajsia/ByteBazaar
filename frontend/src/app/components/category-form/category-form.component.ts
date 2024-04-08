@@ -48,13 +48,6 @@ export class CategoryFormComponent {
     this.router.navigate(['/categories'])
   }
 
-  validateFields() {
-    if (this.form.invalid)
-      this.formStatus = false
-    else
-      this.formStatus = true
-  }
-
   getCategory() {
     this._categoryService.getCategory(this.id).subscribe((res: Category) => {
       this.form.setValue({

@@ -1,0 +1,17 @@
+{
+  "name": "bytebazaar",
+  "version": "1.0.0",
+  "description": "Software construction project midterm assessment",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm run dev\" \"cd ..\" \"cd frontend && ng serve\"",
+    "install": "concurrently \"cd backend && npm install\" \"cd ..\" \"cd frontend && npm install\"",
+    "sync": "node ./backend/src/sync.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

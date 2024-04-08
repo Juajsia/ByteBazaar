@@ -35,7 +35,11 @@ export class CartController {
   getCart = async (req, res) => {
     try {
       const { id } = req.params
-      const cart = await Cart.findByPk(id)
+      const cart = await Cart.findByPk(id, {
+        include: {
+          model: Product
+        }
+      })
       if (cart) {
         res.json(cart)
       } else {

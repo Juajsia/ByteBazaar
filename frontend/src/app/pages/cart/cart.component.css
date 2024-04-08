@@ -66,6 +66,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-self: start;
 }
 
 .productImg {
@@ -85,6 +86,10 @@ p {
 
 .stock {
     color: #55D555;
+}
+
+.NoStock {
+    color: #e21010;
 }
 
 .quantity {
@@ -156,6 +161,37 @@ p {
     color: #55D555;
     transform: scale(1.15);
     cursor: pointer;
+}
+
+.disabled {
+    color: #797979;
+}
+
+.disabled:hover {
+    cursor: default;
+    color: #797979;
+}
+
+.btn.disabled {
+    color: #797979;
+    border-color: #797979;
+
+    .btnIcon {
+        color: #797979;
+    }
+}
+
+.btn.disabled:hover {
+    background-color: #ffff;
+    color: #797979;
+    border-color: #797979;
+    cursor: not-allowed;
+    transform: none;
+
+    .btnIcon {
+        color: #797979;
+    }
+
 }
 
 .summary {

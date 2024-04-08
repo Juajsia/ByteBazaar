@@ -18,11 +18,11 @@ export class OrderController {
 
   createOrder = async (req, res) => {
     try {
-      const { products } = req.body
+      const { Products } = req.body
       const items = []
-      const promise = products.map(async (element) => {
-        const item = await Product.findOne({ where: { id: element.productId } })
-        if (item.stock < element.quantity) {
+      const promise = Products.map(async (element) => {
+        const item = await Product.findByPk(element.id)
+        if (item.stock < element.CartProduct.quantity) {
           items.push({ msg: 'product: ' + item.name + ' does not have enough stock' })
         }
       })
@@ -31,17 +31,15 @@ export class OrderController {
         return res.status(400).json(items)
       }
       const { clientId } = req.body
-      console.log(clientId)
       const newOrder = await Order.create({ clientId })
-      console.log(newOrder)
-      products.forEach(async (element) => {
-        await OrderDetail.create({ ProductId: element.productId, OrderId: newOrder.id, quantity: element.quantity })
-        const { stock } = await Product.findOne({ where: { id: element.productId } })
-        const newstock = stock - element.quantity
-        await Product.update({ stock: newstock }, { where: { id: element.productId } })
+      Products.forEach(async (element) => {
+        await OrderDetail.create({ ProductId: element.id, OrderId: newOrder.id, quantity: element.CartProduct.quantity })
+        const { stock } = await Product.findOne({ where: { id: element.id } })
+        const newstock = stock - element.CartProduct.quantity
+        await Product.update({ stock: newstock }, { where: { id: element.id } })
       })
 
-      return res.status(201).json({ newOrder, products })
+      return res.status(201).json({ newOrder, Products })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }

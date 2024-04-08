@@ -10,7 +10,11 @@
             <div>
                 <h1 id="productName">{{product.name}}</h1>
                 <p id="provider">{{product.provider}}</p>
+                @if (product.stock === 0) {
+                <p id="stock" class="NoStock">Out of Stock</p>
+                } @else {
                 <p id="stock">Stock: {{product.stock}}</p>
+                }
             </div>
             <div id="lowerInfo">
                 <p id="price">${{product.price}}</p>
@@ -32,7 +36,7 @@
                 Edit <fa-icon class="btnIcon" [icon]="editIcon"></fa-icon>
             </button>
             } @else {
-            <button type="button" class="btn">
+            <button type="button" class="btn" (click)="addToCart()">
                 Add <fa-icon class="btnIcon" [icon]="cart"></fa-icon>
             </button>
             }

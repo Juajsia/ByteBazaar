@@ -31,7 +31,7 @@ export class ProductFormComponent {
   checkIcon = faCheck
 
   textRegex = /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/
-  stockRegex = /^[1-9]\d*$/
+  stockRegex = /^[0-9]\d*$/
   priceRegex = /^\d*\.?\d+$/
   urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/
 
@@ -173,7 +173,7 @@ export class ProductFormComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].id! > 2)
+        if (data[index].id! > 3)
           this.categoriesList.push(data[index])
       }
     })
