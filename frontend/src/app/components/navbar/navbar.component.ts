@@ -11,10 +11,17 @@ import {
   faUserGroup,
   faComments,
   faTrash,
-  faHeadset
+  faHeadset,
+  faRotateRight
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
+import { Product } from '../../interfaces/product';
+import { CartService } from '../../services/cart.service';
+import { CartProductService } from '../../services/cart-product.service';
+import { Cart, CartProduct } from '../../interfaces/cart';
+import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-navbar',
@@ -34,21 +41,27 @@ export class NavbarComponent {
   chatIcon = faComments
   trashIcon = faTrash
   bubbleIcon = faHeadset
+  refreshIcon = faRotateRight
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
 
   cartStatus = false
+  cartId = Number(localStorage.getItem('cart'))
+  cartItems: Product[] = []
+  subtotal = 0
 
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
-  constructor(private router: Router) {
+  constructor(private _cartService: CartService, private _cartProductService: CartProductService,private router: Router) {
 
   }
 
   ngAfterViewInit(): void {
-    let l = document.querySelectorAll(`[url="${this.router.url}"]`)[0].classList.add('currentPage');
+    const icon = document.querySelector(`[url="${this.router.url}"]`)
+    if (icon)
+      icon.classList.add('currentPage')
   }
 
   toggleSearch() {
@@ -66,6 +79,14 @@ export class NavbarComponent {
     this.nav.nativeElement.classList.remove('openNav');
   }
 
+  switchCartStatus() {
+    this.cartStatus = !this.cartStatus
+  }
+
+  disableCartButton(){
+    return this.router.url === '/cart'
+  }
+
   logOut() {
     this.loginStatus = false
     this.rol = ''
@@ -73,5 +94,49 @@ export class NavbarComponent {
     localStorage.removeItem('rol')
     localStorage.removeItem('cart')
     this.router.navigate([''])
+  }
+
+  getCartItems() {
+    this._cartService.getCartItems(this.cartId).subscribe((res: Cart) => {
+      const {Products} = res
+      this.cartItems = Products as Product[]
+      this.subtotal = 0
+      this.cartItems?.map(prod=>{
+        this.subtotal += prod.price
+      })
+    })
+  }
+
+  deleteItem(prodId: number) {
+    const cartProduct: CartProduct = {
+      CartId: this.cartId,
+      ProductId: prodId
+    }
+
+    this._cartProductService.deleteCartItem(cartProduct).subscribe({
+      next: ()=>{
+        Swal.fire({
+          icon: "success",
+          title: "Product deleted sucessfully",
+          text: `Product was deleted from your cart!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.cartItems = this.cartItems.filter(x=>{
+          if (x.id !== cartProduct.ProductId)
+            return true          
+          this.subtotal -= x.price
+          return false
+        })
+      }, error: (e: HttpErrorResponse)=>{
+        Swal.fire({
+          icon: "error",
+          title: "Error deleting product from cart",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
+    )
   }
 }

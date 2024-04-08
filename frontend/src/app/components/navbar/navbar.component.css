@@ -345,6 +345,10 @@ a:hover {
     border-color: #e21010;
 }
 
+#btnRefresh {
+    padding: 0px 10px;
+}
+
 .btn:hover {
     background-color: #55D555;
     color: #ffff;

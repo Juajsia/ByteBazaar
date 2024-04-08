@@ -19,19 +19,19 @@
                         <div class="quantity">
                             <p class="quantityLbl"><b>Quantity:</b></p>
                             @if (getQuantity(item.id!) === 1) {
-                            <i (click)="modifyQuantity(item.id!, item.stock!, false)"><fa-icon id="minusBtn-{{item.id}}"
-                                    class="btnQty disabled" [icon]="minusIcon"></fa-icon></i>
+                            <i (click)="modifyQuantity(item.id!, item.stock!, false, $index)"><fa-icon
+                                    id="minusBtn-{{item.id}}" class="btnQty disabled" [icon]="minusIcon"></fa-icon></i>
                             } @else {
-                            <i (click)="modifyQuantity(item.id!, item.stock!, false)"><fa-icon id="minusBtn-{{item.id}}"
-                                    class="btnQty" [icon]="minusIcon"></fa-icon></i>
+                            <i (click)="modifyQuantity(item.id!, item.stock!, false, $index)"><fa-icon
+                                    id="minusBtn-{{item.id}}" class="btnQty" [icon]="minusIcon"></fa-icon></i>
                             }
                             <p id="quantityVal-{{item.id}}" class="quantityVal">{{item.CartProduct?.quantity}}</p>
                             @if (getQuantity(item.id!) === item.stock) {
-                            <i (click)="modifyQuantity(item.id!, item.stock!, true)"><fa-icon id="plusBtn-{{item.id}}"
-                                    class="btnQty disabled" [icon]="plusIcon"></fa-icon></i>
+                            <i (click)="modifyQuantity(item.id!, item.stock!, true, $index)"><fa-icon
+                                    id="plusBtn-{{item.id}}" class="btnQty disabled" [icon]="plusIcon"></fa-icon></i>
                             } @else {
-                            <i (click)="modifyQuantity(item.id!, item.stock!, true)"><fa-icon id="plusBtn-{{item.id}}"
-                                    class="btnQty" [icon]="plusIcon"></fa-icon></i>
+                            <i (click)="modifyQuantity(item.id!, item.stock!, true, $index)"><fa-icon
+                                    id="plusBtn-{{item.id}}" class="btnQty" [icon]="plusIcon"></fa-icon></i>
                             }
                         </div>
                     </section>

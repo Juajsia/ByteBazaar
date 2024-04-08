@@ -45,8 +45,12 @@
         <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
       </i>
       @if (rol === 'client') {
-      <i class=".cart-icon" (click)="cartStatus = true"><fa-icon class="icon" [icon]="cartIcon"
+      @if (disableCartButton()) {
+      <i class=".cart-icon"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      } @else {
+      <i class=".cart-icon" (click)="switchCartStatus(); getCartItems()"><fa-icon class="icon" [icon]="cartIcon"
           url="/cart"></fa-icon></i>
+      }
       }
       <div class="login-bar">
         @if (!loginStatus) {
@@ -68,12 +72,30 @@
     <article class="cartArticle cartHeader">
       <i id="xMark" (click)="cartStatus = false"><fa-icon class="btnIcon" [icon]="xIcon"></fa-icon></i>
       <h1 class="cartTitle">Your Cart</h1>
-      <button type="button" class="btn" id="btnGoCart" [routerLink]="['/cart']">
+      <button type="button" class="btn" id="btnGoCart" [routerLink]="['/cart']" (click)="switchCartStatus()">
         Go to cart
       </button>
-      <p class="CartText"><b>Subtotal: $106.98</b></p>
+      <p class="CartText"><b>Subtotal: ${{subtotal}}</b></p>
+      <button type="button" id="btnRefresh" class="btn" (click)="getCartItems()">
+        <fa-icon class="btnIcon" [icon]="refreshIcon"></fa-icon>
+      </button>
     </article>
+    @for (item of cartItems; track item.id) {
     <article class="cartArticle cartItem">
+      <img class="productImg" src="{{item.image}}" [routerLink]="['/product']" />
+      <p class="text prName" [routerLink]="['/product']">
+        <b>{{item.name}}</b>
+      </p>
+      <p class="CartText">${{item.price}}</p>
+      <div>
+        <p class="CartText">Quantity: {{item.CartProduct?.quantity}}</p>
+        <button type="button" class="btnDelete" (click)="deleteItem(item.id!)">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        </button>
+      </div>
+    </article>
+    } @empty {There are no items <br> added to your cart}
+    <!-- <article class="cartArticle cartItem">
       <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
       <p class="text prName" [routerLink]="['/product']">
         <b>Microsoft Office</b>
@@ -150,20 +172,7 @@
           <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
         </button>
       </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
+    </article> -->
   </aside>
   } @if (rol === 'client' || rol === null) {
   <app-chatbox></app-chatbox>

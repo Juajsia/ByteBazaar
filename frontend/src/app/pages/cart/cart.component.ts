@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
@@ -37,6 +37,8 @@ export class CartComponent {
     totProds: 0,
     adCosts: 0
   }
+  changes = false
+  changeditems = new Set()
 
   constructor(private _cartService: CartService, private _cartProductService: CartProductService, private router: Router) {
 
@@ -44,6 +46,12 @@ export class CartComponent {
 
   ngOnInit() {
     this.getItems()
+  }
+
+  ngOnDestroy() {
+    if (this.changes){
+      this.updateItems()
+    }
   }
 
   getItems() {
@@ -84,7 +92,26 @@ export class CartComponent {
     )
   }
 
-  modifyQuantity(prodId: number, prodStock: number, op: boolean){
+  updateItems() {
+    this.changeditems.forEach(itemIndex=>{
+      const cartProduct: CartProduct = {
+        CartId: this.cartId,
+        ProductId: this.cartItems[Number(itemIndex)].id!,
+        quantity: this.cartItems[Number(itemIndex)].CartProduct!.quantity
+      }
+
+      this._cartProductService.updateCartItem(cartProduct).subscribe({
+        next: ()=>{
+          
+        }, error: (e: HttpErrorResponse)=>{
+          console.log('error changing items quantity')
+        }
+      })
+
+    })
+  }
+
+  modifyQuantity(prodId: number, prodStock: number, op: boolean, itemIndex: number){
     const minusBtn = document.getElementById(`minusBtn-${prodId}`)!
     const plusBtn = document.getElementById(`plusBtn-${prodId}`)!
     const quantityTag = document.getElementById(`quantityVal-${prodId}`)!
@@ -110,6 +137,9 @@ export class CartComponent {
       }
     }
     quantityTag.textContent = String(quantity)
+    this.cartItems[itemIndex].CartProduct!.quantity = quantity 
+    this.changes = true
+    this.changeditems.add(itemIndex)
   }
 
   getQuantity(prodId: number) {
