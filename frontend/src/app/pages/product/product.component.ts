@@ -16,6 +16,7 @@ import { Product } from '../../interfaces/product';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
 import { Category } from '../../interfaces/category';
 import { CategoryService } from '../../services/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product',
@@ -85,7 +86,13 @@ export class ProductComponent {
   deleteProduct() {
     const productName = document.getElementById('productName')?.textContent!
     this._productService.deleteProduct(productName).subscribe(() => {
-      alert('Product deleted')
+      Swal.fire({
+        icon: "success",
+        title: "Successful delete Product",
+        text: `Product ${productName} deleted!!`,
+        showConfirmButton: false,
+        timer: 1500
+      })
       this.router.navigate(['/'])
     })
   }
