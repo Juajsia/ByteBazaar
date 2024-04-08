@@ -52,12 +52,9 @@ export class ProductsComponent {
             return !["Computer", "Smartphone", "Tablet"].includes(v);
           });
           let concat = catsFiltered.slice(0, 2).join(' | ')
-          // if (concat.length > 16)
-          //   concat = catsFiltered.slice(0, 1).join('')
           this.prodCatsList.push(concat)
         })
       });
-
     })
   }
 
@@ -65,7 +62,7 @@ export class ProductsComponent {
     this.router.navigate([`/products/${this.catId}/add`])
   }
 
-  showProduct(prodName: any){
+  showProduct(prodName: any) {
     this.router.navigate([`/product/${prodName}`])
   }
 }

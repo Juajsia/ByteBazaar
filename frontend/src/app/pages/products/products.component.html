@@ -29,6 +29,7 @@
     }
 
     @for (item of productsList; track item.id; let i = $index) {
+    @if (item.status) {
     <article class="wrapper" (click)="showProduct(item.name)">
       <section class="product-img">
         <img src="{{ item.image }}" alt="" />
@@ -39,6 +40,19 @@
       </section>
       <p class="price">{{item.price}}</p>
     </article>
+    } @else if (!item.status && rol === 'administrator') {
+    <article class="disabled" (click)="showProduct(item.name)">
+      <p class="disabled-text">disabled</p>
+      <section class="product-img">
+        <img src="{{ item.image }}" alt="" />
+      </section>
+      <section class="product-info">
+        <p class="title">{{item.name}}</p>
+        <p class="cats">{{prodCatsList[i]}}</p>
+      </section>
+      <p class="price">{{item.price}}</p>
+    </article>
+    }
     } @empty {There are no items assigned to this category}
   </div>
 </main>
