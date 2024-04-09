@@ -127,7 +127,7 @@ export class CartComponent {
         Swal.fire({
           icon: "error",
           title: `Product ${this.cartItems[i].name} does not have stock`,
-          text: `please delete it from your cart you want to checkout`,
+          text: `Please delete it from your cart you want to checkout`,
           showConfirmButton: false,
           timer: 4000
         });
@@ -137,7 +137,7 @@ export class CartComponent {
         Swal.fire({
           icon: "error",
           title: `Product ${this.cartItems[i].name} is not available`,
-          text: `please delete it from your cart you want to checkout`,
+          text: `Please delete it from your cart you want to checkout`,
           showConfirmButton: false,
           timer: 4000
         });
@@ -163,9 +163,24 @@ export class CartComponent {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
-            window.location.reload()
-          })
+          if (products.length > 1){
+            this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
+              window.location.reload()
+            })
+          } else {
+            const cartProduct: CartProduct = {
+              CartId: this.cartId,
+              ProductId: products[0].id!
+            }
+            this._cartProductService.deleteCartItem(cartProduct).subscribe({
+              next: () => {
+                window.location.reload()
+              }, error: (e: HttpErrorResponse) => {
+                console.log("Error deleting product after purchase")
+              }
+            }
+            )
+          }
         });
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
