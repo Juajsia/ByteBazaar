@@ -18,6 +18,7 @@ main {
 }
 
 .basicInfo {
+    width: 80%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -44,25 +45,34 @@ main {
 }
 
 #productName {
-    width: 100%;
+    font-size: 60px;
 }
 
 #provider,
 #stock {
-    font-size: x-large;
+    font-size: 45px;
 }
 
 #price {
-    font-size: xx-large;
+    font-size: 35px;
 }
 
 h1 {
-    font-size: 4.5vi
+    font-size: 80px
 }
 
 
 h2 {
-    font-size: 2vi
+    font-size: 35px
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .btn {
@@ -153,6 +163,7 @@ h2 {
 }
 
 .aditionalInfo {
+    width: 80%;
     padding: 10px 30px 10px 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-bottom-left-radius: 15px;
@@ -176,6 +187,7 @@ h2 {
 
 .elements {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -201,4 +213,90 @@ li {
 
 span {
     font-weight: bold;
+}
+
+
+@media screen and (max-width:1200px) {
+    h1 {
+        font-size: 5.5vi
+    }
+
+
+    h2 {
+        font-size: 3vi
+    }
+
+}
+
+@media screen and (max-width:1100px) {
+    #img {
+        width: 100%;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    #productImg {
+        width: 200px;
+    }
+
+    #productName {
+        font-size: 50px;
+    }
+
+    #provider,
+    #stock {
+        font-size: 35px;
+    }
+
+    #price {
+        font-size: 25px;
+    }
+
+    h1 {
+        font-size: 70px
+    }
+
+
+    h2 {
+        font-size: 25px
+    }
+
+}
+
+@media screen and (max-width:650px) {
+    #productImg {
+        width: 170px;
+    }
+
+    #productName {
+        font-size: 40px;
+    }
+
+    #provider,
+    #stock {
+        font-size: 25px;
+    }
+
+    #price {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 60px
+    }
+
+
+    h2 {
+        font-size: 22px
+    }
+
+}
+
+@media screen and (max-width:450px) {
+
+    .basicInfo,
+    .aditionalInfo {
+        width: 95%;
+    }
+
 }
