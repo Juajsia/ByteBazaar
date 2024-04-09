@@ -127,3 +127,46 @@ button:hover {
     box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.5);
     transform: scale(1.05);
 }
+
+@media (max-width:940px) {
+
+    .category,
+    button {
+        width: 320px;
+
+    }
+
+    .main-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        ;
+        gap: 20px;
+    }
+
+}
+
+@media screen and (max-width: 760px) {
+
+    .category,
+    button {
+        width: 280px;
+
+    }
+}
+
+@media screen and (max-width: 710px) {
+
+    .category,
+    button {
+        width: 400px;
+
+    }
+}
+
+@media screen and (max-width: 490px) {
+
+    .category,
+    button {
+        width: 320px;
+
+    }
+}

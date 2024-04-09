@@ -138,3 +138,24 @@
     right: 6px;
     bottom: 6px;
 }
+
+@media screen and (max-width:470px) {
+
+    .wrapper,
+    .add-btn {
+        width: 350px;
+    }
+
+    .title,
+    .cats,
+    .price {
+        font-size: 17px;
+    }
+
+    .category {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        font-size: 30px;
+    }
+}
