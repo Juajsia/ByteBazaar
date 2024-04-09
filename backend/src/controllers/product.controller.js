@@ -58,7 +58,7 @@ export class ProductController {
   getProduct = async (req, res) => {
     try {
       const { name } = req.params
-      const nameFormatted = this.capitalizeWords(name)
+      const nameFormatted = name.toLowerCase()
       const product = await Product.findOne({
         where: { name: nameFormatted },
         include: Category

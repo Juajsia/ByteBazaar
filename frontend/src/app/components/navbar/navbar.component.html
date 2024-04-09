@@ -21,7 +21,7 @@
       </li>
       @if (rol === 'salesAgent') {
       <li>
-        <a [routerLink]="['/']" url="/chat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
+        <a [routerLink]="['/agentChat']" url="/agentChat"><fa-icon class="a-icon" [icon]="chatIcon"></fa-icon>Chats</a>
       </li>
       }
       <li class="login-menu">
@@ -95,84 +95,6 @@
       </div>
     </article>
     } @empty {There are no items <br> added to your cart}
-    <!-- <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article>
-    <article class="cartArticle cartItem">
-      <img class="productImg" src="/../../../assets\Logo.png" [routerLink]="['/product']" />
-      <p class="text prName" [routerLink]="['/product']">
-        <b>Microsoft Office</b>
-      </p>
-      <p class="CartText">$99.99</p>
-      <div>
-        <p class="CartText">Quantity: 1</p>
-        <button type="button" class="btnDelete">
-          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
-        </button>
-      </div>
-    </article> -->
   </aside>
   } @if (rol === 'client' || rol === null) {
   <app-chatbox></app-chatbox>

@@ -10,10 +10,7 @@ export const Product = sequelize.define('Product', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-    validate: {
-      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
-    }
+    unique: true
   },
   stock: {
     type: DataTypes.INTEGER,
@@ -59,7 +56,7 @@ export const Product = sequelize.define('Product', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
+      isAlphanumeric: true
     }
   }
 })

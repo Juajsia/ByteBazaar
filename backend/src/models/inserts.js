@@ -136,7 +136,7 @@ export async function inserts () {
 
   const products = [
     {
-      name: 'Microsoft Office',
+      name: 'microsoft office',
       stock: 6,
       price: 119.99,
       description: 'Microsoft Office is a suite of applications designed to help with productivity and completing common tasks on a computer. You can create and edit documents containing text and images, work with data in spreadsheets and databases, and create presentations and posters.',
@@ -154,7 +154,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'Adobe Photoshop',
+      name: 'adobe photoshop',
       stock: 10,
       price: 69.99,
       description: 'With Adobe Photoshop you can design, create, and edit photos as your imagination commands.',

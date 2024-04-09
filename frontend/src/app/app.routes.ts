@@ -11,6 +11,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CategoryFormComponent } from './components/category-form/category-form.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -64,4 +65,8 @@ export const routes: Routes = [{
     title: 'AddProduct',
     path: 'products/:catId/add',
     component: ProductsComponent
+}, {
+    title: 'AgentChat',
+    path: 'agentChat',
+    component: AgentChatComponent
 }];
