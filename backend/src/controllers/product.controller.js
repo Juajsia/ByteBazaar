@@ -83,12 +83,38 @@ export class ProductController {
     }
   }
 
-  deleteProduct = async (req, res) => {
+  desableProduct = async (req, res) => {
     try {
       const { name } = req.params
       const product = await Product.findOne({ where: { name } })
       product.set({ ...product, status: false })
       await product.save()
+      res.json({ msg: 'Product desabled' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
+  enableProduct = async (req, res) => {
+    try {
+      const { name } = req.params
+      const product = await Product.findOne({ where: { name } })
+      product.set({ ...product, status: true })
+      await product.save()
+      res.json({ msg: 'Product enabled' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
+  deleteProduct = async (req, res) => {
+    try {
+      const { id } = req.params
+      await Product.destroy({
+        where: {
+          id
+        }
+      })
       res.json({ msg: 'Product deleted' })
     } catch (error) {
       return res.status(500).json({ message: error.message })

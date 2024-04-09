@@ -29,9 +29,19 @@
             <img id="productImg" src="{{product.image}}">
 
             @if (role === 'administrator') {
+
+            @if (!product.status) {
+            <button type="button" class="btn btnEnable" (click)="enableProduct()">
+                Enable <fa-icon class="enableIcon btnIcon" [icon]="enableIcon"></fa-icon>
+            </button>
             <button type="button" class="btn btnDelete" (click)="deleteProduct()">
                 Delete <fa-icon class="deleteIcon btnIcon" [icon]="trashIcon"></fa-icon>
             </button>
+            } @else {
+            <button type="button" class="btn btnDelete" (click)="desableProduct()">
+                Disable <fa-icon class="deleteIcon btnIcon" [icon]="desableIcon"></fa-icon>
+            </button>
+            }
             <button type="button" class="btn" id="btnEdit" (click)="editProduct()">
                 Edit <fa-icon class="btnIcon" [icon]="editIcon"></fa-icon>
             </button>

@@ -27,8 +27,16 @@ export class ProductService {
     return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}/${name}`)
   }
 
-  deleteProduct(name: string): Observable<void> {
-    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${name}`)
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+  }
+
+  desableProduct(name: string): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/desable/${name}`)
+  }
+
+  enableProduct(name: string): Observable<any[]> {
+    return this.http.put<any[]>(`${this.myAppUrl}${this.myApiUrl}/enable/${name}`, null)
   }
 
   updateProduct(id: number, product: Product): Observable<Product[]> {

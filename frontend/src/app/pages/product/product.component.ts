@@ -8,7 +8,9 @@ import {
   faMobileScreenButton,
   faTabletScreenButton,
   faTrash,
-  faPenToSquare
+  faPenToSquare,
+  faCircleCheck,
+  faEyeSlash
 } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
@@ -36,6 +38,8 @@ export class ProductComponent {
   tablet = faTabletScreenButton
   trashIcon = faTrash
   editIcon = faPenToSquare
+  enableIcon = faCircleCheck
+  desableIcon = faEyeSlash
 
   role = localStorage.getItem('rol')
   showForm = false
@@ -113,18 +117,79 @@ export class ProductComponent {
     this.router.navigate([`/product/${this.productName}/edit`])
   }
 
-  deleteProduct() {
+  desableProduct() {
     const productName = document.getElementById('productName')?.textContent!
-    this._productService.deleteProduct(productName).subscribe(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Successful delete Product",
-        text: `Product ${productName} deleted!!`,
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate(['/'])
+    this._productService.desableProduct(productName).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Product desabled sucessfully",
+          text: `Product ${this.product.name} desabled!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/'])
+      },
+      error: (e: HttpErrorResponse) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error desabling product",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     })
+  }
+
+  enableProduct() {
+    const productName = document.getElementById('productName')?.textContent!
+    this._productService.enableProduct(productName).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Product enabled sucessfully",
+          text: `Product ${this.product.name} enabled!!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/'])
+      },
+      error: (e: HttpErrorResponse) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error enabling product",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    })
+  }
+
+  deleteProduct() {
+
+    Swal.fire({
+      title: "Are you sure to remove the product?",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._productService.deleteProduct(this.product.id!).subscribe({
+          next: () => {
+            Swal.fire("Product Deleted!", "", "success");
+            this.router.navigate(['/'])
+          },
+          error: (e: HttpErrorResponse) => {
+            Swal.fire({
+              icon: "error",
+              title: "Error Deleting product",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        })
+      }
+    });
+
   }
 
   showCategory(catName: string) {
