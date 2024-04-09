@@ -14,6 +14,7 @@ import { Category, Platform } from '../../interfaces/category';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product';
 import { switchAll } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-form',
@@ -193,19 +194,43 @@ export class ProductFormComponent {
     if (this.action === 'Add new') {
       this._productService.createProduct(product).subscribe({
         next: () => {
-          alert("Product created sucessfully")
+          Swal.fire({
+            icon: "success",
+            title: "Successful create Product",
+            text: `Category ${product.name} !!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          alert("error creating product")
+          Swal.fire({
+            icon: "error",
+            title: "error creating product",
+            text: `Product ${product.name} has not been created!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       })
     } else {
       this._productService.updateProduct(this.productId, product).subscribe({
         next: () => {
-          alert("Product updated sucessfully")
+          Swal.fire({
+            icon: "success",
+            title: "Successful update product",
+            text: `Product ${product.name} updated!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          alert("error updating product")
+          Swal.fire({
+            icon: "error",
+            title: "error updating product",
+            text: `Product ${product.name} has not been updated!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       })
     }

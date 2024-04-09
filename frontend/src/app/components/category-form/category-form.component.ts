@@ -66,10 +66,22 @@ export class CategoryFormComponent {
     if (this.pageTitle === 'Create Category') {
       this._categoryService.createCategory(category).subscribe({
         next: () => {
-          alert("Product created sucessfully")
+          Swal.fire({
+            icon: "success",
+            title: "Successful create Category",
+            text: `Category ${category.name} created!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          alert("error creating product")
+          Swal.fire({
+            icon: "error",
+            title: "error creting category",
+            text: `Category ${category.name} has not been created!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       })
     } else {
@@ -84,7 +96,13 @@ export class CategoryFormComponent {
           });
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          alert("error updating category")
+          Swal.fire({
+            icon: "error",
+            title: "error updating category",
+            text: `Category ${category.name} has not been updated!!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
 
       })

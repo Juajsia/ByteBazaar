@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+
+
 .main {
     min-height: 100vh;
     display: flex;
@@ -37,4 +39,15 @@ img {
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 
+}
+
+@media screen and (max-width:1000px) {
+    .about-section {
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+
+    .main {
+        background-size: 100%;
+    }
 }
