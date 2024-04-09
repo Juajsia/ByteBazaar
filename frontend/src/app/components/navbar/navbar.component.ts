@@ -54,7 +54,7 @@ export class NavbarComponent {
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
-  constructor(private _cartService: CartService, private _cartProductService: CartProductService,private router: Router) {
+  constructor(private _cartService: CartService, private _cartProductService: CartProductService, private router: Router) {
 
   }
 
@@ -83,7 +83,7 @@ export class NavbarComponent {
     this.cartStatus = !this.cartStatus
   }
 
-  disableCartButton(){
+  disableCartButton() {
     return this.router.url === '/cart'
   }
 
@@ -99,11 +99,13 @@ export class NavbarComponent {
 
   getCartItems() {
     this._cartService.getCartItems(this.cartId).subscribe((res: Cart) => {
-      const {Products} = res
+      const { Products } = res
       this.cartItems = Products as Product[]
       this.subtotal = 0
-      this.cartItems?.map(prod=>{
-        this.subtotal += prod.price
+      this.cartItems?.map(prod => {
+        if (prod.status) {
+          this.subtotal += prod.price
+        }
       })
     })
   }
@@ -119,7 +121,7 @@ export class NavbarComponent {
     }
 
     this._cartProductService.deleteCartItem(cartProduct).subscribe({
-      next: ()=>{
+      next: () => {
         Swal.fire({
           icon: "success",
           title: "Product deleted sucessfully",
@@ -127,13 +129,13 @@ export class NavbarComponent {
           showConfirmButton: false,
           timer: 1500
         });
-        this.cartItems = this.cartItems.filter(x=>{
+        this.cartItems = this.cartItems.filter(x => {
           if (x.id !== cartProduct.ProductId)
-            return true          
+            return true
           this.subtotal -= x.price
           return false
         })
-      }, error: (e: HttpErrorResponse)=>{
+      }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
           title: "Error deleting product from cart",

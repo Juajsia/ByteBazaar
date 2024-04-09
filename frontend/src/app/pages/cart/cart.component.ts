@@ -2,8 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
-import { 
-  faCartShopping, 
+import {
+  faCartShopping,
   faBagShopping,
   faTrash,
   faPlus,
@@ -51,18 +51,20 @@ export class CartComponent {
   }
 
   ngOnDestroy() {
-    if (this.changes){
+    if (this.changes) {
       this.updateItems()
     }
   }
 
   getItems() {
-      this._cartService.getCartItems(this.cartId).subscribe((res: Cart) => {
-        const {Products} = res
-        this.cartItems = Products as Product[]
-        this.cartItems?.map(prod=>{
+    this._cartService.getCartItems(this.cartId).subscribe((res: Cart) => {
+      const { Products } = res
+      this.cartItems = Products as Product[]
+      this.cartItems?.map(prod => {
+        if (prod.status) {
           this.summary.totProds += prod.price
-        })
+        }
+      })
     })
   }
 
@@ -73,7 +75,7 @@ export class CartComponent {
     }
 
     this._cartProductService.deleteCartItem(cartProduct).subscribe({
-      next: async ()=>{
+      next: async () => {
         await Swal.fire({
           icon: "success",
           title: "Product deleted sucessfully",
@@ -81,8 +83,8 @@ export class CartComponent {
           showConfirmButton: false,
           timer: 1500
         });
-        window.location.reload()  
-      }, error: (e: HttpErrorResponse)=>{
+        window.location.reload()
+      }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
           title: "Error deleting product from cart",
@@ -95,7 +97,7 @@ export class CartComponent {
   }
 
   updateItems() {
-    this.changeditems.forEach(itemIndex=>{
+    this.changeditems.forEach(itemIndex => {
       const cartProduct: CartProduct = {
         CartId: this.cartId,
         ProductId: this.cartItems[Number(itemIndex)].id!,
@@ -103,9 +105,9 @@ export class CartComponent {
       }
 
       this._cartProductService.updateCartItem(cartProduct).subscribe({
-        next: ()=>{
-          
-        }, error: (e: HttpErrorResponse)=>{
+        next: () => {
+
+        }, error: (e: HttpErrorResponse) => {
           console.log('error changing items quantity')
         }
       })
@@ -113,18 +115,28 @@ export class CartComponent {
     })
   }
 
-  buyProduct(prodIndex: number){
+  buyProduct(prodIndex: number) {
     this.createOrder([this.cartItems[prodIndex]])
   }
 
-  checkout(){
+  checkout() {
     let error = false
     let i = 0
     while (i < this.cartItems.length && !error) {
-      if (this.cartItems[i].stock === 0){
+      if (this.cartItems[i].stock === 0) {
         Swal.fire({
           icon: "error",
           title: `Product ${this.cartItems[i].name} does not have stock`,
+          text: `please delete it from your cart you want to checkout`,
+          showConfirmButton: false,
+          timer: 4000
+        });
+        error = true
+      }
+      if (!this.cartItems[i].status) {
+        Swal.fire({
+          icon: "error",
+          title: `Product ${this.cartItems[i].name} is not available`,
           text: `please delete it from your cart you want to checkout`,
           showConfirmButton: false,
           timer: 4000
@@ -142,7 +154,6 @@ export class CartComponent {
       clientId: Number(localStorage.getItem('cid')),
       Products: products
     }
-
     this._orderService.createOrder(order).subscribe({
       next: () => {
         Swal.fire({
@@ -151,6 +162,10 @@ export class CartComponent {
           text: `Successful purchase`,
           showConfirmButton: false,
           timer: 1500
+        }).then(() => {
+          this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
+            window.location.reload()
+          })
         });
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
@@ -164,15 +179,15 @@ export class CartComponent {
     })
   }
 
-  modifyQuantity(prodId: number, prodStock: number, op: boolean, itemIndex: number){
+  modifyQuantity(prodId: number, prodStock: number, op: boolean, itemIndex: number) {
     const minusBtn = document.getElementById(`minusBtn-${prodId}`)!
     const plusBtn = document.getElementById(`plusBtn-${prodId}`)!
     const quantityTag = document.getElementById(`quantityVal-${prodId}`)!
     let quantity = Number(quantityTag?.textContent)
 
-    if (op){
+    if (op) {
       minusBtn?.classList.remove('disabled')
-      if (quantity !== prodStock){
+      if (quantity !== prodStock) {
         if (quantity + 1 === prodStock)
           plusBtn.classList.add('disabled')
         else
@@ -181,7 +196,7 @@ export class CartComponent {
       }
     } else {
       plusBtn?.classList.remove('disabled')
-      if (quantity !== 1){
+      if (quantity !== 1) {
         if (quantity - 1 === 1)
           minusBtn.classList.add('disabled')
         else
@@ -190,7 +205,7 @@ export class CartComponent {
       }
     }
     quantityTag.textContent = String(quantity)
-    this.cartItems[itemIndex].CartProduct!.quantity = quantity 
+    this.cartItems[itemIndex].CartProduct!.quantity = quantity
     this.changes = true
     this.changeditems.add(itemIndex)
   }

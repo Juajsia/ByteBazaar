@@ -32,25 +32,25 @@ First connect with postgres user or another user with superuser privileges, then
 
 the user name is "ByteBazaar", in Definition put the password "1234" and configure the privileges.
 
-![ByteBazaar User](https://cdn.discordapp.com/attachments/1037567655424569344/1226744517621977240/image.png?ex=6625e1dc&is=66136cdc&hm=9fb0a5cb11f1e0eccfed60eb9639bec04418cffb0e47b1b468e635b70a05d909&)
+![ByteBazaar User](https://cdn.discordapp.com/attachments/1037567655424569344/1227017339954921513/image.png?ex=6626dff2&is=66146af2&hm=4fd72eb7ccb04d363fcde06d8d161b3f66b30ab0603f5df309228b86ebef7d8c&)
 
-![user Privileges](https://cdn.discordapp.com/attachments/1037567655424569344/1226744717446873109/image.png?ex=6625e20c&is=66136d0c&hm=807e7e9bc690dcf27d658356c0feb44535ee6e4258dc9b1df6125f8afd28ba3d&)
+![user Privileges](https://cdn.discordapp.com/attachments/1037567655424569344/1227017408871665775/image.png?ex=6626e003&is=66146b03&hm=624d3a076844e8a94aba883fc4bab986fc9793917e794fcf3f8e78904d7ae11d&)
 
 once the user has been created, proceed to register a new server wiht the name "ByteBazaar"
 
 ![new server](https://cdn.discordapp.com/attachments/1037567655424569344/1226745562208927794/image.png?ex=6625e2d5&is=66136dd5&hm=bda080d1a89b9713752b625a52e21cd284075252b7c82d7080686457395ffaa1&)
 
-![Register - Server](https://cdn.discordapp.com/attachments/1037567655424569344/1226745788953137152/image.png?ex=6625e30b&is=66136e0b&hm=688f327b8f589892057a4df548036cd1f13d91df0e8a90b00f876f982784b9ae&)
+![Register - Server](https://cdn.discordapp.com/attachments/1037567655424569344/1227018162654941225/image.png?ex=6626e0b6&is=66146bb6&hm=6fe9c09f642e3186f7e40682e0a53111ea1002aa11807f05fc4aa369f6bc6196&)
 
 In connection configure the hostname, in unsername place the user previously created and the password
 
-![connection](https://cdn.discordapp.com/attachments/1037567655424569344/1226747097877975080/image.png?ex=6625e443&is=66136f43&hm=1b7fb3fdd9e7e22920f68466b069787eb08780fbfa98f6828589a0267a8cd63e&)
+![connection](https://cdn.discordapp.com/attachments/1037567655424569344/1227018216065466521/image.png?ex=6626e0c3&is=66146bc3&hm=efbe0c4445aadc2dd030dbca2368862476a444c10e81cd53bf2c7c7badfa15a2&)
 
 Finally, proceed to create a new database with the name "bytebazaarDB" in the newly created server instance
 
 ![create DB](https://cdn.discordapp.com/attachments/1037567655424569344/1226747124151226428/image.png?ex=6625e44a&is=66136f4a&hm=a073ca712996d440a775d3dc2738f51b441568b388687f92abf741fe407744b4&)
 
-![create DB bytebazaarDB](https://cdn.discordapp.com/attachments/1037567655424569344/1226747479744184402/image.png?ex=6625e49f&is=66136f9f&hm=bfc842bba6417e7b5e20f713308a9a27e678c9a1482d94f032047009641ac58c&)
+![create DB bytebazaarDB](https://cdn.discordapp.com/attachments/1037567655424569344/1227018940404863026/image.png?ex=6626e170&is=66146c70&hm=cd7fce12c181e293c15f5bf322b8c6f25f6ff00806d8ef36bd9231295e3a985d&)
 
 ---
 

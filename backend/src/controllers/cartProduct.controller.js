@@ -48,6 +48,16 @@ export class CartProductController {
     }
   }
 
+  clearCartProduct = async (req, res) => {
+    try {
+      const { CartId } = req.params
+      await CartProduct.destroy({ where: { CartId } })
+      res.json({ msg: 'Cart now is clear' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
   updateCartProduct = async (req, res) => {
     try {
       const { CartId, ProductId } = req.params

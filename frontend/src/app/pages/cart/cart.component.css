@@ -248,6 +248,21 @@ p {
     align-self: center;
 }
 
+.disable {
+    position: relative;
+    background-color: #70767e73;
+    backdrop-filter: blur(5px);
+}
+
+.disable-text {
+    position: absolute;
+    color: #ff5555;
+    font-weight: bold;
+    bottom: 6px;
+    right: 10px;
+    font-size: large;
+}
+
 @media (width <=1201px) {
     .summary {
         position: static;

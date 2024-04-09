@@ -280,7 +280,7 @@ a:hover {
 }
 
 .lateralCart {
-    z-index: 11;
+    z-index: 12;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -397,4 +397,16 @@ a:hover {
 .productImg:hover,
 .prName:hover {
     cursor: pointer;
+}
+
+.disable {
+    position: relative;
+    background-color: #70767e73;
+    backdrop-filter: blur(5px);
+}
+
+.disable-text {
+    color: #ff5555;
+    font-weight: bold;
+    font-size: large;
 }

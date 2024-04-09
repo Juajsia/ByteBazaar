@@ -23,6 +23,10 @@ export class CartProductService {
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${cartProduct.CartId}/${cartProduct.ProductId}`)
   }
 
+  clearCartItem(CartId: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${CartId}`)
+  }
+
   updateCartItem(cartProduct: CartProduct): Observable<CartProduct[]> {
     return this.http.put<CartProduct[]>(`${this.myAppUrl}${this.myApiUrl}/${cartProduct.CartId}/${cartProduct.ProductId}`, cartProduct)
   }

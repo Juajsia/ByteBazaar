@@ -81,7 +81,7 @@ select {
     right: 2rem;
     width: 4rem;
     height: 4rem;
-    z-index: 20;
+    z-index: 11;
 }
 
 .chatbox-toggle {

@@ -9,3 +9,4 @@ cartProductRouter.post('/api/cartProduct', cartProductController.createCartProdu
 cartProductRouter.get('/api/cartProduct/:CartId/:ProductId', cartProductController.getCartProduct)
 cartProductRouter.put('/api/cartProduct/:CartId/:ProductId', cartProductController.updateCartProduct)
 cartProductRouter.delete('/api/cartProduct/:CartId/:ProductId', cartProductController.deleteCartProduct)
+cartProductRouter.delete('/api/cartProduct/:CartId', cartProductController.clearCartProduct)

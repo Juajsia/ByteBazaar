@@ -5,6 +5,7 @@
             <h1>Shopping Cart</h1>
             <ul class="itemsList">
                 @for (item of cartItems; track item.id) {
+                @if (item.status) {
                 <li class="cartItem">
                     <img class="productImg" src="{{item.image}}" (click)="goToProduct(item.name!)">
                     <section class="productInfo">
@@ -50,6 +51,22 @@
                     </section>
                     <p class="price"><b>${{item.price}}</b></p>
                 </li>
+                } @else {
+                <li class="cartItem disable">
+                    <p class="disable-text">This product is not available at the moment</p>
+                    <img class="productImg" src="{{item.image}}">
+                    <section class="productInfo">
+                        <p class="productName" (click)="goToProduct(item.name!)"><b>{{item.name}}</b></p>
+                        <p class="provider"><b>Provider:</b> {{item.provider}}</p>
+                    </section>
+                    <section class="actions">
+                        <button type="button" class="btn btnDelete" (click)="deleteItem(item.id!)">
+                            Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
+                        </button>
+                    </section>
+                    <p class="price"><b>${{item.price}}</b></p>
+                </li>
+                }
                 } @empty {There are no items added to your cart}
             </ul>
         </article>

@@ -81,6 +81,7 @@
       </button>
     </article>
     @for (item of cartItems; track item.id) {
+    @if (item.status) {
     <article class="cartArticle cartItem">
       <img class="productImg" src="{{item.image}}" (click)="goToProduct(item.name)" />
       <p class="text prName" (click)="goToProduct(item.name)">
@@ -94,6 +95,21 @@
         </button>
       </div>
     </article>
+    } @else {
+    <article class="cartArticle cartItem disable">
+      <img class="productImg" src="{{item.image}}" />
+      <p class="text prName">
+        <b>{{item.name}}</b>
+      </p>
+      <p class="CartText">${{item.price}}</p>
+      <div>
+        <p class="disable-text">Disabled</p>
+        <button type="button" class="btnDelete" (click)="deleteItem(item.id!)">
+          <fa-icon class="btnIcon" [icon]="trashIcon"></fa-icon>
+        </button>
+      </div>
+    </article>
+    }
     } @empty {There are no items <br> added to your cart}
   </aside>
   } @if (rol === 'client' || rol === null) {
