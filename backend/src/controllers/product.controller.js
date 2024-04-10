@@ -2,6 +2,8 @@ import { Product } from '../models/product.model.js'
 import { Category } from '../models/category.model.js'
 import { ProductCategory } from '../models/productCategory.model.js'
 
+import { Op } from 'sequelize'
+
 export class ProductController {
   getAllProducts = async (req, res) => {
     try {
@@ -18,9 +20,8 @@ export class ProductController {
 
   createProduct = async (req, res) => {
     try {
-      let { name } = req.body
-      name = name.toLowerCase()
-      const product = await Product.findOne({ where: { name } })
+      const { name } = req.body
+      const product = await Product.findOne({ where: { name: { [Op.iLike]: name } } })
       if (!product) {
         const { categories } = req.body
         const cats = []
@@ -58,9 +59,8 @@ export class ProductController {
   getProduct = async (req, res) => {
     try {
       const { name } = req.params
-      const nameFormatted = name.toLowerCase()
       const product = await Product.findOne({
-        where: { name: nameFormatted },
+        where: { name: { [Op.iLike]: name } },
         include: Category
       })
       if (product) {

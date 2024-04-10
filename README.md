@@ -1,6 +1,27 @@
 # ByteBazaar
 
-Software construction project midterm assessment
+## Description
+ByteBazaar is an e-commerce platform, specialized in the distribution of software products. ByteBazaar aims to provide a seamless experience for users to discover and purchase a variety of software offerings.
+
+## Dates
+- Analysis: february 16, 2024
+- Design: february 23, 2024
+- Construction: from february 23, 2024 to april 10, 2024
+
+## Purpose / Focus
+This project was developed in an academic context as a project for the software construction course at Politécnico Colombiano Jaime Isaza Cadavid University
+
+## Functionalities
+- Sign up
+- Log in
+- See software products
+- Add products to a shopping cart
+- Buy individuals products or buy all of the cart items
+- Create products and categories
+- Delete products and categories
+- Update products and categories
+- Chat with a sales agents
+
 
 # Instructions for Use
 
@@ -76,7 +97,7 @@ http://localhost:4200/
 - Juan José Estrada Vélez
 - Isac Cortés buitrago
 
-# contact
+# Contact
 
 If required. You can contact us by email at:
 
