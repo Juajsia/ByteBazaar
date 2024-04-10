@@ -94,10 +94,10 @@ If you like to experiment with all the functionalities, you can use the users al
 
 - **Administrator:**
   - Email: admin@bytebazaar.com
-  - Password: P@ssw0rd
+  - Pw: P@ssw0rd
 - **Sales Agent:**
   - Email: salesagent@bytebazaar.com
-  - Password: Pqssw0rd
+  - Pw: P@ssw0rd
 
 To experience the experience as a regular user, you can browse the application freely or register as a new customer.
 

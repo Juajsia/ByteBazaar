@@ -9,6 +9,7 @@ import { Category, Platform } from '../../interfaces/category';
 import { NgStyle } from '@angular/common';
 import { CategoryFormComponent } from '../../components/category-form/category-form.component';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-categories',
@@ -77,17 +78,37 @@ export class CategoriesComponent {
   seeApps(catId: number) {
     this.router.navigate([`/products/${catId}`])
   }
-  deleteCategory(id: number) {
-    this._categoryService.deleteCategory(id).subscribe(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Successful delete Category",
-        text: `Category ${CategoryFormComponent.name} deleted!!`,
-        showConfirmButton: false,
-        timer: 1500
-      })
-      window.location.reload()
-    })
+
+  deleteCategory(id: number, name: string) {
+    Swal.fire({
+      title: "Are you sure to remove the Category?",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._categoryService.deleteCategory(id).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: "success",
+              title: "Successful delete Category",
+              text: `Category ${name} deleted!!`,
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              window.location.reload()
+            })
+          },
+          error: (e: HttpErrorResponse) => {
+            Swal.fire({
+              icon: "error",
+              title: "Error Deleting Category",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        })
+      }
+    });
   }
   editCategory(id: number) {
     this.router.navigate([`/categories/edit/${id}`])

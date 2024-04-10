@@ -8,11 +8,12 @@ import { CategoryService } from '../../services/category.service';
 import { Product } from '../../interfaces/product';
 import { Category } from '../../interfaces/category';
 import { ProductService } from '../../services/product.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent],
+  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -25,8 +26,11 @@ export class ProductsComponent {
   showForm = false
   catId = 0
   productsList: Product[] = []
+  copyProductsList: Product[] = []
   prodCatsList: string[] = []
   category = {} as Category
+
+  isChecked: boolean = false;
 
   constructor(private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.catId = Number(this.aRouter.snapshot.paramMap.get('catId')!)
@@ -65,4 +69,28 @@ export class ProductsComponent {
   showProduct(prodName: any) {
     this.router.navigate([`/product/${prodName}`])
   }
+
+  switchInstockCheck() {
+    if (this.isChecked) {
+      this.filterProductsFromStock()
+    } else {
+      window.location.reload()
+    }
+  }
+
+  filterProductsFromStock() {
+    let i = 0
+    const productsInStock: Product[] = []
+    const productCatsInStock: string[] = []
+    while (i < this.productsList.length) {
+      if (this.productsList[i].stock != 0) {
+        productsInStock.push(this.productsList[i])
+        productCatsInStock.push(this.prodCatsList[i])
+      }
+      i++
+    }
+    this.productsList = productsInStock
+    this.prodCatsList = productCatsInStock
+  }
+
 }

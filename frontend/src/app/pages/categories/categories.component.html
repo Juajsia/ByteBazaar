@@ -24,7 +24,7 @@
       @if (rol === 'administrator') {
       <div class="icons">
         @if(item.id! > 3){
-        <a class="delIcon" (click)="deleteCategory(item.id!)"><fa-icon [icon]="deleteIcon"></fa-icon></a>
+        <a class="delIcon" (click)="deleteCategory(item.id!, item.name!)"><fa-icon [icon]="deleteIcon"></fa-icon></a>
         }
         <a class="edIcon" (click)="editCategory(item.id!)"><fa-icon [icon]="editIcon"></fa-icon></a>
       </div>

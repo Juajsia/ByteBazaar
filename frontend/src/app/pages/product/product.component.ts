@@ -166,7 +166,6 @@ export class ProductComponent {
   }
 
   deleteProduct() {
-
     Swal.fire({
       title: "Are you sure to remove the product?",
       showCancelButton: true,
@@ -189,7 +188,6 @@ export class ProductComponent {
         })
       }
     });
-
   }
 
   showCategory(catName: string) {
