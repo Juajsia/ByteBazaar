@@ -1,10 +1,12 @@
 import { Router } from 'express'
 
 import { OrderController } from '../controllers/order.controller.js'
+import { validateRolToken, validateToken } from '../middleware/validateToken.js'
+
 const orderController = new OrderController()
 export const orderRouters = Router()
 
-orderRouters.get('/api/order', orderController.getAllOrder)
-orderRouters.post('/api/order', orderController.createOrder)
-orderRouters.get('/api/order/:id', orderController.getOrder)
-orderRouters.delete('/api/order/:id', orderController.deleteOrder)
+orderRouters.get('/api/order', validateToken, validateRolToken(['client']), orderController.getAllOrder)
+orderRouters.post('/api/order', validateToken, validateRolToken(['client']), orderController.createOrder)
+orderRouters.get('/api/order/:id', validateToken, validateRolToken(['client']), orderController.getOrder)
+orderRouters.delete('/api/order/:id', validateToken, validateRolToken(['client']), orderController.deleteOrder)

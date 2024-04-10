@@ -11,12 +11,41 @@
       <p>{{category.description}}</p>
     </section>
     <section class="filters">
-      <button>
-        Filter <span><fa-icon [icon]="filterCaret"></fa-icon></span>
-      </button>
-      <button>
-        Sort by <span><fa-icon [icon]="filterCaret"></fa-icon></span>
-      </button>
+
+      <div class="drop-down">
+        <div class="inner-content">Filter
+          <span class="material-icons icon"><fa-icon [icon]="filterCaret"></fa-icon></span>
+        </div>
+        <ul class="drop-down-list">
+          <li class="drop-down-item">
+            <form>
+              <label>In stock <input name="stockCheck" type="checkbox" [(ngModel)]="isChecked"
+                  (ngModelChange)="switchInstockCheck()"></label>
+            </form>
+          </li>
+        </ul>
+      </div>
+
+      <div class="drop-down">
+        <div class="inner-content">Sort by
+          <span class="material-icons icon"><fa-icon [icon]="filterCaret"></fa-icon></span>
+        </div>
+        <ul class="drop-down-list">
+          <li class="drop-down-item">
+            <p>Lower Price</p>
+          </li>
+          <li class="drop-down-item">
+            <p>higher Price</p>
+          </li>
+          <li class="drop-down-item">
+            <p>A-Z</p>
+          </li>
+          <li class="drop-down-item">
+            <p>Z-A</p>
+          </li>
+        </ul>
+      </div>
+
     </section>
   </article>
 
