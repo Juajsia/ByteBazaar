@@ -67,7 +67,11 @@
         <p class="title">{{item.name}}</p>
         <p class="cats">{{prodCatsList[i]}}</p>
       </section>
-      <p class="price">{{item.price}}</p>
+      @if (item.price !== 0) {
+      <p class="price">${{item.price}}</p>
+      } @else {
+      <p class="price">Free</p>
+      }
     </article>
     } @else if (!item.status && rol === 'administrator') {
     <article class="disabled" (click)="showProduct(item.name)">
@@ -79,7 +83,11 @@
         <p class="title">{{item.name}}</p>
         <p class="cats">{{prodCatsList[i]}}</p>
       </section>
-      <p class="price">{{item.price}}</p>
+      @if (item.price !== 0) {
+      <p class="price">${{item.price}}</p>
+      } @else {
+      <p class="price">Free</p>
+      }
     </article>
     }
     } @empty {There are no items assigned to this category}

@@ -7,6 +7,7 @@ import { Client } from '../models/client.model.js'
 import { Administrator } from '../models/administrator.model.js'
 import { SalesAgent } from '../models/salesAgent.model.js'
 import { Cart } from '../models/cart.model.js'
+import { Op } from 'sequelize'
 
 export class Credentialcontroller {
   getAllCredentials = async (req, res) => {
@@ -84,7 +85,9 @@ export class Credentialcontroller {
       const { email, password } = req.body
       const cred = await Credential.findOne({
         where: {
-          email
+          email: {
+            [Op.iLike]: email
+          }
         }
       })
       if (!cred) {

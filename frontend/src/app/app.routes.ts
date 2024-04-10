@@ -44,7 +44,8 @@ export const routes: Routes = [{
 }, {
     title: 'Cart',
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'AboutUs',
     path: 'aboutUs',
@@ -52,19 +53,23 @@ export const routes: Routes = [{
 }, {
     title: 'CreateCategory',
     path: 'categories/create',
-    component: CategoriesComponent
+    component: CategoriesComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'EditCategory',
     path: 'categories/edit/:id',
-    component: CategoriesComponent
+    component: CategoriesComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'EditProduct',
     path: 'product/:name/edit',
-    component: ProductComponent
+    component: ProductComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'AddProduct',
     path: 'products/:catId/add',
-    component: ProductsComponent
+    component: ProductsComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'AgentChat',
     path: 'agentChat',
