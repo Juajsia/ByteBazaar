@@ -11,3 +11,4 @@ categoryRouters.post('/api/category', validateToken, validateRolToken(['administ
 categoryRouters.get('/api/category/:id', categoryController.getCategory)
 categoryRouters.put('/api/category/:id', validateToken, validateRolToken(['administrator']), categoryController.updateCategory)
 categoryRouters.delete('/api/category/:id', validateToken, validateRolToken(['administrator']), categoryController.deleteCategory)
+categoryRouters.get('/api/category/byName/:name', categoryController.getCategoryByName)

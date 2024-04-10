@@ -14,7 +14,8 @@ export interface Product {
     createdAt?: string,
     updatedAt?: string,
     CartProduct?: CartProduct,
-    quantity?: number
+    quantity?: number,
+    ordersnum?: string
 }
 
 export interface msg {
