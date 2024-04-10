@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <main>
+    <h1>Shopping Cart</h1>
     <div class="content">
         <article class="cartItems">
-            <h1>Shopping Cart</h1>
             <ul class="itemsList">
                 @for (item of cartItems; track item.id) {
                 @if (item.status) {

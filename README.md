@@ -59,7 +59,7 @@ Finally, proceed to create a new database with the name "bytebazaarDB" in the ne
 As the project is running in a local environment, it is required to manually synchronize the data used in the system, such as users, categories, products, etc.
 This action only needs to be performed once!
 
-1. First, in a terminal, located in the project's main folder, execute `npm install` to install all dependecies.
+1. First, in a terminal, located in the project's main folder, execute `npm install` to install all dependencies.
 
 2. Located in the project's main folder, execute `npm run sync` to synchronize all models in the database and insert all used data
 
@@ -67,4 +67,44 @@ This action only needs to be performed once!
 
 ### Start Project
 
-if you have already performed the previous steps, you can initialize the project by running `npm start` located in the project's main folder. then you can view the project with any browser by visiting http://localhost:4200/
+if you have already performed the previous steps, you can initialize the project by running `npm start` located in the project's main folder. then you can view the project with any browser by visiting
+http://localhost:4200/
+
+# Contributors
+
+- Juan Pablo Adams Parra
+- Juan José Estrada Vélez
+- Isac Cortés buitrago
+
+# contact
+
+If required. You can contact us by email at:
+
+- [juan_estrada82212@elpoli.edu.co](mailto:juan_estrada82212@elpoli.edu.co).
+- [juan_adams82212@elpoli.edu.co](mailto:juan_adams82212@elpoli.edu.co).
+- [isac_cortes82212@elpoli.edu.co](mailto:isac_cortes82212@elpoli.edu.co).
+
+# Project Utilization
+
+The Project has an integrated login system with different roles such as "Administrator" and "Sales Agent".
+
+![Login-Page](https://cdn.discordapp.com/attachments/1032514734899068978/1227343007641243658/image.png?ex=66280f3f&is=66159a3f&hm=1155987ee22c5e893ebd646da8a886ca6f939ddbd09f14b71c50dd234e7a84eb&)
+
+If you like to experiment with all the functionalities, you can use the users already integrated in the application.
+
+- **Administrator:**
+  - Email: admin@bytebazaar.com
+  - Password: P@ssw0rd
+- **Sales Agent:**
+  - Email: salesagent@bytebazaar.com
+  - Password: Pqssw0rd
+
+To experience the experience as a regular user, you can browse the application freely or register as a new customer.
+
+![Sing-up page](https://cdn.discordapp.com/attachments/1032514734899068978/1227344629540720721/image.png?ex=662810c2&is=66159bc2&hm=e07a2cf3f3dee3cd9d6068386acb9b7ac73844dd1c1560a81c6cdef8163b014e&)
+
+# References
+
+> [Source code](https://codepen.io/fajarnurwahid/pen/XWzPQZe) of chatbox adapted to the project by [Fajar Nur Wahid](https://www.youtube.com/@FajarStd)
+
+> [Source code](https://codepen.io/ThomasDaubenton/pen/QMqaBN) of chat page adapted to the project by [Thomas d'Aubenton](https://card.thomasdaubenton.com/)
