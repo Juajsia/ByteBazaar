@@ -41,13 +41,61 @@ img {
 
 }
 
-@media screen and (max-width:1000px) {
-    .about-section {
-        background-size: 100%;
-        padding: 100px 40px;
+@media screen and (max-width:1300px) {
+
+    .inner-container {
+        padding: 50px;
+        width: 90%;
+        margin-left: 200px;
     }
 
-    .main {
-        background-size: 100%;
+    img {
+        width: 400px;
+        height: 400px;
     }
+}
+
+@media screen and (max-width:900px) {
+
+    .inner-container {
+        padding: 40px;
+        width: 90%;
+        margin-left: 150px;
+    }
+
+    img {
+        width: 300px;
+        height: 300px;
+    }
+
+}
+
+@media screen and (max-width:650px) {
+    p {
+        font-size: 12px;
+    }
+
+    .inner-container {
+        padding: 20px;
+        width: 90%;
+        margin-left: 100px;
+    }
+
+    img {
+        width: 200px;
+        height: 200px;
+    }
+
+}
+
+@media screen and (max-width:450px) {
+    p {
+        font-size: 10px;
+    }
+
+    .inner-container {
+        padding: 10px;
+        margin-left: 70px;
+    }
+
 }
