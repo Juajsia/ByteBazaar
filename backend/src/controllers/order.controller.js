@@ -20,6 +20,7 @@ export class OrderController {
     try {
       const { Products } = req.body
       const items = []
+      console.log(req.body)
       const promise = Products.map(async (element) => {
         const item = await Product.findByPk(element.id)
         if (item.stock < element.CartProduct.quantity) {

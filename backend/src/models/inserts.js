@@ -136,7 +136,7 @@ export async function inserts () {
 
   const products = [
     {
-      name: 'microsoft office',
+      name: 'Microsoft Office',
       stock: 6,
       price: 119.99,
       description: 'Microsoft Office is a suite of applications designed to help with productivity and completing common tasks on a computer. You can create and edit documents containing text and images, work with data in spreadsheets and databases, and create presentations and posters.',
@@ -154,11 +154,11 @@ export async function inserts () {
       ]
     },
     {
-      name: 'adobe photoshop',
+      name: 'Adobe Photoshop',
       stock: 10,
       price: 69.99,
       description: 'With Adobe Photoshop you can design, create, and edit photos as your imagination commands.',
-      specs: 'wwwwwwwwwwwww: fvjohdg\n\n-jjjjjjjjjjjjj: odfvhidfb\n\n-ttttttttt: ofhvijv',
+      specs: 'With Photoshop and generative AI, you can create gorgeous photos, rich graphics, and incredible art. Now available for commercial use.',
       image: 'https://w7.pngwing.com/pngs/301/722/png-transparent-adobe-logo-logos-photoshop-logos-and-brands-icon-thumbnail.png',
       status: true,
       provider: 'Adobe',
@@ -169,7 +169,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'zoom',
+      name: 'Zoom',
       stock: 12,
       price: 0,
       description: `Start or join a secure meeting with flawless video and audio, instant screen sharing, and cross-platform instant messaging - for free! 
@@ -213,7 +213,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'nebo',
+      name: 'Nebo',
       stock: 2,
       price: 10.0,
       description: `Develop ideas and take free-form notes by combining handwriting, text, drawings, diagrams, and images on a zoomable canvas. Erase and modify content using pen gestures and convert handwriting and shapes into perfect typographic text and shapes.
@@ -259,7 +259,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'one calendar',
+      name: 'One Calendar',
       stock: 50,
       price: 6.0,
       description: `The most popular app to view all your calendars like Google, Live, Outlook, iCloud, Exchange, Office365, Yahoo, Nextcloud, Synology, GMX, Mailbox.org, ownCloud and more. OneCalendar integrates all your calendars into one easy and clear app . View and manage all your appointments, events and birthdays.
@@ -307,7 +307,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'brave browser',
+      name: 'Brave Browser',
       stock: 50,
       price: 6.0,
       description: `Brave Browser is a lightning fast, safe and private web browser that prevents you from being tracked and blocks ads by default (including YouTube ads).
@@ -351,7 +351,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'one note',
+      name: 'OneNote',
       stock: 50,
       price: 6.0,
       description: `OneNote is your digital notebook for capturing and organizing everything across your devices. Jot down your ideas, keep track of classroom and meeting notes, clip from the web, or make a to-do list, as well as draw and sketch your ideas. OneNote is the place for all of your notes!
@@ -396,7 +396,7 @@ export async function inserts () {
       ]
     },
     {
-      name: 'ever note',
+      name: 'Ever Note',
       stock: 50,
       price: 6.0,
       description: `Capture ideas when inspiration strikes. Bring your notes, to-dos, and schedule together to tame life’s distractions and accomplish more—at work, at home, and everywhere in between. 
@@ -442,9 +442,11 @@ export async function inserts () {
     }
   ]
 
+  console.log('aaaaaaaaaaaaaaaaaa')
+
   const productController = new ProductController()
-  products.forEach(prod => {
-    productController.createProduct({ body: prod }, {
+  products.forEach(async prod => {
+    await productController.createProduct({ body: prod }, {
       status (code) {
         return this
       },
