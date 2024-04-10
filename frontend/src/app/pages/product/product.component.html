@@ -17,7 +17,11 @@
                 }
             </div>
             <div id="lowerInfo">
+                @if (product.price !== 0) {
                 <p id="price">${{product.price}}</p>
+                } @else {
+                <p id="price">Free</p>
+                }
                 @if (role === 'client') {
                 <button type="button" class="btn">
                     Buy <fa-icon class="btnIcon" [icon]="bag"></fa-icon>

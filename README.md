@@ -1,17 +1,21 @@
 # ByteBazaar
 
 ## Description
+
 ByteBazaar is an e-commerce platform, specialized in the distribution of software products. ByteBazaar aims to provide a seamless experience for users to discover and purchase a variety of software offerings.
 
 ## Dates
+
 - Analysis: february 16, 2024
 - Design: february 23, 2024
 - Construction: from february 23, 2024 to april 10, 2024
 
 ## Purpose / Focus
+
 This project was developed in an academic context as a project for the software construction course at Politécnico Colombiano Jaime Isaza Cadavid University
 
 ## Functionalities
+
 - Sign up
 - Log in
 - See software products
@@ -21,7 +25,6 @@ This project was developed in an academic context as a project for the software 
 - Delete products and categories
 - Update products and categories
 - Chat with a sales agents
-
 
 # Instructions for Use
 
@@ -106,6 +109,10 @@ If required. You can contact us by email at:
 - [isac_cortes82212@elpoli.edu.co](mailto:isac_cortes82212@elpoli.edu.co).
 
 # Project Utilization
+
+Feel free to browse the application
+
+![Home Page](https://cdn.discordapp.com/attachments/1032514734899068978/1227623459652243467/image.png?ex=66291470&is=66169f70&hm=b74f2143c1d05a219de9053b1f7e87befc53c6a36271292043843c43f7e2f155&)
 
 The Project has an integrated login system with different roles such as "Administrator" and "Sales Agent".
 

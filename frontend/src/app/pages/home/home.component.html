@@ -19,7 +19,11 @@
           <p class="prname">{{item.name}}</p>
           <p class="prdetails">{{item.provider}} | {{item.categories}}
           </p>
+          @if (item.price !== 0) {
           <p class="price">${{item.price}}</p>
+          } @else {
+          <p class="price">Free</p>
+          }
         </div>
       </article>
       }
@@ -39,7 +43,11 @@
           <p class="prname">{{item.name}}</p>
           <p class="prdetails">{{item.provider}} | {{item.categories}}
           </p>
+          @if (item.price !== 0) {
           <p class="price">${{item.price}}</p>
+          } @else {
+          <p class="price">Free</p>
+          }
         </div>
       </article>
       }
@@ -59,7 +67,11 @@
           <p class="prname">{{item.name}}</p>
           <p class="prdetails">{{item.provider}} | {{item.categories}}
           </p>
+          @if (item.price !== 0) {
           <p class="price">${{item.price}}</p>
+          } @else {
+          <p class="price">Free</p>
+          }
         </div>
       </article>
       }
@@ -79,7 +91,11 @@
           <p class="prname">{{item.name}}</p>
           <p class="prdetails">{{item.provider}} | {{item.categories}}
           </p>
+          @if (item.price !== 0) {
           <p class="price">${{item.price}}</p>
+          } @else {
+          <p class="price">Free</p>
+          }
         </div>
       </article>
       }

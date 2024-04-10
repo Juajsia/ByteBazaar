@@ -313,16 +313,9 @@ export async function inserts () {
       description: `Brave Browser is a lightning fast, safe and private web browser that prevents you from being tracked and blocks ads by default (including YouTube ads).
 
       Quickly import bookmarks, extensions, even saved passwords. It is the best of your old browser, only safer. And it only takes a minute to switch and ditch Big Tech.
-      
+            
       Brave Search
-      Search the internet without being tracked by advertisers, malware and pop-ups.Totally private, and built off an independent search index, Brave Search is the real alternative to Google. 
-      Brave Search does not use secret methods or algorithms to bias or censor results. We rely on anonymous community contributions to refine results, and community-created alternative ranking models to ensure diversity.
-      
-      Brave Rewards
-      With your old web browser, you paid to browse the internet by viewing ads. Now, Brave welcomes you to the new internet. One where your time is valued, your personal data is kept private, and you actually get paid for your attention.
-      
-      
-      `,
+      Search the internet without being tracked by advertisers, malware and pop-ups.Totally private, and built off an independent search index, Brave Search is the real alternative to Google. `,
       specs: ` Privacy Protection
       Be protected with leading privacy and security features such as , script blocking, cookie blocking, and private incognito tabs. All other browsers fall short of the level of privacy and security protection that Brave provides.
       
