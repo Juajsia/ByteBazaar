@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartProduct } from '../interfaces/cart';
 import { Observable } from 'rxjs';
+import { Product } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class CartProductService {
 
   updateCartItem(cartProduct: CartProduct): Observable<CartProduct[]> {
     return this.http.put<CartProduct[]>(`${this.myAppUrl}${this.myApiUrl}/${cartProduct.CartId}/${cartProduct.ProductId}`, cartProduct)
+  }
+
+  getBestSellers(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}/bestSellers`)
   }
 }

@@ -33,4 +33,8 @@ export class CategoryService {
   getCategory(id: number): Observable<Category | any> {
     return this.http.get<Category | any>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
   }
+
+  getCategoryByName(name: string): Observable<Category | any> {
+    return this.http.get<Category | any>(`${this.myAppUrl}${this.myApiUrl}/byName/${name}`)
+  }
 }

@@ -53,9 +53,10 @@ export class CategoryController {
       const { name } = req.params
       const category = await Category.findOne({ where: { name } })
       if (category) {
-        res.json(category)
+        req.params = { name, id: category.id }
+        this.getCategory(req, res)
       } else {
-        res.status(404).json({ err: 'category not found' })
+        res.status(404).json({ err: 'category name not found' })
       }
     } catch (error) {
       return res.status(500).json({ message: error.message })

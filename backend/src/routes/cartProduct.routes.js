@@ -10,3 +10,4 @@ cartProductRouter.get('/api/cartProduct/:CartId/:ProductId', cartProductControll
 cartProductRouter.put('/api/cartProduct/:CartId/:ProductId', cartProductController.updateCartProduct)
 cartProductRouter.delete('/api/cartProduct/:CartId/:ProductId', cartProductController.deleteCartProduct)
 cartProductRouter.delete('/api/cartProduct/:CartId', cartProductController.clearCartProduct)
+cartProductRouter.get('/api/cartProduct/bestSellers', cartProductController.getBestSellers)
