@@ -11,9 +11,9 @@
       </h2>
 
       @for (item of bestSellers; track item.id) {
-      <article class="wrapper" [routerLink]="['/product']">
+      <article class="wrapper" (click)="openProduct(item.name)">
         <div class="product-img">
-          <img src="../../../assets\Logo.png" class="icon" />
+          <img src="{{item.image}}" class="icon" />
         </div>
         <div class="product-info">
           <p class="prname">{{item.name}}</p>
@@ -26,14 +26,14 @@
     </section>
 
     <section class="category">
-      <h2 class="catTitle">
+      <h2 class="catTitle" (click)="openCategory(Cat1.id!)">
         Computer <fa-icon class="icon" [icon]="arrow"></fa-icon>
       </h2>
 
       @for (item of prodsByCat1; track item.id) {
-      <article class="wrapper" [routerLink]="['/product']">
+      <article class="wrapper" (click)="openProduct(item.name)">
         <div class="product-img">
-          <img src="../../../assets\Logo.png" class="icon" />
+          <img src="{{item.image}}" class="icon" />
         </div>
         <div class="product-info">
           <p class="prname">{{item.name}}</p>
@@ -45,15 +45,15 @@
       }
     </section>
 
-    <section class="category">
+    <section class="category" (click)="openCategory(Cat2.id!)">
       <h2 class="catTitle">
         Smartphone <fa-icon class="icon" [icon]="arrow"></fa-icon>
       </h2>
 
       @for (item of prodsByCat2; track item.id) {
-      <article class="wrapper" [routerLink]="['/product']">
+      <article class="wrapper" (click)="openProduct(item.name)">
         <div class="product-img">
-          <img src="../../../assets\Logo.png" class="icon" />
+          <img src="{{item.image}}" class="icon" />
         </div>
         <div class="product-info">
           <p class="prname">{{item.name}}</p>
@@ -66,14 +66,14 @@
     </section>
 
     <section class="category">
-      <h2 class="catTitle">
+      <h2 class="catTitle" (click)="openCategory(Cat3.id!)">
         Tablet <fa-icon class="icon" [icon]="arrow"></fa-icon>
       </h2>
 
       @for (item of prodsByCat3; track item.id) {
-      <article class="wrapper" [routerLink]="['/product']">
+      <article class="wrapper" (click)="openProduct(item.name)">
         <div class="product-img">
-          <img src="../../../assets\Logo.png" class="icon" />
+          <img src="{{item.image}}" class="icon" />
         </div>
         <div class="product-info">
           <p class="prname">{{item.name}}</p>

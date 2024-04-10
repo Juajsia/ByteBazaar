@@ -8,6 +8,7 @@ import { CategoryService } from '../../services/category.service';
 import { Product } from '../../interfaces/product';
 import { Category } from '../../interfaces/category';
 import { ProductService } from '../../services/product.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
