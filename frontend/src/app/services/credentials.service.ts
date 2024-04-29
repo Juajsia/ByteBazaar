@@ -18,7 +18,15 @@ export class CredentialsService {
     return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/login`, user)
   }
 
-  createCred(Cred: Credential): Observable<Credential[]>{
+  findEmail(email: string): Observable<any> {
+    return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/change`, { email })
+  }
+
+  updatePassword(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/password`, { email, password })
+  }
+
+  createCred(Cred: Credential): Observable<Credential[]> {
     return this.http.post<Credential[]>(`${this.myAppUrl}${this.myApiUrl}/`, Cred)
-   }
+  }
 }

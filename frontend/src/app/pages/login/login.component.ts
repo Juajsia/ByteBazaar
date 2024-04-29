@@ -17,6 +17,8 @@ export class LoginComponent {
   email: string = ''
   password: string = ''
   error: string = ''
+  error1: string = ''
+  error2: string = ''
   constructor(private _credentialService: CredentialsService, private router: Router) {
   }
 
@@ -33,10 +35,13 @@ export class LoginComponent {
           this.router.navigate([''])
         },
         error: (e: HttpErrorResponse) => {
-          this.error = 'Invalid email or password'
+          if (e.error.err) {
+            this.error2 = e.error.err
+          }
           Swal.fire({
             icon: "error",
             title: "Invalid email or password",
+            text: this.error2,
             showConfirmButton: false,
             timer: 1500
           });
@@ -51,11 +56,40 @@ export class LoginComponent {
       this.error = 'Please check all fields'
       return false
     }
-    const validPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(this.email)) {
+      this.error = 'Please enter a valid Email'
+      return false
+    }
+
+    const validPassword = /^(?=.*[A-Z])(?=.*[\W_]+).{8,}$/
     if (!validPassword.test(this.password)) {
-      this.error = 'Please enter a valid password'
+      this.error1 = 'Please enter a valid password'
       return false
     }
     return true
+  }
+
+  validPassword() {
+    setTimeout(() => {
+      const validPassword = /^(?=.*[A-Z])(?=.*[\W_]+).{8,}$/
+      if (!validPassword.test(this.password)) {
+        this.error1 = 'Please enter a valid password'
+      } else {
+        this.error1 = ''
+      }
+    }, 500);
+  }
+
+  validEmail() {
+    setTimeout(() => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(this.email)) {
+        this.error = 'Please enter a valid Email'
+      } else {
+        this.error = ''
+      }
+    }, 500)
   }
 }
