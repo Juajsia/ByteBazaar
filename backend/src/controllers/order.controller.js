@@ -24,12 +24,12 @@ export class OrderController {
       const promise = Products.map(async (element) => {
         const item = await Product.findByPk(element.id)
         if (item.stock < element.CartProduct.quantity) {
-          items.push({ msg: 'product: ' + item.name + ' does not have enough stock' })
+          items.push({ msg: 'Product: ' + item.name + ' does not have enough stock' })
         }
       })
       await Promise.all(promise)
       if (items.length > 0) {
-        return res.status(400).json(items)
+        return res.status(400).json({ message: 'Order declined', text: items.pop() + ', This product does not have the requested quantity ', forUser: true })
       }
       const { clientId } = req.body
       const newOrder = await Order.create({ clientId })
@@ -42,7 +42,7 @@ export class OrderController {
 
       return res.status(201).json({ newOrder, Products })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 

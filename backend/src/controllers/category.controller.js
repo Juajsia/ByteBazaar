@@ -1,3 +1,4 @@
+import { Op } from 'sequelize'
 import { Category } from '../models/category.model.js'
 import { Product } from '../models/product.model.js'
 import '../models/productCategory.model.js'
@@ -19,14 +20,14 @@ export class CategoryController {
   createCategory = async (req, res) => {
     try {
       const { name, description } = req.body
-      const category = await Category.findOne({ where: { name } })
+      const category = await Category.findOne({ where: { name: { [Op.iLike]: name } } })
       if (!category) {
         const newCategory = await Category.create({ name, description })
         return res.status(201).json(newCategory)
       }
-      return res.status(400).json({ msg: 'Category already exists' })
+      return res.status(400).json({ message: 'Category already exists', text: 'You should create a new category because this one already exists', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 

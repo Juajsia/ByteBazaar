@@ -75,13 +75,23 @@ export class CategoryFormComponent {
           })
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          Swal.fire({
-            icon: "error",
-            title: "error creting category",
-            text: `Category ${category.name} has not been created!!`,
-            showConfirmButton: false,
-            timer: 1500
-          })
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });  
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error creating category",
+              text: `Check the form fields and try later`,
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         }
       })
     } else {

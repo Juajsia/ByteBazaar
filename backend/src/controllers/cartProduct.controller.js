@@ -20,9 +20,9 @@ export class CartProductController {
         const newCartProduct = await CartProduct.create(req.body)
         return res.status(201).json(newCartProduct)
       }
-      return res.status(400).json({ msg: 'Cart Item already exist' })
+      return res.status(400).json({ message: 'This product is already added to your cart', text: 'go to your cart to see your added products', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -43,10 +43,13 @@ export class CartProductController {
   deleteCartProduct = async (req, res) => {
     try {
       const { CartId, ProductId } = req.params
-      await CartProduct.destroy({ where: { CartId, ProductId } })
-      res.json({ msg: 'Cart Item deleted' })
+      const cartProduct = await CartProduct.destroy({ where: { CartId, ProductId } })
+      if (cartProduct) {
+        return res.status(200).json({ message: 'Cart Item deleted' })
+      }
+      return res.status(404).json({ message: 'Error deleting cart item', text: 'The item you are trying to delete does not exists in your cart', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -65,13 +68,13 @@ export class CartProductController {
       const { CartId, ProductId } = req.params
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
       if (!cartProduct) {
-        return res.status(404).json({ err: 'Cart Item does not exist' })
+        return res.status(404).json({ message: 'Error updating cart item', text: 'The item you are trying to update does not exists in your cart', forUser: true })
       }
       cartProduct.set(req.body)
       await cartProduct.save()
       res.status(202).json(cartProduct)
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 

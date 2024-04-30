@@ -103,12 +103,23 @@ export class ProductComponent {
           timer: 1500
         });
       }, error: (e: HttpErrorResponse) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error Adding product",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "info",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error Adding product to your cart",
+            text: "Product could not be added to your cart, try again later",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
       }
     })
   }
@@ -124,7 +135,7 @@ export class ProductComponent {
         Swal.fire({
           icon: "success",
           title: "Product desabled sucessfully",
-          text: `Product ${this.product.name} desabled!!`,
+          text: `Product ${this.product.name} was desabled!!`,
           showConfirmButton: false,
           timer: 1500
         });
@@ -133,7 +144,7 @@ export class ProductComponent {
       error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
-          title: "Error desabling product",
+          title: "Error disabling product",
           showConfirmButton: false,
           timer: 1500
         });
@@ -178,12 +189,23 @@ export class ProductComponent {
             this.router.navigate(['/'])
           },
           error: (e: HttpErrorResponse) => {
-            Swal.fire({
-              icon: "error",
-              title: "Error Deleting product",
-              showConfirmButton: false,
-              timer: 1500
-            });
+            if(e.error.forUser){
+              Swal.fire({
+                icon: "error",
+                title: e.error.message,
+                text: e.error.text,
+                showConfirmButton: false,
+                timer: 2000
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error Deleting product",
+                text: "product could not be deleted, try again later",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
           }
         })
       }

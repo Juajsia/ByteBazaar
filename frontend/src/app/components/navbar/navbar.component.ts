@@ -49,7 +49,7 @@ export class NavbarComponent {
   cartStatus = false
   cartId = Number(localStorage.getItem('cart'))
   cartItems: Product[] = []
-  subtotal = 0
+  subtotal: number = 0
 
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
@@ -87,13 +87,19 @@ export class NavbarComponent {
     return this.router.url === '/cart'
   }
 
-  logOut() {
+  async logOut() {
     this.loginStatus = false
     this.rol = ''
     localStorage.removeItem('token')
     localStorage.removeItem('rol')
     localStorage.removeItem('cart')
     localStorage.removeItem('cid')
+    await Swal.fire({
+      icon: "success",
+      title: "Successful logout",
+      showConfirmButton: false,
+      timer: 1500
+    });
     this.router.navigate([''])
   }
 
@@ -133,15 +139,27 @@ export class NavbarComponent {
           if (x.id !== cartProduct.ProductId)
             return true
           this.subtotal -= x.price
+          this.subtotal = Number(this.subtotal.toFixed(2))
           return false
         })
       }, error: (e: HttpErrorResponse) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error deleting product from cart",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "error",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error deleting product from cart",
+            text: `Item could not be deleted from your cart, try again later`,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
       }
     }
     )

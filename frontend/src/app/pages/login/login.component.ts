@@ -16,7 +16,6 @@ import Swal from 'sweetalert2'
 export class LoginComponent {
   email: string = ''
   password: string = ''
-  error: string = ''
   constructor(private _credentialService: CredentialsService, private router: Router) {
   }
 
@@ -33,12 +32,12 @@ export class LoginComponent {
           this.router.navigate([''])
         },
         error: (e: HttpErrorResponse) => {
-          this.error = 'Invalid email or password'
           Swal.fire({
             icon: "error",
-            title: "Invalid email or password",
+            title: "Email or password invalid",
+            text: "Cannot log in. Check the fields and try again",
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
           });
         }
       })
@@ -48,12 +47,25 @@ export class LoginComponent {
 
   validateForm() {
     if (!this.email || !this.password) {
-      this.error = 'Please check all fields'
+          Swal.fire({
+            icon: "warning",
+            title: "Please input all the required data",
+            text: "There are missing fields",
+            showConfirmButton: false,
+            timer: 2000
+          });
       return false
     }
     const validPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-    if (!validPassword.test(this.password)) {
-      this.error = 'Please enter a valid password'
+    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!validPassword.test(this.password) || !validEmail.test(this.email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Email or password invalid",
+        text: "Check if the form fields are correctly filled in",
+        showConfirmButton: false,
+        timer: 2000
+      });
       return false
     }
     return true

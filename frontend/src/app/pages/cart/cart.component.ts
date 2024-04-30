@@ -85,12 +85,23 @@ export class CartComponent {
         });
         window.location.reload()
       }, error: (e: HttpErrorResponse) => {
-        Swal.fire({
-          icon: "error",
-          title: "Error deleting product from cart",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "error",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error deleting product from cart",
+            text: `Item could not be deleted from your cart, try again later`,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
       }
     }
     )
@@ -108,7 +119,23 @@ export class CartComponent {
         next: () => {
 
         }, error: (e: HttpErrorResponse) => {
-          console.log('error changing items quantity')
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error updating product",
+              text: `Item could not be updated, try again later`,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
         }
       })
 
@@ -165,7 +192,7 @@ export class CartComponent {
         }).then(() => {
           if (products.length > 1){
             this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
-              window.location.reload()
+              this.router.navigate(['/'])
             })
           } else {
             const cartProduct: CartProduct = {
@@ -183,13 +210,23 @@ export class CartComponent {
           }
         });
       }, error: (e: HttpErrorResponse) => {
-        Swal.fire({
-          icon: "error",
-          title: `Error creating order`,
-          text: `something wrong happended, purchase was not completed`,
-          showConfirmButton: false,
-          timer: 4000
-        });
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "error",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 4000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: `Error creating order`,
+            text: `something wrong happended, purchase was not completed, try again later`,
+            showConfirmButton: false,
+            timer: 4000
+          });
+        }
       }
     })
   }
