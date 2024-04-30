@@ -4,11 +4,6 @@
     <h1 id="title">Log In</h1>
     <p>Input the information required below</p>
     <form id="form">
-<<<<<<< HEAD
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" />
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Password" />
-      <button type="button" (click)="login()">Log In</button>
-=======
       <input type="email" [(ngModel)]="email" name="email" (input)="validEmail()" placeholder="Email" />
       @if (error != '') {
       <p id="error" class="error">{{ error }}</p>
@@ -21,7 +16,6 @@
       @if (error2 != '') {
       <p id="error" class="error">{{ error2 }}</p>
       }
->>>>>>> a23ccdcf6a9ca3014a1dc814dbedabb4f58953f8
     </form>
     <div id="links">
       <a [routerLink]="['/login/changePassword']">Forgot your password?</a>
