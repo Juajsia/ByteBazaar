@@ -46,10 +46,23 @@
       </i>
       @if (rol === 'client') {
       @if (disableCartButton()) {
-      <i class=".cart-icon"><fa-icon class="icon" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      <div class="cart-container">
+        @if (cartItemsCount > 0) {
+        <div class="circle">
+          <p class="cart-item-count cart-active">{{cartItemsCount}}</p>
+        </div>
+        }
+        <i class="cart-icon"><fa-icon class="icon cart" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      </div>
       } @else {
-      <i class=".cart-icon" (click)="switchCartStatus(); getCartItems()"><fa-icon class="icon" [icon]="cartIcon"
-          url="/cart"></fa-icon></i>
+      <div class="cart-container" (click)="switchCartStatus(); getCartItems()">
+        @if (cartItemsCount > 0) {
+        <div class="circle">
+          <p class="cart-item-count">{{cartItemsCount}}</p>
+        </div>
+        }
+        <i class="cart-icon"><fa-icon class="icon cart" [icon]="cartIcon" url="/cart"></fa-icon></i>
+      </div>
       }
       }
       <div class="login-bar">

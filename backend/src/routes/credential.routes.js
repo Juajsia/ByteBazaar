@@ -13,3 +13,5 @@ credentialRouters.put('/api/credential/:id', validateToken, validateRolToken(['a
 credentialRouters.delete('/api/credential/:id', validateToken, validateRolToken(['administrator']), credentialcontroller.deleteCredential)
 
 credentialRouters.post('/api/credential/login', credentialcontroller.login)
+credentialRouters.post('/api/credential/change', credentialcontroller.getCredentialByEmail)
+credentialRouters.post('/api/credential/password', credentialcontroller.updatePassword)

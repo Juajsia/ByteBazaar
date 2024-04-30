@@ -45,6 +45,29 @@ export class Credentialcontroller {
     }
   }
 
+  getCredentialByEmail = async (req, res) => {
+    try {
+      const { email } = req.body
+      const cred = await Credential.findOne({
+        where: {
+          email: { [Op.iLike]: email }
+        }
+      })
+      if (!cred) {
+        return res.status(404).json({ err: 'Email is not registered' })
+      }
+
+      const rol = await getRol({ id: cred.personId })
+      if (rol !== 'client') {
+        return res.status(401).json({ err: 'Permissions denied' })
+      }
+
+      return res.json(cred)
+    } catch (error) {
+      return res.status(500).json({ mesaage: error.message })
+    }
+  }
+
   deleteCredential = async (req, res) => {
     try {
       const { id } = req.params
@@ -80,6 +103,30 @@ export class Credentialcontroller {
     }
   }
 
+  updatePassword = async (req, res) => {
+    try {
+      const { email, password } = req.body
+      const cred = await Credential.findOne({
+        where: {
+          email: { [Op.iLike]: email }
+        }
+      })
+      const eq = await bcrypt.compare(password, cred.password)
+      if (eq) {
+        return res.status(200).json({ msg: 'The password is the same as the currently stored password. No changes have been made.' })
+      }
+      const rol = await getRol({ id: cred.personId })
+      if (rol !== 'client') {
+        return res.status(401).json({ err: 'Permissions denied' })
+      }
+      cred.password = await bcrypt.hash(password, 12)
+      await cred.save()
+      return res.status(202).json(cred)
+    } catch (error) {
+      return res.status(500).json({ mesaage: error.message })
+    }
+  }
+
   login = async (req, res) => {
     try {
       const { email, password } = req.body
@@ -91,12 +138,12 @@ export class Credentialcontroller {
         }
       })
       if (!cred) {
-        return res.status(400).json({ err: 'email is not registered' })
+        return res.status(400).json({ err: 'Email is not registered' })
       }
 
       const eq = await bcrypt.compare(password, cred.password)
       if (!eq) {
-        return res.status(401).json({ err: 'password incorrect' })
+        return res.status(401).json({ err: 'Password incorrect' })
       }
       const rol = await getRol({ id: cred.personId })
       const token = createToken({ data: { email: cred.email, rol } })

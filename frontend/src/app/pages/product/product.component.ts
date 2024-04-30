@@ -101,6 +101,8 @@ export class ProductComponent {
           text: `Product ${this.product.name} added!!`,
           showConfirmButton: false,
           timer: 1500
+        }).then(() => {
+          window.location.reload()
         });
       }, error: (e: HttpErrorResponse) => {
         if(e.error.forUser){
