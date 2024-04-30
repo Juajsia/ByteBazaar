@@ -51,22 +51,16 @@ export class NewPasswordComponent {
           localStorage.removeItem('email')
         },
         error: (e: HttpErrorResponse) => {
-          let err = ''
-          if (e.error.err) {
-            err = e.error.err
-          }
           Swal.fire({
             icon: "error",
             title: "Error Updating Password",
-            text: err,
+            text: e.error.err || '',
             showConfirmButton: false,
             timer: 1500
           });
         }
       })
-
     }
-
   }
 
   validateForm() {

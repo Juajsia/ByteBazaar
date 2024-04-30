@@ -179,6 +179,43 @@ a:hover {
     display: none;
 }
 
+.cart-container {
+    position: relative;
+}
+
+.cart-container:hover {
+    .cart-item-count {
+        color: #057FD7;
+    }
+
+    .cart {
+        color: #55D555;
+    }
+}
+
+.circle {
+    position: absolute;
+    top: -3px;
+    left: 7px;
+    background-color: #f2f2f2;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-item-count {
+    color: #55D555;
+    font-weight: bold;
+    transition: all 0.2s linear;
+}
+
+.cart-active {
+    color: #057FD7;
+}
+
 /* responsive */
 @media screen and (max-width: 1160px) {
     .nav {

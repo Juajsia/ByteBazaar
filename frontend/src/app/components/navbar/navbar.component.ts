@@ -51,6 +51,8 @@ export class NavbarComponent {
   cartItems: Product[] = []
   subtotal = 0
 
+  cartItemsCount = 0
+
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
@@ -59,6 +61,7 @@ export class NavbarComponent {
   }
 
   ngAfterViewInit(): void {
+    this.getCartItems()
     const icon = document.querySelector(`[url="${this.router.url}"]`)
     if (icon)
       icon.classList.add('currentPage')
@@ -102,6 +105,7 @@ export class NavbarComponent {
       const { Products } = res
       this.cartItems = Products as Product[]
       this.subtotal = 0
+      this.cartItemsCount = this.cartItems.length
       this.cartItems?.map(prod => {
         if (prod.status) {
           this.subtotal += prod.price
@@ -135,6 +139,7 @@ export class NavbarComponent {
           this.subtotal -= x.price
           return false
         })
+        this.cartItemsCount = this.cartItems.length
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
@@ -147,3 +152,4 @@ export class NavbarComponent {
     )
   }
 }
+// 

@@ -20,7 +20,7 @@ export class CartProductController {
         const newCartProduct = await CartProduct.create(req.body)
         return res.status(201).json(newCartProduct)
       }
-      return res.status(400).json({ msg: 'Cart Item already exist' })
+      return res.status(400).json({ msg: 'Product already added to cart' })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }

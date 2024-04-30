@@ -101,11 +101,14 @@ export class ProductComponent {
           text: `Product ${this.product.name} added!!`,
           showConfirmButton: false,
           timer: 1500
+        }).then(() => {
+          window.location.reload()
         });
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
           title: "Error Adding product",
+          text: e.error.msg || '',
           showConfirmButton: false,
           timer: 1500
         });

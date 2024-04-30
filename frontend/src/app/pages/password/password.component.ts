@@ -30,9 +30,7 @@ export class PasswordComponent {
           localStorage.setItem('email', this.email)
         },
         error: (e: HttpErrorResponse) => {
-          if (e.error.err) {
-            this.error = e.error.err
-          }
+          this.error = e.error.err || ''
           Swal.fire({
             icon: "error",
             title: "Invalid email",
