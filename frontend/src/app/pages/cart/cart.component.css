@@ -33,6 +33,7 @@ h2 {
 
 p {
     color: #47525E;
+    justify-self: right;
 }
 
 .itemsList {
@@ -51,8 +52,9 @@ p {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 10px 50px;
     transition: all .5s ease;
+    justify-content: right;
 }
 
 .cartItem:hover {
@@ -288,6 +290,7 @@ p {
 
     .cartItem {
         width: 600px;
+        justify-content: unset;
     }
 
     .productInfo {

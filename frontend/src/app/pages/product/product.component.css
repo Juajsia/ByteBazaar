@@ -50,11 +50,11 @@ main {
 
 #provider,
 #stock {
-    font-size: 45px;
+    font-size: 30px;
 }
 
 #price {
-    font-size: 35px;
+    font-size: 30px;
 }
 
 h1 {
@@ -245,7 +245,7 @@ span {
 
     #provider,
     #stock {
-        font-size: 35px;
+        font-size: 25px;
     }
 
     #price {
