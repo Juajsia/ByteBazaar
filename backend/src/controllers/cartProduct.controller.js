@@ -1,6 +1,4 @@
-import { sequelize } from '../database/connection.js'
 import { CartProduct } from '../models/cartProduct.model.js'
-import { Product } from '../models/product.model.js'
 
 export class CartProductController {
   getAllCartProduct = async (req, res) => {
@@ -75,25 +73,6 @@ export class CartProductController {
       res.status(202).json(cartProduct)
     } catch (error) {
       return res.status(500).json({ message: error.message, forUser: false })
-    }
-  }
-
-  getBestSellers = async (req, res) => {
-    try {
-      const query = `SELECT count(od."ProductId") OrdersNum, od."ProductId", p."name", p."description", p.image, p.price, p.provider, p.specs, p.status, p.stock
-      FROM public."OrderDetails" od
-      Inner join "Products" p 
-      on od."ProductId" = p.id
-      Group by od."ProductId", p."name", p."description", p.image, p.price, p.provider, p.specs, p.status, p.stock
-      Order by OrdersNUm desc;`
-      const bestSellers = await sequelize.query(query, { model: Product, mapToModel: true })
-      if (bestSellers) {
-        res.json(bestSellers)
-      } else {
-        res.status(404).json({ err: 'Best sellers query did not retrieve any record' })
-      }
-    } catch (error) {
-      return res.status(500).json({ message: error.message })
     }
   }
 }

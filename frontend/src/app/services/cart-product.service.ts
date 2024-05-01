@@ -31,8 +31,4 @@ export class CartProductService {
   updateCartItem(cartProduct: CartProduct): Observable<CartProduct[]> {
     return this.http.put<CartProduct[]>(`${this.myAppUrl}${this.myApiUrl}/${cartProduct.CartId}/${cartProduct.ProductId}`, cartProduct)
   }
-
-  getBestSellers(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}/bestSellers`)
-  }
 }

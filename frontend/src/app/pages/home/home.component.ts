@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../interfaces/category';
+import { OrderDetailsService } from '../../services/order-details.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class HomeComponent {
   Cat3 = {} as Category
   catsNames: string[] = ['Computer', 'Smartphone', 'Tablet']
 
-  constructor(private _cartProductService: CartProductService, private _productService: ProductService, private _categoryService: CategoryService, private router: Router) {
+  constructor(private _orderDetailsService: OrderDetailsService, private _productService: ProductService, private _categoryService: CategoryService, private router: Router) {
   }
   
   ngOnInit() {
@@ -43,11 +44,9 @@ export class HomeComponent {
   }
 
   getBestSellers () {
-    this._cartProductService.getBestSellers().subscribe({
+    this._orderDetailsService.getBestSellers(true).subscribe({
       next: (res: Product[]) => {
-        const firstOnes = res.slice(0,6)
-        firstOnes.sort((a, b) => parseInt(b.ordersnum!) - parseInt(a.ordersnum!))
-        firstOnes.forEach(item=>{
+        res.forEach(item=>{
           this._productService.getProduct(item.name).subscribe((res: Product) => {
             item.categories = res.categories.filter(v => {
               if (["Computer", "Smartphone", "Tablet"].includes(v))
@@ -58,7 +57,7 @@ export class HomeComponent {
             item.categories = item.categories.slice(0,1)
           })
         })
-        this.bestSellers = firstOnes
+        this.bestSellers = res
 
       }, error: (e: HttpErrorResponse) => {
         console.log('error fetching best sellers')
@@ -104,6 +103,10 @@ export class HomeComponent {
 
   openCategory(catId: number) {
     this.router.navigate([`products/${catId}`])
+  }
+
+  openBestSellers(){
+    this.router.navigate([`products/bestSellers`])
   }
 
   openProduct(prodName: string) {

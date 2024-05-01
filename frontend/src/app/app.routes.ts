@@ -74,4 +74,8 @@ export const routes: Routes = [{
     title: 'AgentChat',
     path: 'agentChat',
     component: AgentChatComponent
+}, {
+    title: 'BestSellers',
+    path: 'products/bestSellers',
+    component: ProductsComponent
 }];

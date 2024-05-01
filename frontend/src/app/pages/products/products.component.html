@@ -50,7 +50,7 @@
   </article>
 
   <div class="products">
-    @if (role === 'administrator') {
+    @if (role === 'administrator' && canAdd) {
     <button class="add-btn" (click)="addProduct()">
       New product
       <fa-icon [icon]="addIcon"></fa-icon>

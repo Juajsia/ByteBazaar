@@ -1,7 +1,9 @@
+import { Product } from "./product"
+
 export interface Order {
     id?: number,
     clientId: number,
-    Products?: object[],
+    Products?: object[] | Product[],
     createdAt?: string,
     updatedAt?: string
 }

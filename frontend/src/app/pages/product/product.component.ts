@@ -22,6 +22,8 @@ import { CartProductService } from '../../services/cart-product.service';
 import { CartProduct } from '../../interfaces/cart';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Order } from '../../interfaces/order';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-product',
@@ -51,7 +53,7 @@ export class ProductComponent {
   productPlats: string[] = []
   allCategories: Category[] = []
 
-  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
@@ -83,6 +85,42 @@ export class ProductComponent {
   getCategories() {
     this._categoryService.getAllCategory().subscribe((data) => {
       this.allCategories = data
+    })
+  }
+
+  buyProduct() {
+    const order: Order = {
+      clientId: Number(localStorage.getItem('cid')),
+      Products: [{...this.product, quantity: 1}]
+    }
+    this._orderService.createOrder(order).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Order created sucessfully",
+          text: `Successful purchase`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }, error: (e: HttpErrorResponse) => {
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "error",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 4000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: `Error creating order`,
+            text: `something wrong happended, purchase was not completed, try again later`,
+            showConfirmButton: false,
+            timer: 4000
+          });
+        }
+      }
     })
   }
 
