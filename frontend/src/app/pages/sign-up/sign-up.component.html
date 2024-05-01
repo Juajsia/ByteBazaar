@@ -8,6 +8,7 @@
         }
         <form id="form" [formGroup]="form">
             <article class="field">
+                <label for="document">Document</label>
                 <input type="number" name="document" placeholder="Document" formControlName="document" required
                     (change)="validateFields()">
                 @if (form.get('document')?.hasError('required') && form.get('document')?.touched) {
@@ -18,6 +19,7 @@
                 }
             </article>
             <article class="field">
+                <label for="email">Email</label>
                 <input type="email" name="email" placeholder="Email" formControlName="email" required
                     (change)="validateFields()">
                 @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
@@ -28,6 +30,7 @@
                 }
             </article>
             <article class="field">
+                <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Password" formControlName="password" required
                     (change)="pwdsEq = validatePwd(); validateFields()">
                 @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
@@ -39,6 +42,7 @@
                 }
             </article>
             <article class="field">
+                <label for="password">Password-2</label>
                 <input type="password" name="password2" placeholder="Confirm password" formControlName="password2"
                     required (change)="pwdsEq = validatePwd(); validateFields()">
                 @if (form.get('password2')?.hasError('required') && form.get('password2')?.touched) {
@@ -50,6 +54,7 @@
                 }
             </article>
             <article class="field">
+                <label for="firstName">First name</label>
                 <input type="text" name="firstName" placeholder="First Name" formControlName="firstName" required
                     (change)="validateFields()">
                 @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
@@ -60,6 +65,7 @@
                 }
             </article>
             <article class="field">
+                <label for="middleName">middleName (optional)</label>
                 <input type="text" id="middleName" name="middleName" placeholder="Middle Name (optional)"
                     formControlName="middleName" (change)="validateFields()">
                 @if (form.get('middleName')?.hasError('pattern') && form.get('middleName')?.touched) {
@@ -67,6 +73,7 @@
                 }
             </article>
             <article class="field">
+                <label for="firstSurname">First Surname</label>
                 <input type="text" name="firstSurname" placeholder="First Surname" formControlName="firstSurname"
                     required (change)="validateFields()">
                 @if (form.get('firstSurname')?.hasError('required') && form.get('firstSurname')?.touched) {
@@ -77,6 +84,7 @@
                 }
             </article>
             <article class="field">
+                <label for="secondSurname">Second Surname</label>
                 <input type="text" name="secondSurname" placeholder="Second Surname" formControlName="secondSurname"
                     required (change)="validateFields()">
                 @if (form.get('secondSurname')?.hasError('required') && form.get('secondSurname')?.touched) {
