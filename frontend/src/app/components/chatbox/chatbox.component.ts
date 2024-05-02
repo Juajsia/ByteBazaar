@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faHeadset, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,6 +13,7 @@ import { faHeadset, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons
 export class ChatboxComponent {
   chatBoxIcon = faHeadset
   sendIcon = faCircleArrowRight
+  whatsapp = faWhatsapp
 
   @ViewChild('textarea') textarea!: ElementRef;
   @ViewChild('chatboxForm') chatboxForm!: ElementRef;
