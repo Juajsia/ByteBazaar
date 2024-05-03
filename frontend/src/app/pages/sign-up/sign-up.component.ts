@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../interfaces/client';
@@ -15,6 +15,7 @@ import Swal from 'sweetalert2'
 })
 export class SignUpComponent {
   textRegex = /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/
+  midNameRegex = /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/
   numberRegex = /^\d+(\.\d{1,2})?$/
   DocRegex = /^[0-9]\d{7,9}$/
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -26,16 +27,18 @@ export class SignUpComponent {
     password: new FormControl('', [Validators.required, Validators.pattern(this.pwdRegex)]),
     password2: new FormControl('', [Validators.required, Validators.pattern(this.pwdRegex)]),
     firstName: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
-    middleName: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
+    middleName: new FormControl('', [Validators.pattern(this.midNameRegex)]),
     firstSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
     secondSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)])
   })
 
   btn = document.querySelector('button')
   formStatus = false
+  pwdsEq = true
+  midName = document.getElementById('middleName')?.textContent!
+  notLetters = false
 
   constructor(private _clientService: ClientService, private router: Router) {
-
   }
 
   ngOnInit() {
@@ -51,7 +54,7 @@ export class SignUpComponent {
     const client: Client = {
       id: Number(this.form.value.document!),
       firstName: this.form.value.firstName!,
-      secondName: this.form.value.secondSurname!,
+      secondName: this.form.value.middleName!,
       lastName1: this.form.value.firstSurname!,
       lastName2: this.form.value.secondSurname!,
       email: this.form.value.email!,
@@ -69,12 +72,23 @@ export class SignUpComponent {
         });
         this.router.navigate(['/login'])
       }, error: (e: HttpErrorResponse) => {
-        Swal.fire({
-          icon: "error",
-          title: "error signing up",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(e.error.forUser){
+          Swal.fire({
+            icon: "error",
+            title: e.error.message,
+            text: e.error.text,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error signing up",
+            text: "Check the form fields and try later",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
       }
     })
 
@@ -83,6 +97,16 @@ export class SignUpComponent {
 
   validatePwd() {
     return this.form.value.password === this.form.value.password2
+  }
+
+  validateMidName(){
+    return !this.midName || /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/.test(this.midName)
+  }
+
+  testMidName(){
+    this.midName = document.getElementById('middleName')?.textContent!
+    console.log(document.getElementById('middleName'))
+    return /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/.test(this.midName)
   }
 
   validateFields() {

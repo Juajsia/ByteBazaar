@@ -2,6 +2,7 @@ import { Client } from '../models/client.model.js'
 import { Person } from '../models/person.model.js'
 import { Credentialcontroller } from './credential.controller.js'
 import { Cart } from '../models/cart.model.js'
+import { Credential } from '../models/Credential.model.js'
 
 export class ClientController {
   getAllClients = async (req, res) => {
@@ -19,7 +20,7 @@ export class ClientController {
     try {
       const { id, firstName, secondName, lastName1, lastName2, email, password } = req.body
       const person = await Person.findByPk(id)
-      if (!person) {
+      if (!person && !Credential.findOne({ where: { email } })) {
         const credentialcontroller = new Credentialcontroller()
         const newPerson = await Person.create({
           id,
@@ -33,9 +34,9 @@ export class ClientController {
         const newCart = await Cart.create({ clientId: id })
         return res.status(201).json({ newPerson, newCred, newCart })
       }
-      return res.status(400).json({ msg: 'Client already exists' })
+      return res.status(400).json({ message: 'Account already exists', text: 'Go to Login page to access with this account', forUser: true })
     } catch (error) {
-      return res.status(500).json({ mesaage: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 

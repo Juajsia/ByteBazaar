@@ -196,20 +196,30 @@ export class ProductFormComponent {
         next: () => {
           Swal.fire({
             icon: "success",
-            title: "Successful create Product",
-            text: `Category ${product.name} !!`,
+            title: "Product created successfully",
+            text: `Product ${product.name} was created!!`,
             showConfirmButton: false,
             timer: 1500
           })
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          Swal.fire({
-            icon: "error",
-            title: "error creating product",
-            text: `Product ${product.name} has not been created!!`,
-            showConfirmButton: false,
-            timer: 1500
-          })
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error creating product",
+              text: `Check the form fields and try later`,
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         }
       })
     } else {
@@ -217,20 +227,31 @@ export class ProductFormComponent {
         next: () => {
           Swal.fire({
             icon: "success",
-            title: "Successful update product",
-            text: `Product ${product.name} updated!!`,
+            title: "Product updated successfully",
+            text: `Product ${product.name} was updated!!`,
             showConfirmButton: false,
             timer: 1500
           })
+          this.productName = product.name
           this.goBack()
         }, error: (e: HttpErrorResponse) => {
-          Swal.fire({
-            icon: "error",
-            title: "error updating product",
-            text: `Product ${product.name} has not been updated!!`,
-            showConfirmButton: false,
-            timer: 1500
-          })
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error updating product",
+              text: `Check the form fields and try later`,
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         }
       })
     }

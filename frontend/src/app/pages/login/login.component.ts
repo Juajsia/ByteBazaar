@@ -18,7 +18,7 @@ export class LoginComponent {
   password: string = ''
   error: string = ''
   error1: string = ''
-  error2: string = ''
+  // error2: string = ''
   constructor(private _credentialService: CredentialsService, private router: Router) {
   }
 
@@ -36,14 +36,15 @@ export class LoginComponent {
         },
         error: (e: HttpErrorResponse) => {
           if (e.error.err) {
-            this.error2 = e.error.err
+            // this.error2 = e.error.err
           }
           Swal.fire({
             icon: "error",
-            title: "Invalid email or password",
-            text: this.error2,
+            title: "Cannot log in",
+            // text: this.error2,
+            text: e.error.err,
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
           });
         }
       })
@@ -53,7 +54,13 @@ export class LoginComponent {
 
   validateForm() {
     if (!this.email || !this.password) {
-      this.error = 'Please check all fields'
+          Swal.fire({
+            icon: "warning",
+            title: "Please input all the required data",
+            text: "There are missing fields",
+            showConfirmButton: false,
+            timer: 2000
+          });
       return false
     }
 

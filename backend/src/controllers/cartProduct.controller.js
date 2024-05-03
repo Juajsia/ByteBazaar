@@ -1,6 +1,4 @@
-import { sequelize } from '../database/connection.js'
 import { CartProduct } from '../models/cartProduct.model.js'
-import { Product } from '../models/product.model.js'
 
 export class CartProductController {
   getAllCartProduct = async (req, res) => {
@@ -20,9 +18,9 @@ export class CartProductController {
         const newCartProduct = await CartProduct.create(req.body)
         return res.status(201).json(newCartProduct)
       }
-      return res.status(400).json({ msg: 'Product already added to cart' })
+      return res.status(400).json({ message: 'This product is already added to your cart', text: 'go to your cart to see your added products', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -43,10 +41,13 @@ export class CartProductController {
   deleteCartProduct = async (req, res) => {
     try {
       const { CartId, ProductId } = req.params
-      await CartProduct.destroy({ where: { CartId, ProductId } })
-      res.json({ msg: 'Cart Item deleted' })
+      const cartProduct = await CartProduct.destroy({ where: { CartId, ProductId } })
+      if (cartProduct) {
+        return res.status(200).json({ message: 'Cart Item deleted' })
+      }
+      return res.status(404).json({ message: 'Error deleting cart item', text: 'The item you are trying to delete does not exists in your cart', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -65,32 +66,13 @@ export class CartProductController {
       const { CartId, ProductId } = req.params
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
       if (!cartProduct) {
-        return res.status(404).json({ err: 'Cart Item does not exist' })
+        return res.status(404).json({ message: 'Error updating cart item', text: 'The item you are trying to update does not exists in your cart', forUser: true })
       }
       cartProduct.set(req.body)
       await cartProduct.save()
       res.status(202).json(cartProduct)
     } catch (error) {
-      return res.status(500).json({ message: error.message })
-    }
-  }
-
-  getBestSellers = async (req, res) => {
-    try {
-      const query = `SELECT count(od."ProductId") OrdersNum, od."ProductId", p."name", p."description", p.image, p.price, p.provider, p.specs, p.status, p.stock
-      FROM public."OrderDetails" od
-      Inner join "Products" p 
-      on od."ProductId" = p.id
-      Group by od."ProductId", p."name", p."description", p.image, p.price, p.provider, p.specs, p.status, p.stock
-      Order by OrdersNUm desc;`
-      const bestSellers = await sequelize.query(query, { model: Product, mapToModel: true })
-      if (bestSellers) {
-        res.json(bestSellers)
-      } else {
-        res.status(404).json({ err: 'Best sellers query did not retrieve any record' })
-      }
-    } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 }

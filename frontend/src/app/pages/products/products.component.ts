@@ -10,6 +10,7 @@ import { Category } from '../../interfaces/category';
 import { ProductService } from '../../services/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { OrderDetailsService } from '../../services/order-details.service';
 
 @Component({
   selector: 'app-products',
@@ -35,17 +36,27 @@ export class ProductsComponent {
   isChecked: boolean = false;
   price: number = 0
   maxPrice: number = 0
+  canAdd: boolean = true
 
-  constructor(private _categoryService: CategoryService, private _productService: ProductService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _categoryService: CategoryService, private _productService: ProductService, private _orderDetailsService: OrderDetailsService, private router: Router, private aRouter: ActivatedRoute) {
     this.catId = Number(this.aRouter.snapshot.paramMap.get('catId')!)
   }
 
   ngOnInit() {
     if (this.router.url === `/products/${this.catId}/add`)
       this.showForm = true
-    else
+    else {
       this.showForm = false
-    this.getProdsByCat()
+      if (this.router.url === `/products/bestSellers`) {
+        this.getBestSellers()
+        this.canAdd = false
+        this.category.name = 'Best Sellers'
+        this.category.description = `These are the our user's favorites applications`
+      }
+      else
+        this.getProdsByCat()
+    }
+
   }
 
   getProdsByCat() {
@@ -62,8 +73,8 @@ export class ProductsComponent {
   getProductsCategories() {
     this.prodCatsList = []
     this.copyProdCatsList = []
-    this.productsList.forEach(element => {
-      this._productService.getProduct(element.name).subscribe((res: Product) => {
+    this.productsList.forEach(item => {
+      this._productService.getProduct(item.name).subscribe((res: Product) => {
         const catsFiltered = res.categories.filter(v => {
           return !["Computer", "Smartphone", "Tablet"].includes(v);
         });
@@ -71,7 +82,20 @@ export class ProductsComponent {
         this.prodCatsList.push(concat)
         this.copyProdCatsList.push(concat)
       })
-    });
+    })
+  }
+
+  getBestSellers() {
+    this._orderDetailsService.getBestSellers(false).subscribe({
+      next: (res: Product[]) => {
+        this.productsList = res
+        this.getProductsCategories()
+        this.copyProductsList = this.productsList.slice()
+        this.higherPrice()
+      }, error: (e: HttpErrorResponse) => {
+        console.log('error fetching best sellers')
+      }
+    })
   }
 
   addProduct() {

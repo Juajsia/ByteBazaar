@@ -12,4 +12,3 @@ cartProductRouter.get('/api/cartProduct/:CartId/:ProductId', validateToken, vali
 cartProductRouter.put('/api/cartProduct/:CartId/:ProductId', validateToken, validateRolToken(['client']), cartProductController.updateCartProduct)
 cartProductRouter.delete('/api/cartProduct/:CartId/:ProductId', validateToken, validateRolToken(['client']), cartProductController.deleteCartProduct)
 cartProductRouter.delete('/api/cartProduct/:CartId', validateToken, validateRolToken(['client']), cartProductController.clearCartProduct)
-cartProductRouter.get('/api/cartProduct/bestSellers', cartProductController.getBestSellers)

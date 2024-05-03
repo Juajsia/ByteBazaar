@@ -36,7 +36,7 @@ export class ProductController {
         await Promise.all(promise)
 
         if (categories.length !== cats.length) {
-          return res.status(400).json({ msg: 'Some Category does not exist' })
+          return res.status(400).json({ message: 'Some Category does not exist' })
         }
 
         let newProduct = await Product.create(req.body)
@@ -50,9 +50,9 @@ export class ProductController {
         return res.status(201).json(newProduct)
       }
 
-      return res.status(400).json({ msg: 'Product already exists' })
+      return res.status(400).json({ message: 'Product already exists', text: 'This product is already in the catalog', forUser: true })
     } catch (error) {
-      return res.status(500).json({ message: error.message, error })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -110,14 +110,13 @@ export class ProductController {
   deleteProduct = async (req, res) => {
     try {
       const { id } = req.params
-      await Product.destroy({
-        where: {
-          id
-        }
-      })
+      const delProd = await Product.destroy({ where: { id } })
+      if (!delProd) {
+        return res.status(404).json({ message: 'Product does not exist', text: 'The product you are trying to delete does not exists', forUser: true })
+      }
       res.json({ msg: 'Product deleted' })
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
@@ -126,7 +125,7 @@ export class ProductController {
       const { id } = req.params
       const product = await Product.findByPk(id)
       if (!product) {
-        return res.status(404).json({ err: 'Product does not exist' })
+        return res.status(404).json({ message: 'Product does not exist', text: 'The product you are trying to update does not exists', forUser: true })
       }
       const { categories: newCats, ...otherProperties } = req.body
       await ProductCategory.destroy({ where: { ProductId: id } })
@@ -138,7 +137,7 @@ export class ProductController {
       await product.save()
       res.status(202).json(req.body)
     } catch (error) {
-      return res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message, forUser: false })
     }
   }
 
