@@ -226,6 +226,7 @@
 
 .drop-down-list {
     position: absolute;
+    z-index: 2;
     width: 120px;
     padding: 8px 0px;
     background: white;
@@ -234,6 +235,10 @@
     font-size: 14px;
     margin: 10px -16px;
     display: none;
+}
+
+input[type=range] {
+    width: 100%;
 }
 
 .drop-down-item {

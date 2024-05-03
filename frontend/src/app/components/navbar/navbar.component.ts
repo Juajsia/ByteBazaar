@@ -60,8 +60,14 @@ export class NavbarComponent {
 
   }
 
+
+  ngOnInit() {
+    if (this.rol === 'client') {
+      this.getCartItems()
+    }
+  }
+
   ngAfterViewInit(): void {
-    this.getCartItems()
     const icon = document.querySelector(`[url="${this.router.url}"]`)
     if (icon)
       icon.classList.add('currentPage')
