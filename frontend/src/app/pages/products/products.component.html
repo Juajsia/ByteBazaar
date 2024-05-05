@@ -18,6 +18,11 @@
         </div>
         <ul class="drop-down-list">
           <li class="drop-down-item">
+            <input type="range" id="priceRange" name="priceRange" min="0" max="{{maxPrice}}" step="10"
+              value="{{maxPrice}}" [(ngModel)]="price" (input)="pricefilter()">
+            <label>Max Price: <span id="priceValue">{{ '$' + price }}</span></label>
+          </li>
+          <li class="drop-down-item">
             <form>
               <label>In stock <input name="stockCheck" type="checkbox" [(ngModel)]="isChecked"
                   (ngModelChange)="switchInstockCheck()"></label>
@@ -31,16 +36,16 @@
           <span class="material-icons icon"><fa-icon [icon]="filterCaret"></fa-icon></span>
         </div>
         <ul class="drop-down-list">
-          <li class="drop-down-item">
+          <li class="drop-down-item" (click)="sortByLowerPrice()">
             <p>Lower Price</p>
           </li>
-          <li class="drop-down-item">
+          <li class="drop-down-item" (click)="sortByHigherPrice()">
             <p>higher Price</p>
           </li>
-          <li class="drop-down-item">
+          <li class="drop-down-item" (click)="sortByNameAz()">
             <p>A-Z</p>
           </li>
-          <li class="drop-down-item">
+          <li class="drop-down-item" (click)="sortByNameZa()">
             <p>Z-A</p>
           </li>
         </ul>

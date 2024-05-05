@@ -30,9 +30,12 @@ export class ProductsComponent {
   productsList: Product[] = []
   copyProductsList: Product[] = []
   prodCatsList: string[] = []
+  copyProdCatsList: string[] = []
   category = {} as Category
 
-  isChecked: boolean = false
+  isChecked: boolean = false;
+  price: number = 0
+  maxPrice: number = 0
   canAdd: boolean = true
 
   constructor(private _categoryService: CategoryService, private _productService: ProductService, private _orderDetailsService: OrderDetailsService, private router: Router, private aRouter: ActivatedRoute) {
@@ -44,7 +47,7 @@ export class ProductsComponent {
       this.showForm = true
     else {
       this.showForm = false
-      if (this.router.url === `/products/bestSellers`){
+      if (this.router.url === `/products/bestSellers`) {
         this.getBestSellers()
         this.canAdd = false
         this.category.name = 'Best Sellers'
@@ -61,33 +64,34 @@ export class ProductsComponent {
       const { Products, ...otherProperties } = data
       this.category = otherProperties
       this.productsList = Products
-
-      this.productsList.forEach(element => {
-        this._productService.getProduct(element.name).subscribe((res: Product) => {
-          const catsFiltered = res.categories.filter(v => {
-            return !["Computer", "Smartphone", "Tablet"].includes(v);
-          });
-          let concat = catsFiltered.slice(0, 2).join(' | ')
-          this.prodCatsList.push(concat)
-        })
-      });
+      this.getProductsCategories()
+      this.copyProductsList = this.productsList.slice()
+      this.higherPrice()
     })
   }
 
-  getBestSellers () {
+  getProductsCategories() {
+    this.prodCatsList = []
+    this.copyProdCatsList = []
+    this.productsList.forEach(item => {
+      this._productService.getProduct(item.name).subscribe((res: Product) => {
+        const catsFiltered = res.categories.filter(v => {
+          return !["Computer", "Smartphone", "Tablet"].includes(v);
+        });
+        let concat = catsFiltered.slice(0, 2).join(' | ')
+        this.prodCatsList.push(concat)
+        this.copyProdCatsList.push(concat)
+      })
+    })
+  }
+
+  getBestSellers() {
     this._orderDetailsService.getBestSellers(false).subscribe({
       next: (res: Product[]) => {
-        res.forEach(item=>{
-          this._productService.getProduct(item.name).subscribe((res: Product) => {
-            const catsFiltered = res.categories.filter(v => {
-              return !["Computer", "Smartphone", "Tablet"].includes(v);
-            });
-            let concat = catsFiltered.slice(0, 2).join(' | ')
-            this.prodCatsList.push(concat)
-          })
-        })
         this.productsList = res
-
+        this.getProductsCategories()
+        this.copyProductsList = this.productsList.slice()
+        this.higherPrice()
       }, error: (e: HttpErrorResponse) => {
         console.log('error fetching best sellers')
       }
@@ -106,7 +110,8 @@ export class ProductsComponent {
     if (this.isChecked) {
       this.filterProductsFromStock()
     } else {
-      window.location.reload()
+      this.productsList = [...this.copyProductsList]
+      this.prodCatsList = [...this.copyProdCatsList]
     }
   }
 
@@ -123,6 +128,45 @@ export class ProductsComponent {
     }
     this.productsList = productsInStock
     this.prodCatsList = productCatsInStock
+  }
+
+  sortByLowerPrice() {
+    this.productsList.sort((a, b) => a.price - b.price)
+    this.getProductsCategories()
+  }
+
+  sortByHigherPrice() {
+    this.productsList.sort((a, b) => b.price - a.price)
+    this.getProductsCategories()
+  }
+
+  sortByNameAz() {
+    this.productsList.sort((a, b) => {
+      return a.name.localeCompare(b.name)
+    })
+    this.getProductsCategories()
+  }
+
+  sortByNameZa() {
+    this.productsList.sort((a, b) => {
+      return b.name.localeCompare(a.name)
+    })
+    this.getProductsCategories()
+  }
+
+  higherPrice() {
+    let higher = this.productsList.reduce((maxPrice, product) => {
+      return Math.max(maxPrice, product.price);
+    }, -Infinity);
+    this.maxPrice = higher + 1
+    this.price = this.maxPrice - 1
+  }
+
+  pricefilter() {
+    this.productsList = [...this.copyProductsList]
+    let productsfiltered = this.productsList.filter(product => product.price <= this.price)
+    this.productsList = [...productsfiltered]
+    this.getProductsCategories()
   }
 
 }
