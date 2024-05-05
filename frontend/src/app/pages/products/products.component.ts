@@ -48,7 +48,7 @@ export class ProductsComponent {
         this.getBestSellers()
         this.canAdd = false
         this.category.name = 'Best Sellers'
-        this.category.description = `These are the our user's favorites applications`
+        this.category.description = `These are our user's favorites applications`
       }
       else
         this.getProdsByCat()
