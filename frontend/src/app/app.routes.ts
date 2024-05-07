@@ -9,9 +9,8 @@ import { loginGuard } from './guards/login.guard';
 import { ProductsComponent } from './pages/products/products.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
-import { CategoryFormComponent } from './components/category-form/category-form.component';
-import { ProductFormComponent } from './components/product-form/product-form.component';
 import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -73,9 +72,16 @@ export const routes: Routes = [{
 }, {
     title: 'AgentChat',
     path: 'agentChat',
-    component: AgentChatComponent
+    component: AgentChatComponent,
+    canActivate: [loginGuard]
 }, {
     title: 'BestSellers',
     path: 'products/bestSellers',
-    component: ProductsComponent
+    component: ProductsComponent,
+    canActivate: [loginGuard]
+}, {
+    title: 'Profile',
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [loginGuard]
 }];

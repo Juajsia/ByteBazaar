@@ -155,11 +155,13 @@ a:hover {
     font-weight: bold;
     transition: all .5s ease;
     background-color: transparent;
+    letter-spacing: 0.05em;
 }
 
 #logOut:hover {
-    color: #ff3737;
+    color: #fff;
     border-color: #ff3737;
+    background-color: #ff3737;
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -169,10 +171,23 @@ a:hover {
 }
 
 #logIn:hover {
-    color: #55D555;
+    color: #fff;
     border-color: #55D555;
+    background-color: #55D555;
     cursor: pointer;
     transform: scale(1.1);
+}
+
+#btn:hover {
+    color: #fff;
+    background-color: #057FD7;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.profile {
+    font-size: 27px;
+    margin-left: 3px;
 }
 
 .login-menu {
@@ -246,10 +261,9 @@ a:hover {
         display: block;
     }
 
-    .login-bar {
+    /* .login-bar {
         display: none;
-    }
-
+    } */
     .nav {
         padding: 15px 20px;
     }
@@ -446,4 +460,47 @@ a:hover {
     color: #ff5555;
     font-weight: bold;
     font-size: large;
+}
+
+
+/* userbox */
+.user-mian {
+    position: relative;
+    background-color: #ff3737;
+}
+
+.user-container {
+    position: fixed;
+    top: 70px;
+    z-index: 20;
+    width: 150px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: solid #adadad 0.5px; */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.233);
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+}
+
+.user-container img {
+    width: 120px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.user-btn {
+    width: 90%;
 }

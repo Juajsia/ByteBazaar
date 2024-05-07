@@ -29,6 +29,7 @@ export class LoginComponent {
         next: (data) => {
           localStorage.setItem('token', data.token)
           localStorage.setItem('rol', data.rol)
+          localStorage.setItem('cid', data.cid)
           if (data.rol === 'client')
             localStorage.setItem('cid', data.cid)
           localStorage.setItem('cart', data.cartId)
@@ -54,13 +55,13 @@ export class LoginComponent {
 
   validateForm() {
     if (!this.email || !this.password) {
-          Swal.fire({
-            icon: "warning",
-            title: "Please input all the required data",
-            text: "There are missing fields",
-            showConfirmButton: false,
-            timer: 2000
-          });
+      Swal.fire({
+        icon: "warning",
+        title: "Please input all the required data",
+        text: "There are missing fields",
+        showConfirmButton: false,
+        timer: 2000
+      });
       return false
     }
 

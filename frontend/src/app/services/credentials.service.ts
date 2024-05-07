@@ -29,4 +29,8 @@ export class CredentialsService {
   createCred(Cred: Credential): Observable<Credential[]> {
     return this.http.post<Credential[]>(`${this.myAppUrl}${this.myApiUrl}/`, Cred)
   }
+
+  getCred(id: number): Observable<Credential> {
+    return this.http.get<Credential>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+  }
 }

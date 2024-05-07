@@ -155,7 +155,7 @@ export class Credentialcontroller {
       if (rol === 'client') {
         return res.json({ token, rol, cartId, cid: cred.personId })
       }
-      return res.json({ token, rol, cartId })
+      return res.json({ token, rol, cartId, cid: cred.personId })
     } catch (error) {
       return res.status(500).json({ mesaage: error.message })
     }

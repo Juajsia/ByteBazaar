@@ -12,7 +12,8 @@ import {
   faComments,
   faTrash,
   faHeadset,
-  faRotateRight
+  faRotateRight,
+  faCircleUser
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
@@ -22,6 +23,7 @@ import { CartProductService } from '../../services/cart-product.service';
 import { Cart, CartProduct } from '../../interfaces/cart';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-navbar',
@@ -42,6 +44,7 @@ export class NavbarComponent {
   trashIcon = faTrash
   bubbleIcon = faHeadset
   refreshIcon = faRotateRight
+  userIcon = faCircleUser
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
@@ -52,16 +55,21 @@ export class NavbarComponent {
   subtotal: number = 0
 
   cartItemsCount = 0
+  id = Number(localStorage.getItem('cid'))
+  name = ''
 
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
 
-  constructor(private _cartService: CartService, private _cartProductService: CartProductService, private router: Router) {
+  constructor(private _ClientService: ClientService, private _cartService: CartService, private _cartProductService: CartProductService, private router: Router) {
 
   }
 
 
   ngOnInit() {
+    if (this.loginStatus) {
+      this.getPersonData()
+    }
     if (this.rol === 'client') {
       this.getCartItems()
     }
@@ -112,6 +120,13 @@ export class NavbarComponent {
     this.router.navigate([''])
   }
 
+
+  getPersonData() {
+    this._ClientService.getClient(Number(this.id)).subscribe(data => {
+      this.name = data.firstName + ' ' + data.lastName1
+    })
+  }
+
   getCartItems() {
     this._cartService.getCartItems(this.cartId).subscribe((res: Cart) => {
       const { Products } = res
@@ -154,7 +169,7 @@ export class NavbarComponent {
         })
         this.cartItemsCount = this.cartItems.length
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -174,6 +189,27 @@ export class NavbarComponent {
       }
     }
     )
+  }
+
+  @ViewChild('icono') icono!: ElementRef;
+  @ViewChild('menu') menu!: ElementRef;
+
+  menuRight: number = 0;
+  userbox = false
+  userbox2 = false
+
+  toggleMenu() {
+    const iconoRect = this.icono.nativeElement.getBoundingClientRect();
+    this.menuRight = window.innerWidth - iconoRect.right - 13;
+    this.userbox = true
+  }
+
+  hideUserbox() {
+    setTimeout(() => {
+      if (!this.userbox2) {
+        this.userbox = false
+      }
+    }, 200)
   }
 }
 // 

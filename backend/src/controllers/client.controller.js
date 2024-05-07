@@ -43,7 +43,7 @@ export class ClientController {
   getClient = async (req, res) => {
     try {
       const { id } = req.params
-      const client = await Client.findByPk(id)
+      const client = await Person.findByPk(id)
       if (client) {
         res.json(client)
       } else {
