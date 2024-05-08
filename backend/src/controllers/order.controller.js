@@ -72,12 +72,16 @@ export class OrderController {
     height: 200px;
     width: 200px;
 }
+
+.total{
+  font-size: 25px;
+}
     </style>
 </head>
 
 <body>
     <ul class="itemsList">
-    <h1>This is your purchase summary</h1>
+    <h1>This is your purchase summary:</h1>
     `;
 
       (async () => {
@@ -94,15 +98,15 @@ export class OrderController {
                 <p class="productName">Product: <b>${element.name}</b></p>
                 <p class="quantity">Quantity: <b>${quantity}</b></p>
                 <p class="price">Price: US$<b>${element.price}</b></p>
-                <p class="total">Total: US$<b>${total}</b></p>
                 </section>
         </li>
         <hr>`
         }
 
-        html += `</ul>
-</body>
-</html>`
+        html += `<p class="total">Total: US$<b>${total}</b></p>
+        </ul>
+        </body>
+        </html>`
 
         try {
           const cred = await Credential.findByPk(clientId)
