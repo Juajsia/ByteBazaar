@@ -40,6 +40,12 @@ export async function inserts () {
   }, {
     id: 33333,
     firstName: 'Juan',
+    secondName: 'Pablo',
+    lastName1: 'Adams',
+    lastName2: 'Parra'
+  }, {
+    id: 44444,
+    firstName: 'Juan',
     secondName: 'José',
     lastName1: 'Estrada',
     lastName2: 'Vélez'
@@ -64,6 +70,10 @@ export async function inserts () {
     password
   }, {
     personId: newClients[2].id,
+    email: 'adamsgamer2018@gmail.com',
+    password
+  }, {
+    personId: newClients[3].id,
     email: 'juan@bytebazaar.com',
     password
   }]

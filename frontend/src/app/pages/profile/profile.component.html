@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<div class="main">
+    <div class="container">
+        <!-- <img src="https://cdn.discordapp.com/attachments/824820671490031666/1237242040946004038/ci.jpg?ex=663aeef1&is=66399d71&hm=272a9a74def28412ce4292a43fe4217061dbc68f11c1f230446f5604498cb0dd&"
+            alt=""> -->
+        <img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="">
+        <p class="label">{{client.email}}</p>
+        <div class="labels-container">
+            <div class="labels-group">
+                <p class="label">{{client.firstName + ' ' + client.secondName}}</p>
+                <p class="label">{{client.lastName2}}</p>
+            </div>
+            <div class="labels-group">
+                <p class="label">{{client.lastName1}}</p>
+                <p class="label">ID: {{client.id}}</p>
+            </div>
+        </div>
+        <p class="label-crtd">acount created at: {{client.createdAt?.slice(0,10)}}</p>
+    </div>
+</div>

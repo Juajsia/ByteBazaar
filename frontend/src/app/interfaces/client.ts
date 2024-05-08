@@ -5,5 +5,6 @@ export interface Client {
     lastName1: string,
     lastName2?: string | null,
     email: string,
-    password: string
+    password: string,
+    createdAt?: string
 }

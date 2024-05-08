@@ -10,16 +10,20 @@ import { Client } from '../interfaces/client';
 export class ClientService {
   private myAppUrl: string
   private myApiUrl: string
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
     this.myAppUrl = 'http://localhost:3000/'
     this.myApiUrl = 'api/client'
-   }
-   
-   createClient(client:Client): Observable<Client[]>{
+  }
+
+  createClient(client: Client): Observable<Client[]> {
     return this.http.post<Client[]>(`${this.myAppUrl}${this.myApiUrl}/`, client)
    }
 
-   checkIdExistence(doc: number | bigint): Observable<Client>{
-    return this.http.get<Client>(`${this.myAppUrl}${this.myApiUrl}/check/${doc}`)
-   }
+  checkIdExistence(doc: number | bigint): Observable<Client>{
+  return this.http.get<Client>(`${this.myAppUrl}${this.myApiUrl}/check/${doc}`)
+  }
+  
+  getClient(id: number): Observable<any> {
+    return this.http.get<Client[]>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+  }
 }
