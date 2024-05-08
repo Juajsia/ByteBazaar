@@ -1,4 +1,5 @@
 import { CartProduct } from '../models/cartProduct.model.js'
+import { Product } from '../models/product.model.js'
 
 export class CartProductController {
   getAllCartProduct = async (req, res) => {
@@ -15,6 +16,10 @@ export class CartProductController {
       const { CartId, ProductId } = req.body
       const cartProduct = await CartProduct.findOne({ where: { CartId, ProductId } })
       if (!cartProduct) {
+        const item = await Product.findByPk(ProductId)
+        if (item.stock < 1) {
+          return res.status(400).json({ message: 'Product out of stock', text: 'You cannot add products out of stock to your cart', forUser: true })
+        }
         const newCartProduct = await CartProduct.create(req.body)
         return res.status(201).json(newCartProduct)
       }

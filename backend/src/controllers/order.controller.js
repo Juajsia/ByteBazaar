@@ -2,7 +2,7 @@ import { Order } from '../models/order.model.js'
 import { Product } from '../models/product.model.js'
 import { OrderDetail } from '../models/orderDetails.model.js'
 import { transporter } from '../utilities/mailer.js'
-// import { Credential } from '../models/Credential.model.js'
+import { Credential } from '../models/Credential.model.js'
 
 export class OrderController {
   getAllOrder = async (req, res) => {
@@ -52,6 +52,9 @@ export class OrderController {
       padding-bottom: 10px;
       margin-bottom: 20px;
   }
+  .itemsList{
+    list-style: none;
+  }
   hr{
     color: #1A2A5A;
   }
@@ -74,7 +77,7 @@ export class OrderController {
 
 <body>
     <ul class="itemsList">
-    <h1>this is your purchase summary</h1>
+    <h1>This is your purchase summary</h1>
     `;
 
       (async () => {
@@ -88,7 +91,7 @@ export class OrderController {
           html += `<li class="cartItem">
             <img class="productImg" src="${element.image}">
             <section class="productInfo">
-                <p class="productName">Nombre del producto: <b>${element.name}</b></p>
+                <p class="productName">Product: <b>${element.name}</b></p>
                 <p class="quantity">Quantity: <b>${quantity}</b></p>
                 <p class="price">Price: US$<b>${element.price}</b></p>
                 <p class="total">Total: US$<b>${total}</b></p>
@@ -97,21 +100,19 @@ export class OrderController {
         <hr>`
         }
 
-        // Después de completar el bucle, cierra el HTML
         html += `</ul>
 </body>
 </html>`
 
-        // Aquí podrías enviar o imprimir el HTML resultante
-        console.log(html)
-
         try {
+          const cred = await Credential.findByPk(clientId)
           const info = await transporter.sendMail({
             from: '"Bytebazaar" <juanpaadams20@gmail.com>',
-            to: 'adamsgamer2018@gmail.com', // await Credential.findByPk(clientId).email,
+            to: cred.email,
             subject: 'Thank you for shopping at Bytebazaar',
             html: `${html}`
           })
+          console.log(cred.email)
           console.log('Message sent: %s', info.messageId)
         } catch (error) {
 
