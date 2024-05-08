@@ -246,6 +246,7 @@ export class CartComponent {
         else
           plusBtn.classList.remove('disabled')
         quantity++
+        this.summary.totProds += this.cartItems[itemIndex].price
       }
     } else {
       plusBtn?.classList.remove('disabled')
@@ -255,6 +256,7 @@ export class CartComponent {
         else
           minusBtn.classList.remove('disabled')
         quantity--
+        this.summary.totProds -= this.cartItems[itemIndex].price
       }
     }
     quantityTag.textContent = String(quantity)

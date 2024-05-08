@@ -95,6 +95,7 @@ export class ProductComponent {
     }
     this._orderService.createOrder(order).subscribe({
       next: () => {
+        this.product.stock--
         Swal.fire({
           icon: "success",
           title: "Order created sucessfully",
