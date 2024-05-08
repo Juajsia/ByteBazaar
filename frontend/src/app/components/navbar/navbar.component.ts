@@ -103,6 +103,7 @@ export class NavbarComponent {
     localStorage.removeItem('rol')
     localStorage.removeItem('cart')
     localStorage.removeItem('cid')
+    localStorage.setItem('logout','yes')
     await Swal.fire({
       icon: "success",
       title: "Successful logout",

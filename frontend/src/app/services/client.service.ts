@@ -18,4 +18,8 @@ export class ClientService {
    createClient(client:Client): Observable<Client[]>{
     return this.http.post<Client[]>(`${this.myAppUrl}${this.myApiUrl}/`, client)
    }
+
+   checkIdExistence(doc: number | bigint): Observable<Client>{
+    return this.http.get<Client>(`${this.myAppUrl}${this.myApiUrl}/check/${doc}`)
+   }
 }

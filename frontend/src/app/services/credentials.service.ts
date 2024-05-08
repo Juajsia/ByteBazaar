@@ -29,4 +29,8 @@ export class CredentialsService {
   createCred(Cred: Credential): Observable<Credential[]> {
     return this.http.post<Credential[]>(`${this.myAppUrl}${this.myApiUrl}/`, Cred)
   }
+
+  checkEmailExistence(email: string): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/check/${email}`)
+  }
 }

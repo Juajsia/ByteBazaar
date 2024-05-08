@@ -19,19 +19,21 @@ export class ClientController {
   createClient = async (req, res) => {
     try {
       const { id, firstName, secondName, lastName1, lastName2, email, password } = req.body
-      const person = await Person.findByPk(id)
-      if (!person && !Credential.findOne({ where: { email } })) {
+      const doc = id
+      const person = await Person.findByPk(doc)
+      const cred = await Credential.findOne({ where: { email } })
+      if (!person && !cred) {
         const credentialcontroller = new Credentialcontroller()
         const newPerson = await Person.create({
-          id,
+          id: doc,
           firstName,
           secondName,
           lastName1,
           lastName2
         })
-        await Client.create({ personId: id })
-        const newCred = await credentialcontroller.createCredential({ personId: id, email, password })
-        const newCart = await Cart.create({ clientId: id })
+        await Client.create({ personId: doc })
+        const newCred = await credentialcontroller.createCredential({ personId: doc, email, password })
+        const newCart = await Cart.create({ clientId: doc })
         return res.status(201).json({ newPerson, newCred, newCart })
       }
       return res.status(400).json({ message: 'Account already exists', text: 'Go to Login page to access with this account', forUser: true })
@@ -48,6 +50,20 @@ export class ClientController {
         res.json(client)
       } else {
         res.status(404).json({ err: 'client not found' })
+      }
+    } catch (error) {
+      return res.status(500).json({ mesaage: error.message })
+    }
+  }
+
+  checkIdExistence = async (req, res) => {
+    try {
+      const { id } = req.params
+      const client = await Client.findByPk(id)
+      if (client) {
+        res.json({ id })
+      } else {
+        res.json({ id: null })
       }
     } catch (error) {
       return res.status(500).json({ mesaage: error.message })

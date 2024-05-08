@@ -18,7 +18,6 @@ export const Person = sequelize.define('Person', {
   },
   secondName: {
     type: DataTypes.STRING,
-    allowNull: true,
     validate: {
       is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
@@ -33,7 +32,6 @@ export const Person = sequelize.define('Person', {
   },
   lastName2: {
     type: DataTypes.STRING,
-    allowNull: false,
     validate: {
       is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }

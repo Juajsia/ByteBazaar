@@ -85,6 +85,25 @@ button:hover {
     transform: scale(1.05);
 }
 
+.spliter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px
+}
+
+.line {
+    width: 100%;
+    border-width: thin;
+    border-top: solid 1px #8190A5;
+}
+
+/* #google-btn {
+    width: 100%;
+    display: flex;
+} */
+
 #links {
     display: flex;
     flex-direction: column;

@@ -1,4 +1,5 @@
 export interface Credential {
     email: string,
-    password: string
+    password: string,
+    hashed?: boolean
 }

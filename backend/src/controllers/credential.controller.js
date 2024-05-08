@@ -68,6 +68,23 @@ export class Credentialcontroller {
     }
   }
 
+  checkEmailExistence = async (req, res) => {
+    try {
+      const { email } = req.params
+      const cred = await Credential.findOne({
+        where: {
+          email: { [Op.iLike]: email }
+        }
+      })
+      if (!cred) {
+        return res.json(null)
+      }
+      return res.json(cred)
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
   deleteCredential = async (req, res) => {
     try {
       const { id } = req.params
@@ -129,7 +146,7 @@ export class Credentialcontroller {
 
   login = async (req, res) => {
     try {
-      const { email, password } = req.body
+      const { email, password, hashed } = req.body
       const cred = await Credential.findOne({
         where: {
           email: {
@@ -140,8 +157,7 @@ export class Credentialcontroller {
       if (!cred) {
         return res.status(400).json({ err: 'Email is not registered' })
       }
-
-      const eq = await bcrypt.compare(password, cred.password)
+      const eq = hashed ? (password === cred.password) : await bcrypt.compare(password, cred.password)
       if (!eq) {
         return res.status(401).json({ err: 'Password incorrect' })
       }

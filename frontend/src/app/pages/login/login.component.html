@@ -12,7 +12,15 @@
       @if (error1 != '') {
       <p id="error" class="error">{{ error1 }}</p>
       }
-      <button type="button" (click)="login()">Log In</button>
+      <button type="button" (click)="login(false)">Log In</button>
+      <div class="spliter">
+        <p class="line"></p>
+        <p>Or</p>
+        <p class="line"></p>
+      </div>
+      <asl-google-signin-button id="google-btn" type="standard" locale="en-US" size='large'
+        text="signin_with"></asl-google-signin-button>
+      <!-- <button type="button" (click)="signInWithFB()">Log In with Facebook</button> -->
       <!-- @if (error2 != '') {
       <p id="error" class="error">{{ error2 }}</p>
       } -->
