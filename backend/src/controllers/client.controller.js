@@ -23,7 +23,6 @@ export class ClientController {
       const person = await Person.findByPk(doc)
       const cred = await Credential.findOne({ where: { email } })
       if (!person && !cred) {
-        const credentialcontroller = new Credentialcontroller()
         const newPerson = await Person.create({
           id: doc,
           firstName,
@@ -31,9 +30,15 @@ export class ClientController {
           lastName1,
           lastName2
         })
-        await Client.create({ personId: doc })
+        const credentialcontroller = new Credentialcontroller()
         const newCred = await credentialcontroller.createCredential({ personId: doc, email, password })
-        const newCart = await Cart.create({ clientId: doc })
+        let newCart
+        if (newCred.message) {
+          await Person.destroy({ where: { id: doc } })
+        } else {
+          await Client.create({ personId: doc })
+          newCart = await Cart.create({ clientId: doc })
+        }
         return res.status(201).json({ newPerson, newCred, newCart })
       }
       return res.status(400).json({ message: 'Account already exists', text: 'Go to Login page to access with this account', forUser: true })

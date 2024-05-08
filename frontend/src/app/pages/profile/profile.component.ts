@@ -15,7 +15,7 @@ export class ProfileComponent {
 
   id = localStorage.getItem('cid')
   client: Client = {
-    id: Number(this.id!),
+    id: this.id!,
     firstName: '',
     secondName: '',
     lastName1: '',
@@ -34,10 +34,10 @@ export class ProfileComponent {
   }
 
   getClientData() {
-    this._ClientService.getClient(Number(this.id)).subscribe(data => {
+    this._ClientService.getClient(this.id!).subscribe(data => {
       this.client = { ...data }
 
-      this._CredentialService.getCred(Number(this.id)).subscribe(data => {
+      this._CredentialService.getCred(this.id!).subscribe(data => {
         this.client.email = data.email
         if (!this.client.secondName) {
           this.client.secondName = ''

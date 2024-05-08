@@ -30,24 +30,26 @@ export class LoginComponent implements OnInit{
   constructor(private _credentialService: CredentialsService, private router: Router, private authService: SocialAuthService, private _clientService: ClientService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if(localStorage.getItem('logout')) {
       this.signOut()
       localStorage.removeItem('logout')
     }
     this.authService.authState.subscribe(async (user: SocialUser): Promise<void> => {
       if (user) {
+        console.log("aaaaa")
         this.user = user;
         this.loggedIn = (this.user != null);
         const registeredUser = await lastValueFrom(this.isRegistered(user.email))
         if (registeredUser) {
           this.email = registeredUser.email
           this.password = registeredUser.password
-          this.login(true)
+          if (this.beforeLogIn())
+            this.login(true)
         } else {
           const doc = await this.checkDocumentUntilSuccess()
           if (doc !== null) {
-            this.signUp(user, doc)
+            this.signUp(user, doc)  
           } else {
             Swal.fire({
               icon: "error",
@@ -60,6 +62,10 @@ export class LoginComponent implements OnInit{
         }
       }
     });
+  }
+
+  beforeLogIn(){
+    return this.email && this.password
   }
 
   isRegistered(email: string): Observable<any> {
@@ -92,8 +98,13 @@ export class LoginComponent implements OnInit{
     }
 
     this._clientService.createClient(client).subscribe({
-      next: () => {
-        this.router.navigate(['/'])
+      next: (res) => {
+        if(!res.newCred.message) {
+          this.email = res.newCred.email
+          this.password = res.newCred.password
+          if (this.beforeLogIn())
+            this.login(true)
+        }
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
@@ -127,10 +138,10 @@ export class LoginComponent implements OnInit{
 
   async checkDocumentUntilSuccess(): Promise<bigint>{
     let success = true
-    let doc: bigint | null = null
+    let doc: bigint = this.getRandomDoc(11,19)
     while (success) {
-        doc = this.getRandomDoc(11,19)
-        success = await lastValueFrom(this.checkDocument(doc))
+      success = await lastValueFrom(this.checkDocument(doc))
+      doc = this.getRandomDoc(11,19)
     }
     if (doc === null) {
       throw new Error("No document found");
@@ -149,34 +160,35 @@ export class LoginComponent implements OnInit{
   }
 
   login(hashed: boolean) {
-    if (this.validateForm()) {
-      const user: Credential = { email: this.email, password: this.password, hashed}
-      this._credentialService.login(user).subscribe({
-        next: (data) => {
-          localStorage.setItem('token', data.token)
-          localStorage.setItem('rol', data.rol)
-          localStorage.setItem('cid', data.cid)
-          if (data.rol === 'client')
-            localStorage.setItem('cid', data.cid)
-          localStorage.setItem('cart', data.cartId)
-          this.router.navigate([''])
-        },
-        error: (e: HttpErrorResponse) => {
-          if (e.error.err) {
-            // this.error2 = e.error.err
-          }
-          Swal.fire({
-            icon: "error",
-            title: "Cannot log in",
-            // text: this.error2,
-            text: e.error.err,
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      })
+    if (!hashed && !this.validateForm()) {
+      return false
     }
-
+    const user: Credential = { email: this.email, password: this.password, hashed}
+    this._credentialService.login(user).subscribe({
+      next: (data) => {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('rol', data.rol)
+        localStorage.setItem('cid', data.cid)
+        if (data.rol === 'client')
+          localStorage.setItem('cid', data.cid)
+        localStorage.setItem('cart', data.cartId)
+        this.router.navigate([''])
+      },
+      error: (e: HttpErrorResponse) => {
+        if (e.error.err) {
+          // this.error2 = e.error.err
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Cannot log in",
+          // text: this.error2,
+          text: e.error.err,
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    })
+    return true
   }
 
   signInWithFB(): void {

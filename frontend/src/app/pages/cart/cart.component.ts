@@ -181,7 +181,6 @@ export class CartComponent {
       clientId: Number(localStorage.getItem('cid')),
       Products: products
     }
-    console.log(order)
     this._orderService.createOrder(order).subscribe({
       next: () => {
         Swal.fire({

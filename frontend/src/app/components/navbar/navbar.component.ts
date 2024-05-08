@@ -55,7 +55,7 @@ export class NavbarComponent {
   subtotal: number = 0
 
   cartItemsCount = 0
-  id = Number(localStorage.getItem('cid'))
+  id = localStorage.getItem('cid')
   name = ''
 
   @ViewChild('nav') nav!: ElementRef;
@@ -123,7 +123,7 @@ export class NavbarComponent {
 
 
   getPersonData() {
-    this._ClientService.getClient(Number(this.id)).subscribe(data => {
+    this._ClientService.getClient(this.id!).subscribe(data => {
       this.name = data.firstName + ' ' + data.lastName1
     })
   }

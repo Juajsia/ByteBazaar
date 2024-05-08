@@ -34,7 +34,7 @@ export class CredentialsService {
     return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/check/${email}`)
   }
   
-  getCred(id: number): Observable<Credential> {
+  getCred(id: string): Observable<Credential> {
     return this.http.get<Credential>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
   }
 }
