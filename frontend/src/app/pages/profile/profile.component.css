@@ -47,14 +47,12 @@ img {
 
 .btn-edit {
     position: absolute;
-    bottom: 6px;
-    right: 0;
-    left: 0;
-    margin: auto;
+    top: 6px;
+    right: 6px;
 }
 
 .btn {
-    max-width: fit-content;
+    width: 40px;
     padding: 10px;
     border: unset;
     border-radius: 5px;

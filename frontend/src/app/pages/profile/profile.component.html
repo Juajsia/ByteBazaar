@@ -18,7 +18,7 @@
         </div>
         <p class="label-crtd">acount created at: {{client.createdAt?.slice(0,10)}}</p>
         @if (rol === 'client') {
-        <button class="btn btn-edit" (click)="showForm=true">Edit <fa-icon [icon]="editIcon"></fa-icon></button>
+        <button class="btn btn-edit" (click)="showForm=true"> <fa-icon [icon]="editIcon"></fa-icon></button>
         }
     </div>
 </div>
