@@ -19,7 +19,7 @@ export const Person = sequelize.define('Person', {
   secondName: {
     type: DataTypes.STRING,
     validate: {
-      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
+      is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/i
     }
   },
 

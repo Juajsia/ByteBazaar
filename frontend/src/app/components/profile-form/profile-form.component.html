@@ -1,0 +1,42 @@
+<section class="main">
+    <form class="container" [formGroup]="form">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+        <input type="email" class="input email" name="email" placeholder="Email" formControlName="email">
+        <article class="input-container">
+            <div class="label-container">
+                <input type="text" class="input" name="firstName" placeholder="firstName" formControlName="firstName">
+                @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </div>
+            <input type="text" class="input" name="secondName" placeholder="secondName (optional)"
+                formControlName="secondName">
+        </article>
+        <article class="input-container">
+            <div class="label-container">
+                <input type="text" class="input" name="lastname1" placeholder="Last Name 1" formControlName="lastName1">
+                @if (form.get('lastName1')?.hasError('required') && form.get('lastName1')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </div>
+            <div class="label-container">
+
+                <input type="text" class="input" name="lastName2" placeholder="Last Name 2" formControlName="lastName2">
+                @if (form.get('lastName2')?.hasError('required') && form.get('lastName2')?.touched) {
+                <span class="error">*Required field*</span>
+                }
+            </div>
+        </article>
+        <article class="btn-container">
+            <button type="button" class="btn btnCancel" (click)="cancel()">Cancel <fa-icon class="btnIcon"
+                    [icon]="xIcon"></fa-icon></button>
+            @if (form.invalid) {
+            <button type="button" class="btn disabled" [disabled]="[true]" (click)="save()">Save <fa-icon
+                    class="btnIcon" [icon]="diskIcon"></fa-icon></button>
+            }@else {
+            <button type="button" class="btn" (click)="save()">Save <fa-icon class="btnIcon"
+                    [icon]="diskIcon"></fa-icon></button>
+            }
+        </article>
+    </form>
+</section>

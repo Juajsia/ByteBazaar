@@ -3,15 +3,22 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ClientService } from '../../services/client.service';
 import { CredentialsService } from '../../services/credentials.service';
 import { Client } from '../../interfaces/client';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { ProfileFormComponent } from '../../components/profile-form/profile-form.component';
+
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, FontAwesomeModule, ProfileFormComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+  editIcon = faPen
+  rol = localStorage.getItem('rol')
+  showForm = false
 
   id = localStorage.getItem('cid')
   client: Client = {

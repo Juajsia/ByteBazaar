@@ -3,6 +3,7 @@ import { Person } from '../models/person.model.js'
 import { Credentialcontroller } from './credential.controller.js'
 import { Cart } from '../models/cart.model.js'
 import { Credential } from '../models/Credential.model.js'
+import { Op } from 'sequelize'
 
 export class ClientController {
   getAllClients = async (req, res) => {
@@ -94,7 +95,22 @@ export class ClientController {
       const { id } = req.params
       const client = await Person.findByPk(id)
       client.set(req.body)
+
+      const { email } = req.body
+      const cred = await Credential.findByPk(id)
+      if (cred.email.toLowerCase() !== email.toLowerCase()) {
+        const oldCred = await Credential.findOne({
+          where: {
+            email: { [Op.iLike]: email }
+          }
+        })
+        if (oldCred) {
+          return res.status(400).json({ message: 'Email is already in use' })
+        }
+      }
+      cred.email = email
       await client.save()
+      await cred.save()
       res.status(202).json(client)
     } catch (error) {
       return res.status(500).json({ mesaage: error.message })
