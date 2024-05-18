@@ -45,6 +45,9 @@
         <fa-icon class="icon" [icon]="loupeIcon"></fa-icon>
       </i>
       @if (rol === 'client') {
+      <i routerLink="/wishlist" class="wishlist-icon" id="favIcon">
+        <fa-icon class="icon" [icon]="favIcon"></fa-icon>
+      </i>
       @if (disableCartButton()) {
       <div class="cart-container">
         @if (cartItemsCount > 0) {

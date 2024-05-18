@@ -11,6 +11,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -83,5 +84,10 @@ export const routes: Routes = [{
     title: 'Profile',
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [loginGuard]
+}, {
+    title: 'Wishlist',
+    path: 'wishlist',
+    component: WishlistComponent,
     canActivate: [loginGuard]
 }];

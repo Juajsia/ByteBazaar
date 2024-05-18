@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit{
     }
     this.authService.authState.subscribe(async (user: SocialUser): Promise<void> => {
       if (user) {
-        console.log("aaaaa")
         this.user = user;
         this.loggedIn = (this.user != null);
         const registeredUser = await lastValueFrom(this.isRegistered(user.email))
@@ -169,9 +168,11 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('token', data.token)
         localStorage.setItem('rol', data.rol)
         localStorage.setItem('cid', data.cid)
-        if (data.rol === 'client')
+        if (data.rol === 'client') {
           localStorage.setItem('cid', data.cid)
-        localStorage.setItem('cart', data.cartId)
+          localStorage.setItem('cart', data.cartId)
+          localStorage.setItem('wishlist', data.wishlistId)
+        }
         this.router.navigate([''])
       },
       error: (e: HttpErrorResponse) => {

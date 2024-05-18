@@ -88,7 +88,8 @@ a:hover {
 }
 
 .nav .search-icon,
-.cart-icon {
+.cart-icon,
+.wishlist-icon {
     color: #057FD7;
     font-size: 20px;
     cursor: pointer;

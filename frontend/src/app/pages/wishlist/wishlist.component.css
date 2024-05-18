@@ -1,0 +1,241 @@
+main {
+    padding: 0 0 30px 0;
+    position: relative;
+    top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px
+}
+
+.content {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    gap: 30px
+}
+
+h1 {
+    color: #1A2A5A;
+    font-size: 3rem;
+    font-weight: bold;
+    border-bottom: solid 1px #057FD7;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #47525E;
+    justify-self: right;
+}
+
+.itemsList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #ffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 750px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 50px;
+    transition: all .5s ease;
+    justify-content: right;
+}
+
+.item:hover {
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.4);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.4);
+    box-shadow: 0px 14px 32px 0px rgba(5, 127, 215, 0.4);
+    transform: scale(1.025);
+}
+
+.productInfo {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: start;
+}
+
+.productImg {
+    height: 200px;
+    width: 200px;
+}
+
+.productName {
+    color: #47525E;
+    font-size: xx-large;
+}
+
+.productImg:hover,
+.productName:hover {
+    cursor: pointer;
+}
+
+.stock {
+    color: #55D555;
+}
+
+.NoStock {
+    color: #e21010;
+}
+
+.price {
+    font-size: xx-large;
+    align-self: flex-start;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.btn {
+    width: 120px;
+    padding: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: #ffff;
+    color: #057FD7;
+    border-color: #057FD7;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    transition: all .5s ease;
+}
+
+.btnDelete {
+    color: #e21010;
+    border-color: #e21010;
+}
+
+.btnIcon {
+    color: #057FD7;
+    transition: all .5s ease;
+}
+
+.btn:hover {
+    background-color: #55D555;
+    color: #ffff;
+    border-color: #ffff;
+    transform: scale(1.15);
+    cursor: pointer;
+
+    .btnIcon {
+        color: #ffff;
+    }
+}
+
+.btnDelete:hover {
+    background-color: #e21010;
+    color: #ffff;
+    border-color: #ffff;
+    transform: scale(1.15);
+    cursor: pointer;
+}
+
+.disabled {
+    color: #797979;
+}
+
+.disabled:hover {
+    cursor: default;
+    color: #797979;
+}
+
+.btn.disabled {
+    color: #797979;
+    border-color: #797979;
+
+    .btnIcon {
+        color: #797979;
+    }
+}
+
+.btn.disabled:hover {
+    background-color: #ffff;
+    color: #797979;
+    border-color: #797979;
+    cursor: not-allowed;
+    transform: none;
+
+    .btnIcon {
+        color: #797979;
+    }
+
+}
+
+.line {
+    border-top: solid 1px #057FD7;
+}
+
+.disable {
+    position: relative;
+    background-color: #70767e73;
+    backdrop-filter: blur(5px);
+}
+
+.disable-text {
+    position: absolute;
+    color: #ff5555;
+    font-weight: bold;
+    bottom: 6px;
+    right: 10px;
+    font-size: large;
+}
+
+@media screen and (max-width:1200px) {
+
+    .content {
+        flex-direction: row;
+        flex-wrap: wrap-reverse;
+    }
+}
+
+@media screen and (max-width:800px) {
+
+    .item {
+        width: 600px;
+        justify-content: unset;
+    }
+
+    .productInfo {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width:650px) {
+
+    .item {
+        width: 400px;
+        gap: 10px
+    }
+
+    .productImg {
+        width: 130px;
+        height: 130px;
+    }
+
+    .actions {
+        flex-direction: row;
+    }
+
+    .price {
+        align-self: self-start;
+
+    }
+
+    .productInfo {
+        width: 120px;
+    }
+}

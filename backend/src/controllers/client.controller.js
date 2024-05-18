@@ -2,6 +2,7 @@ import { Client } from '../models/client.model.js'
 import { Person } from '../models/person.model.js'
 import { Credentialcontroller } from './credential.controller.js'
 import { Cart } from '../models/cart.model.js'
+import { Wishlist } from '../models/wishlist.model.js'
 import { Credential } from '../models/Credential.model.js'
 
 export class ClientController {
@@ -32,14 +33,15 @@ export class ClientController {
         })
         const credentialcontroller = new Credentialcontroller()
         const newCred = await credentialcontroller.createCredential({ personId: doc, email, password })
-        let newCart
+        let newCart, newWishlist
         if (newCred.message) {
           await Person.destroy({ where: { id: doc } })
         } else {
           await Client.create({ personId: doc })
           newCart = await Cart.create({ clientId: doc })
+          newWishlist = await Wishlist.create({ clientId: doc })
         }
-        return res.status(201).json({ newPerson, newCred, newCart })
+        return res.status(201).json({ newPerson, newCred, newCart, newWishlist })
       }
       return res.status(400).json({ message: 'Account already exists', text: 'Go to Login page to access with this account', forUser: true })
     } catch (error) {

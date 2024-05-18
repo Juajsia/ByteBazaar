@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<main>
+    <h1>Your wishlist</h1>
+    <div class="content">
+        <ul class="itemsList">
+            @for (item of items; track item.id) {
+            @if (item.status) {
+            <li class="item">
+                <img class="productImg" src="{{item.image}}" (click)="goToProduct(item.name!)">
+                <section class="productInfo">
+                    <p class="productName" (click)="goToProduct(item.name!)"><b>{{item.name}}</b></p>
+                    @if (item.stock > 0) {
+                    <p class="stock">In Stock</p>
+                    } @else {
+                    <p class="NoStock">Out of Stock</p>
+                    }
+                    <p class="provider"><b>Provider:</b> {{item.provider}}</p>
+                </section>
+                <section class="actions">
+                    <button type="button" class="btn btnDelete" (click)="deleteItem(item.id!)">
+                        Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
+                    </button>
+                    @if (item.stock === 0) {
+                    <button type="button" class="btn disabled" id="btnBuy" [disabled]="[true]">
+                        Add <fa-icon class="btnIcon" [icon]="cartIcon"></fa-icon>
+                    </button>
+                    } @else {
+                    <button type="button" class="btn" id="btnAdd" (click)="addToCart(item)">
+                        Add <fa-icon class="btnIcon" [icon]="cartIcon"></fa-icon>
+                    </button>
+                    }
+                </section>
+                <p class="price"><b>${{item.price}}</b></p>
+            </li>
+            } @else {
+            <li class="cartItem disable">
+                <p class="disable-text">This product is not available at the moment</p>
+                <img class="productImg" src="{{item.image}}">
+                <section class="productInfo">
+                    <p class="productName" (click)="goToProduct(item.name!)"><b>{{item.name}}</b></p>
+                    <p class="provider"><b>Provider:</b> {{item.provider}}</p>
+                </section>
+                <section class="actions">
+                    <button type="button" class="btn btnDelete" (click)="deleteItem(item.id!)">
+                        Delete <fa-icon class="deleteIcon" [icon]="trashIcon"></fa-icon>
+                    </button>
+                </section>
+                <p class="price"><b>${{item.price}}</b></p>
+            </li>
+            }
+            } @empty {You don't have items in your wishlist}
+        </ul>
+    </div>
+
+</main>

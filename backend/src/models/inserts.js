@@ -6,6 +6,7 @@ import { SalesAgent } from './salesAgent.model.js'
 import { Credential } from './Credential.model.js'
 import { Client } from './client.model.js'
 import { Cart } from './cart.model.js'
+import { Wishlist } from './wishlist.model.js'
 import { Category } from './category.model.js'
 import { ProductController } from '../controllers/product.controller.js'
 import { sequelize } from '../database/connection.js'
@@ -99,6 +100,7 @@ export async function inserts () {
     return { clientId: personId }
   })
   await Cart.bulkCreate(clientsIds)
+  await Wishlist.bulkCreate(clientsIds)
 
   const categories = [
     {
