@@ -17,13 +17,17 @@ export class ClientService {
 
   createClient(client: Client): Observable<any> {
     return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}/`, client)
-   }
-
-  checkIdExistence(doc: number | bigint): Observable<Client>{
-  return this.http.get<Client>(`${this.myAppUrl}${this.myApiUrl}/check/${doc}`)
   }
-  
+
+  checkIdExistence(doc: number | bigint): Observable<Client> {
+    return this.http.get<Client>(`${this.myAppUrl}${this.myApiUrl}/check/${doc}`)
+  }
+
   getClient(id: string): Observable<any> {
     return this.http.get<Client[]>(`${this.myAppUrl}${this.myApiUrl}/${id}`)
+  }
+
+  updateClient(id: string, client: Client): Observable<any> {
+    return this.http.put<Client[]>(`${this.myAppUrl}${this.myApiUrl}/${id}`, client)
   }
 }

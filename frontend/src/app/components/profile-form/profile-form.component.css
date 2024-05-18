@@ -4,6 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+
 }
 
 .container {
@@ -22,37 +25,47 @@
     box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.3);
 }
 
-.labels-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-}
 
 img {
     width: 200px;
     border-radius: 50%;
 }
 
-.label {
+.input {
+    border: none;
     border-bottom: 1px solid #55D555;
-    margin-bottom: 10px;
-    min-width: 120px;
+    margin-bottom: 5px;
+    font-size: medium;
+
 }
 
-.label-crtd {
-    color: #7e7e7e;
-    margin-bottom: 10px;
+.email {
+    text-align: center;
 }
 
-.btn-edit {
-    position: absolute;
-    top: 6px;
-    right: 6px;
+.input:focus {
+    outline: none;
+}
+
+.input-container {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.error {
+    color: #e21010;
+    text-align: center;
 }
 
 .btn {
-    width: 40px;
+    width: 90px;
     padding: 10px;
     border: unset;
     border-radius: 5px;
@@ -65,8 +78,33 @@ img {
     transition: all .5s ease;
 }
 
+
+.btnCancel {
+    background-color: #e21010;
+    color: #ffff;
+}
+
 .btn:hover {
     background-color: #55D555;
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.btnCancel:hover {
+    background-color: #e21010;
+}
+
+.disabled {
+    background-color: #47525E;
+}
+
+.disabled:hover {
+    cursor: not-allowed;
+    background-color: #47525E;
+    transform: none;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: column;
 }

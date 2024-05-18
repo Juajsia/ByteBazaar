@@ -486,6 +486,10 @@ a:hover {
     border-top-right-radius: 0px;
 }
 
+.name {
+    text-align: center;
+}
+
 .user-container img {
     width: 120px;
     padding: 10px;

@@ -17,7 +17,7 @@ import { Observable, lastValueFrom } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   email: string = ''
   password: string = ''
   error: string = ''
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit{
   }
 
   async ngOnInit() {
-    if(localStorage.getItem('logout')) {
+    if (localStorage.getItem('logout')) {
       this.signOut()
       localStorage.removeItem('logout')
     }
@@ -48,14 +48,14 @@ export class LoginComponent implements OnInit{
         } else {
           const doc = await this.checkDocumentUntilSuccess()
           if (doc !== null) {
-            this.signUp(user, doc)  
+            this.signUp(user, doc)
           } else {
             Swal.fire({
               icon: "error",
-                title: "Could not log in",
-                text: "We had a problem trying to log in, try it again later",
-                showConfirmButton: false,
-                timer: 2000
+              title: "Could not log in",
+              text: "We had a problem trying to log in, try it again later",
+              showConfirmButton: false,
+              timer: 2000
             });
           }
         }
@@ -63,42 +63,43 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  beforeLogIn(){
+  beforeLogIn() {
     return this.email && this.password
   }
 
   isRegistered(email: string): Observable<any> {
     return new Observable<any>((observer) => {
-        this._credentialService.checkEmailExistence(email).subscribe({
-            next: (res) => {            
-                if (res) {
-                    observer.next(res); 
-                    observer.complete();  
-                } else {
-                    observer.next(false); 
-                    observer.complete();
-                }
-            },
-            error: (error) => {
-                observer.error(error);
-            }
-        });
+      this._credentialService.checkEmailExistence(email).subscribe({
+        next: (res) => {
+          if (res) {
+            observer.next(res);
+            observer.complete();
+          } else {
+            observer.next(false);
+            observer.complete();
+          }
+        },
+        error: (error) => {
+          observer.error(error);
+        }
+      });
     });
   }
 
-  signUp(user: SocialUser, doc: bigint){
+  signUp(user: SocialUser, doc: bigint) {
+    const lastName = user.lastName.split(' ')
     const client: Client = {
       id: doc.toString(),
       firstName: user.firstName,
-      lastName1: user.lastName,
-      lastName2: null,
+      lastName1: lastName[0],
+      lastName2: lastName[1] || " ",
       email: user.email,
       password: 'P@ssw0rd'
     }
 
     this._clientService.createClient(client).subscribe({
       next: (res) => {
-        if(!res.newCred.message) {
+        if (!res.newCred.message) {
           this.email = res.newCred.email
           this.password = res.newCred.password
           if (this.beforeLogIn())
@@ -107,40 +108,40 @@ export class LoginComponent implements OnInit{
       }, error: (e: HttpErrorResponse) => {
         Swal.fire({
           icon: "error",
-            title: "Could not log in",
-            text: "Check the provided credentials and try it again later",
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
+          title: "Could not log in",
+          text: "Check the provided credentials and try it again later",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     })
   }
 
   checkDocument(doc: bigint): Observable<boolean> {
     return new Observable<boolean>((observer) => {
-        this._clientService.checkIdExistence(doc).subscribe({
-            next: (res) => {              
-                if (res.id) {
-                    observer.next(true); 
-                    observer.complete();  
-                } else {
-                    observer.next(false); 
-                    observer.complete();
-                }
-            },
-            error: (error) => {
-                observer.error(error);
-            }
-        });
+      this._clientService.checkIdExistence(doc).subscribe({
+        next: (res) => {
+          if (res.id) {
+            observer.next(true);
+            observer.complete();
+          } else {
+            observer.next(false);
+            observer.complete();
+          }
+        },
+        error: (error) => {
+          observer.error(error);
+        }
+      });
     });
   }
 
-  async checkDocumentUntilSuccess(): Promise<bigint>{
+  async checkDocumentUntilSuccess(): Promise<bigint> {
     let success = true
-    let doc: bigint = this.getRandomDoc(11,19)
+    let doc: bigint = this.getRandomDoc(11, 19)
     while (success) {
       success = await lastValueFrom(this.checkDocument(doc))
-      doc = this.getRandomDoc(11,19)
+      doc = this.getRandomDoc(11, 19)
     }
     if (doc === null) {
       throw new Error("No document found");
@@ -148,12 +149,12 @@ export class LoginComponent implements OnInit{
     return doc
   }
 
-  getRandomDoc (minLength: number, maxLength: number): bigint {
+  getRandomDoc(minLength: number, maxLength: number): bigint {
     const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
     let randomNumber = '';
-    for (let i = 0; i < length; i++) {        
-        const digit = Math.floor(Math.random() * 10);
-        randomNumber += digit.toString();
+    for (let i = 0; i < length; i++) {
+      const digit = Math.floor(Math.random() * 10);
+      randomNumber += digit.toString();
     }
     return BigInt(randomNumber);
   }
@@ -162,7 +163,7 @@ export class LoginComponent implements OnInit{
     if (!hashed && !this.validateForm()) {
       return false
     }
-    const user: Credential = { email: this.email, password: this.password, hashed}
+    const user: Credential = { email: this.email, password: this.password, hashed }
     this._credentialService.login(user).subscribe({
       next: (data) => {
         localStorage.setItem('token', data.token)
