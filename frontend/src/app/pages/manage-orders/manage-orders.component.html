@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+
+<main class="main">
+    <h3>Manage Orders</h3>
+    <div class="container">
+        @for (item of orders; track item.id; ; let i = $index) {
+        <article class="order-container">
+            <section class="data">
+                <p class="id">Order #{{item.id}}</p>
+
+                <div class="data-container">
+                    <p>{{item.clientName}}</p>
+                    <p>ID: {{item.clientId}}</p>
+                </div>
+                <div class="data-container">
+                    <p>Date: {{item.date}}</p>
+                    <p>Time: {{item.time}}</p>
+                </div>
+                <p class="total">Total price: ${{item.totalPrice}}</p>
+            </section>
+            <section class="button-container">
+                <button (click)="getOrders()">Details</button>
+                <button>Return</button>
+            </section>
+        </article>
+        }
+    </div>
+</main>

@@ -14,7 +14,8 @@ import {
   faHeadset,
   faRotateRight,
   faCircleUser,
-  faHeart
+  faHeart,
+  faHandHoldingDollar
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
@@ -47,6 +48,7 @@ export class NavbarComponent {
   refreshIcon = faRotateRight
   userIcon = faCircleUser
   favIcon = faHeart
+  manageOrderIcon = faHandHoldingDollar
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')
@@ -113,7 +115,7 @@ export class NavbarComponent {
     localStorage.removeItem('rol')
     localStorage.removeItem('cart')
     localStorage.removeItem('cid')
-    localStorage.setItem('logout','yes')
+    localStorage.setItem('logout', 'yes')
     await Swal.fire({
       icon: "success",
       title: "Successful logout",

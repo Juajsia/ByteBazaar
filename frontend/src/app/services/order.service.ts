@@ -19,4 +19,8 @@ export class OrderService {
   createOrder(order: Order): Observable<Order | msg> {
     return this.http.post<Order | msg>(`${this.myAppUrl}${this.myApiUrl}/`, order)
   }
+
+  getAllOrders(): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/`)
+  }
 }

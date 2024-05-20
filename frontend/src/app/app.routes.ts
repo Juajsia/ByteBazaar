@@ -12,6 +12,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -89,5 +90,10 @@ export const routes: Routes = [{
     title: 'Wishlist',
     path: 'wishlist',
     component: WishlistComponent,
+    canActivate: [loginGuard]
+}, {
+    title: 'Manage Orders',
+    path: 'manageOrders',
+    component: ManageOrdersComponent,
     canActivate: [loginGuard]
 }];

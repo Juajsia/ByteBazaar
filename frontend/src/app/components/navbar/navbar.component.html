@@ -16,6 +16,12 @@
         <a [routerLink]="['/categories']" url="/categories"><fa-icon class="a-icon"
             [icon]="catIcon"></fa-icon>Categories</a>
       </li>
+      @if (rol === 'administrator') {
+      <li>
+        <a [routerLink]="['/manageOrders']" url="/manageOrders"><fa-icon class="a-icon"
+            [icon]="manageOrderIcon"></fa-icon>Orders</a>
+      </li>
+      }
       <li>
         <a [routerLink]="['/aboutUs']" url="/aboutUs"><fa-icon class="a-icon" [icon]="aboutIcon"></fa-icon>About us</a>
       </li>
