@@ -3,6 +3,7 @@ import { Product } from '../models/product.model.js'
 import { OrderDetail } from '../models/orderDetails.model.js'
 import { transporter } from '../utilities/mailer.js'
 import { Credential } from '../models/Credential.model.js'
+import Pdfkit from 'pdfkit'
 
 export class OrderController {
   getAllOrder = async (req, res) => {
@@ -125,6 +126,7 @@ export class OrderController {
 
       return res.status(201).json({ newOrder, Products })
     } catch (error) {
+      console.log(error)
       return res.status(500).json({ message: error.message, forUser: false })
     }
   }
@@ -161,5 +163,21 @@ export class OrderController {
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }
+  }
+
+  getbillOrder = async (req, res) => {
+    const doc = new Pdfkit()
+
+    // Encabezado de respuesta para indicar que se devolverá un PDF
+    res.setHeader('Content-Type', 'application/pdf')
+    res.setHeader('Content-Disposition', 'attachment; filename="archivo.pdf"')
+
+    // Escribir contenido en el PDF
+    doc.pipe(res)
+    doc.fontSize(20)
+    doc.text('Hola, este es un PDF generado desde un endpoint de API REST.')
+
+    // Finalizar y enviar el PDF
+    doc.end()
   }
 }

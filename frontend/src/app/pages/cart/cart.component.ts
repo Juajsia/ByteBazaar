@@ -19,6 +19,7 @@ import { switchAll, switchMap } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../interfaces/order';
 
+
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -85,7 +86,7 @@ export class CartComponent {
         });
         window.location.reload()
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -119,7 +120,7 @@ export class CartComponent {
         next: () => {
 
         }, error: (e: HttpErrorResponse) => {
-          if(e.error.forUser){
+          if (e.error.forUser) {
             Swal.fire({
               icon: "error",
               title: e.error.message,
@@ -190,27 +191,40 @@ export class CartComponent {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          if (products.length > 1){
-            this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
-              this.router.navigate(['/'])
-            })
-          } else {
-            const cartProduct: CartProduct = {
-              CartId: this.cartId,
-              ProductId: products[0].id!
+          Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.downloadPdf(2)
+              Swal.fire("Saved!", "", "success");
             }
-            this._cartProductService.deleteCartItem(cartProduct).subscribe({
-              next: () => {
-                window.location.reload()
-              }, error: (e: HttpErrorResponse) => {
-                console.log("Error deleting product after purchase")
+            if (products.length > 1) {
+              this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
+                this.router.navigate(['/'])
+              })
+            } else {
+              const cartProduct: CartProduct = {
+                CartId: this.cartId,
+                ProductId: products[0].id!
               }
+              this._cartProductService.deleteCartItem(cartProduct).subscribe({
+                next: () => {
+                  // window.location.reload()
+                }, error: (e: HttpErrorResponse) => {
+                  console.log("Error deleting product after purchase")
+                }
+              }
+              )
             }
-            )
-          }
-        });
+          });
+        })
+
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -270,5 +284,20 @@ export class CartComponent {
 
   goToProduct(prodName: string) {
     this.router.navigate([`/product/${prodName}`])
+  }
+
+  downloadPdf(id: number): void {
+    this._orderService.generatePdf(id).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Factura${Date.now()}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, error => {
+      console.error('Error downloading the PDF', error);
+    });
   }
 }
