@@ -1,0 +1,14 @@
+.container {
+    margin: 50px;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    display: flex;
+    gap: 15px;
+    flex-flow: column;
+    list-style: none;
+}

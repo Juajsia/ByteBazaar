@@ -192,10 +192,10 @@ export class CartComponent {
           timer: 1500
         }).then(() => {
           Swal.fire({
-            title: "Do you want to save the changes?",
+            title: "Do you want to download your invoice in PDf?",
             showDenyButton: true,
             showCancelButton: true,
-            confirmButtonText: "Save",
+            confirmButtonText: "save",
             denyButtonText: `Don't save`
           }).then((result) => {
             if (result.isConfirmed) {

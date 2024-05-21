@@ -36,6 +36,16 @@ p {
     text-align: center;
 }
 
+
+
+#termsAndConditions {
+    gap: 20px;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    width: 600px;
+}
+
 #form {
     width: 100%;
     display: flex;

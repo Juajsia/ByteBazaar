@@ -168,16 +168,13 @@ export class OrderController {
   getbillOrder = async (req, res) => {
     const doc = new Pdfkit()
 
-    // Encabezado de respuesta para indicar que se devolverá un PDF
     res.setHeader('Content-Type', 'application/pdf')
     res.setHeader('Content-Disposition', 'attachment; filename="archivo.pdf"')
 
-    // Escribir contenido en el PDF
     doc.pipe(res)
     doc.fontSize(20)
     doc.text('Hola, este es un PDF generado desde un endpoint de API REST.')
 
-    // Finalizar y enviar el PDF
     doc.end()
   }
 }

@@ -95,11 +95,25 @@
                 }
             </article>
 
+            <article>
+                <div id="termsAndConditions">
+                    <article>
+                        <input type="checkbox" id="terms" formControlName="terms" required (change)="validateFields()">
+                        <label for="termsAndConditions">I have read and accept </label>
+                        <a id="conditions" [routerLink]="['/terms']">terms and conditions</a>
+                    </article>
+                    <div>
+                        @if (form.get('terms')?.hasError('required')) {
+                        <span class="error">*Please read and accept termsAndConditions*</span>}
+                    </div>
+                </div>
+            </article>
             @if (formStatus) {
             <button type="button" (click)="signUp()" class="btn">Sign Up</button>
             } @else {
             <button [disabled]="[true]" type="button" (click)="signUp()" class="btn disabled">Sign Up</button>
             }
+
         </form>
         <div id="links">
             <p>Do you have an account already?</p>
