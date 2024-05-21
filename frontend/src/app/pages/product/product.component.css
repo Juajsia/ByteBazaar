@@ -215,6 +215,24 @@ span {
     font-weight: bold;
 }
 
+#fav {
+    transition: all .5s ease;
+}
+
+#fav:hover {
+    transform: scale(1.25);
+}
+
+#favIcon {
+    color: #057FD7;
+    font-size: 30px;
+
+}
+
+#favIcon:hover {
+    cursor: pointer;
+}
+
 
 @media screen and (max-width:1200px) {
     h1 {

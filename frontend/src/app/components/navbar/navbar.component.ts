@@ -13,7 +13,8 @@ import {
   faTrash,
   faHeadset,
   faRotateRight,
-  faCircleUser
+  faCircleUser,
+  faHeart
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
@@ -45,6 +46,7 @@ export class NavbarComponent {
   bubbleIcon = faHeadset
   refreshIcon = faRotateRight
   userIcon = faCircleUser
+  favIcon = faHeart
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')

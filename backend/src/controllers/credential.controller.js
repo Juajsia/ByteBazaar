@@ -8,6 +8,7 @@ import { Administrator } from '../models/administrator.model.js'
 import { SalesAgent } from '../models/salesAgent.model.js'
 import { Cart } from '../models/cart.model.js'
 import { Op } from 'sequelize'
+import { Wishlist } from '../models/wishlist.model.js'
 
 export class Credentialcontroller {
   getAllCredentials = async (req, res) => {
@@ -163,13 +164,18 @@ export class Credentialcontroller {
       }
       const rol = await getRol({ id: cred.personId })
       const token = createToken({ data: { email: cred.email, rol } })
-      const cart = await Cart.findOne({ where: { clientId: cred.personId } })
       let cartId = null
+      const cart = await Cart.findOne({ where: { clientId: cred.personId } })
       if (cart) {
         cartId = cart.id
       }
+      let wishlistId = null
+      const wishlist = await Wishlist.findOne({ where: { clientId: cred.personId } })
+      if (wishlist) {
+        wishlistId = wishlist.id
+      }
       if (rol === 'client') {
-        return res.json({ token, rol, cartId, cid: cred.personId })
+        return res.json({ token, rol, cartId, wishlistId, cid: cred.personId })
       }
       return res.json({ token, rol, cartId, cid: cred.personId })
     } catch (error) {

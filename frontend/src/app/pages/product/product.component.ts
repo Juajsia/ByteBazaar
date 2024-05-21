@@ -10,8 +10,10 @@ import {
   faTrash,
   faPenToSquare,
   faCircleCheck,
-  faEyeSlash
+  faEyeSlash,
+  faHeart
 } from '@fortawesome/free-solid-svg-icons';
+import {faHeart as faHeartNoBG} from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product';
@@ -24,6 +26,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Order } from '../../interfaces/order';
 import { OrderService } from '../../services/order.service';
+import { WishlistProductService } from '../../services/wishlist-product.service';
+import { WishlistProduct } from '../../interfaces/wishlist';
+import { Observable, lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -42,6 +47,8 @@ export class ProductComponent {
   editIcon = faPenToSquare
   enableIcon = faCircleCheck
   desableIcon = faEyeSlash
+  favIcon = faHeart
+  favIconNoBG = faHeartNoBG
 
   role = localStorage.getItem('rol')
   showForm = false
@@ -52,12 +59,14 @@ export class ProductComponent {
   productCats: string[] = []
   productPlats: string[] = []
   allCategories: Category[] = []
+  addToWishlistIcon = this.favIconNoBG
+  inWishlist = false
 
-  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getProduct()
     this.getCategories()
     const regex = new RegExp('\/product\/.*\/edit')
@@ -68,7 +77,7 @@ export class ProductComponent {
   }
 
   getProduct() {
-    this._productService.getProduct(this.productName).subscribe((res: Product) => {
+    this._productService.getProduct(this.productName).subscribe(async (res: Product) => {
       this.product = res
       this.productCats = res.categories.filter(v => {
         if (["Computer", "Smartphone", "Tablet"].includes(v)) {
@@ -79,6 +88,7 @@ export class ProductComponent {
       })
 
       this.productSpecs = res.specs.split('\n')
+      this.addToWishlistIcon = await lastValueFrom (this.isInWishlist())
     })
   }
 
@@ -137,7 +147,7 @@ export class ProductComponent {
         Swal.fire({
           icon: "success",
           title: "Product added sucessfully",
-          text: `Product ${this.product.name} added!!`,
+          text: `Product ${this.product.name} was added to your cart!!`,
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
@@ -265,5 +275,79 @@ export class ProductComponent {
       i++
     }
     this.router.navigate([`products/${catId}`])
+  }
+
+  isInWishlist(): Observable<any> {
+    return new Observable<any>((observer) => {
+    this._wishlistProductService.getWishlistItem(Number(localStorage.getItem('wishlist')), this.product.id!).subscribe({
+      next: (res) => {
+        if (res) {
+          observer.next(this.favIcon); 
+          observer.complete();  
+      } else {
+          observer.next(this.favIconNoBG); 
+          observer.complete();
+      }
+      }, error: (error) => {
+          observer.error(error);
+      }
+    });
+  });
+  }
+
+  addToWishlist(){
+    const wishlistProduct: WishlistProduct = {
+      WishlistId: Number(localStorage.getItem('cart')),
+      ProductId: this.product.id!,
+    }
+    if (this.addToWishlistIcon === this.favIconNoBG){
+      this._wishlistProductService.addWishlistItem(wishlistProduct).subscribe({
+        next: () => {
+          this.addToWishlistIcon = this.favIcon
+        }, error: (e: HttpErrorResponse) => {
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error Adding product to your wishlist",
+              text: "Product could not be added to your wishlist, try again later",
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        }
+      })
+    } else {
+      this._wishlistProductService.deleteWishlistItem(wishlistProduct).subscribe({
+        next: () => {
+          this.addToWishlistIcon = this.favIconNoBG
+        }, error: (e: HttpErrorResponse) => {
+          if(e.error.forUser){
+            Swal.fire({
+              icon: "error",
+              title: e.error.message,
+              text: e.error.text,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error deleting product to your wishlist",
+              text: "Product could not be deleted from your wishlist, try again later",
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        }
+      })
+    }
   }
 }

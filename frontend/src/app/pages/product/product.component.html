@@ -33,6 +33,11 @@
             <img id="productImg" src="{{product.image}}">
 
             <div id="buttons">
+                @if (role === 'client'){
+                <i id="fav" (click)="addToWishlist()">
+                    <fa-icon id="favIcon" [icon]="addToWishlistIcon"></fa-icon>
+                </i>
+                }
                 @if (role === 'administrator') {
                 @if (!product.status) {
                 <button type="button" class="btn btnEnable" (click)="enableProduct()">
