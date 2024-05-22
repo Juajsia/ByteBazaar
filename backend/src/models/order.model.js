@@ -7,6 +7,15 @@ export const Order = sequelize.define('Order', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  isReturned: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    validate: {
+      isBoolean: function (val) {
+        return (typeof (val) === 'boolean')
+      }
+    }
   }
 })
 

@@ -10,3 +10,4 @@ orderRouters.get('/api/order', validateToken, validateRolToken(['client', 'admin
 orderRouters.post('/api/order', validateToken, validateRolToken(['client']), orderController.createOrder)
 orderRouters.get('/api/order/:id', validateToken, validateRolToken(['client']), orderController.getOrder)
 orderRouters.delete('/api/order/:id', validateToken, validateRolToken(['client']), orderController.deleteOrder)
+orderRouters.put('/api/order/:id', validateToken, validateRolToken(['administrator']), orderController.returnOrder)
