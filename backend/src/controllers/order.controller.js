@@ -4,6 +4,8 @@ import { OrderDetail } from '../models/orderDetails.model.js'
 import { transporter } from '../utilities/mailer.js'
 import { Credential } from '../models/Credential.model.js'
 import Pdfkit from 'pdfkit'
+import fs from 'fs'
+import path from 'path'
 
 export class OrderController {
   getAllOrder = async (req, res) => {
@@ -166,15 +168,25 @@ export class OrderController {
   }
 
   getbillOrder = async (req, res) => {
+    console.log('mondaaaaaaaaaaaaaaaaaaaaaaa')
     const doc = new Pdfkit()
+    const filePath = path.join('C:/Users/Administrator/Documents/visualstudio/ByteBazaar', 'output.pdf')
 
-    res.setHeader('Content-Type', 'application/pdf')
-    res.setHeader('Content-Disposition', 'attachment; filename="archivo.pdf"')
+    const writeStream = fs.createWriteStream(filePath)
 
-    doc.pipe(res)
+    writeStream.on('finish', () => {
+      console.log('PDF generado y guardado en el servidor en:', filePath)
+      res.json({ message: 'PDF generado y guardado en el servidor', filePath })
+    })
+
+    writeStream.on('error', (err) => {
+      console.error('Error al guardar el PDF en el servidor:', err)
+      res.status(500).json({ error: 'Error al guardar el PDF en el servidor', details: err })
+    })
+
+    doc.pipe(writeStream)
     doc.fontSize(20)
     doc.text('Hola, este es un PDF generado desde un endpoint de API REST.')
-
     doc.end()
   }
 }

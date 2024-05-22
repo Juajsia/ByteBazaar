@@ -21,4 +21,7 @@ export class OrderDetailsService {
       param = '?top=y'
     return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}/bestSellers${param}`)
   }
+  generatePdf(id: number): Observable<Blob> {
+    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/order/bill/${id}`, { responseType: 'blob' });
+  }
 }

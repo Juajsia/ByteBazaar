@@ -18,6 +18,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { switchAll, switchMap } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../interfaces/order';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -199,7 +202,7 @@ export class CartComponent {
             denyButtonText: `Don't save`
           }).then((result) => {
             if (result.isConfirmed) {
-              this.downloadPdf(2)
+              this.createpdf()
               Swal.fire("Saved!", "", "success");
             }
             if (products.length > 1) {
@@ -286,7 +289,7 @@ export class CartComponent {
     this.router.navigate([`/product/${prodName}`])
   }
 
-  downloadPdf(id: number): void {
+  /* downloadPdf(id: number): void {
     this._orderService.generatePdf(id).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -299,5 +302,45 @@ export class CartComponent {
     }, error => {
       console.error('Error downloading the PDF', error);
     });
+  } */
+
+  createpdf() {
+    let body = [[
+      'Product',
+      'Quantity',
+      'Price (USD)',
+    ]]
+    for (const Item of this.cartItems) {
+      body.push([Item.name, String(Item.CartProduct.quantity), String(Item.price)])
+    }
+    const pdfDefinition: any = {
+      content: [
+        { text: 'Tables', style: 'header' },
+        {
+          table: {
+            widths: ['*', 200, 'auto'],
+            body
+          }
+        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds} USD`, style: 'subheader' }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableheader: {
+          bold: true
+        }
+      }
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
   }
 }
