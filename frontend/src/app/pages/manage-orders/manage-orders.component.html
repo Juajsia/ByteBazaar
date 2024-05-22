@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<main class="main">
+    <h3>Manage Orders</h3>
+    <div class="container">
+        @for (item of orders; track item.id; ; let i = $index) {
+        <article class="order-container">
+            <section class="data">
+                <p class="id">Order #{{item.id}}</p>
+
+                <div class="data-container">
+                    <p>{{item.clientName}}</p>
+                    <p>ID: {{item.clientId}}</p>
+                </div>
+                <div class="data-container">
+                    <p>Date: {{item.date}}</p>
+                    <p>Time: {{item.time}}</p>
+                </div>
+                <p class="total">Total price: ${{item.totalPrice}}</p>
+            </section>
+            <section class="button-container">
+                <button class="btn btn-details" (click)="showOrderDetails(i)"><fa-icon [icon]="detailsIcon"></fa-icon>
+                    <span>details</span></button>
+                <button class="btn btn-return"><fa-icon [icon]="returnIcon"></fa-icon> <span>return</span></button>
+            </section>
+        </article>
+        }
+    </div>
+</main>
+
+@if (showOrder) {
+<div id="container" (click)="showOrder = false">
+    <div class="order-main">
+        <i (click)="showOrder = false" class="xicon"><fa-icon [icon]="xIcon"></fa-icon></i>
+        <h2 class="title"> Order #{{orders[selected].id}} </h2>
+        <div class="data-container">
+            <p>Date: {{orders[selected].date}}</p>
+            <p>Time: {{orders[selected].time}}</p>
+        </div>
+
+        @for (item of orders[selected].Products; track item.id; let i = $index) {
+        <div class="item-container">
+            <img src="{{item.image}}" alt="">
+            <p class="item name">{{item.name}}</p>
+            <p class="item">Price: ${{item.price}}</p>
+            <p class="item">Quantity: {{item.OrderDetail.quantity}}</p>
+        </div>
+        }
+
+        <p class="total">total price: ${{orders[selected].totalPrice}}</p>
+    </div>
+</div>
+}

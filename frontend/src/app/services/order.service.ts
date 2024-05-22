@@ -27,6 +27,10 @@ export class OrderService {
       responseType: 'blob'
     });
   }
+
+  getAllOrders(): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/`)
+  }
 }
 
 

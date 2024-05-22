@@ -13,6 +13,7 @@ import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -95,4 +96,9 @@ export const routes: Routes = [{
     title: 'Terms',
     path: 'terms',
     component: TermsComponent
+}, {
+    title: 'Manage Orders',
+    path: 'manageOrders',
+    component: ManageOrdersComponent,
+    canActivate: [loginGuard]
 }];
