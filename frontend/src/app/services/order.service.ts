@@ -31,6 +31,10 @@ export class OrderService {
   getAllOrders(): Observable<any> {
     return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/`)
   }
+
+  returnOrder(id: number): Observable<any> {
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/${id}`, { isReturned: true })
+  }
 }
 
 

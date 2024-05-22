@@ -189,4 +189,16 @@ export class OrderController {
     doc.text('Hola, este es un PDF generado desde un endpoint de API REST.')
     doc.end()
   }
+
+  returnOrder = async (req, res) => {
+    try {
+      const { id } = await req.params
+      const order = await Order.findByPk(id)
+      order.set(req.body)
+      await order.save()
+      res.status(202).json({ order, message: 'Order successfully returned ' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
 }

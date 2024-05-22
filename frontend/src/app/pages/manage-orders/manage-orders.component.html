@@ -4,6 +4,7 @@
     <h3>Manage Orders</h3>
     <div class="container">
         @for (item of orders; track item.id; ; let i = $index) {
+        @if (!item.isReturned) {
         <article class="order-container">
             <section class="data">
                 <p class="id">Order #{{item.id}}</p>
@@ -21,9 +22,40 @@
             <section class="button-container">
                 <button class="btn btn-details" (click)="showOrderDetails(i)"><fa-icon [icon]="detailsIcon"></fa-icon>
                     <span>details</span></button>
-                <button class="btn btn-return"><fa-icon [icon]="returnIcon"></fa-icon> <span>return</span></button>
+                <button class="btn btn-return" (click)="returnOrder(item.id)"><fa-icon [icon]="returnIcon"></fa-icon>
+                    <span>return</span></button>
             </section>
         </article>
+        }
+        }
+    </div>
+</main>
+
+<main class="main">
+    <h3>Orders Returned</h3>
+    <div class="container">
+        @for (item of orders; track item.id; ; let i = $index) {
+        @if (item.isReturned) {
+        <article class="order-container">
+            <section class="data">
+                <p class="id">Order #{{item.id}}</p>
+
+                <div class="data-container">
+                    <p>{{item.clientName}}</p>
+                    <p>ID: {{item.clientId}}</p>
+                </div>
+                <div class="data-container">
+                    <p>Date: {{item.date}}</p>
+                    <p>Time: {{item.time}}</p>
+                </div>
+                <p class="total returned">Total price: ${{item.totalPrice}}</p>
+            </section>
+            <section class="button-container">
+                <button class="btn btn-details" (click)="showOrderDetails(i)"><fa-icon [icon]="detailsIcon"></fa-icon>
+                    <span>details</span></button>
+            </section>
+        </article>
+        }
         }
     </div>
 </main>

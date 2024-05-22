@@ -11,3 +11,4 @@ orderRouters.post('/api/order', validateToken, validateRolToken(['client']), ord
 orderRouters.get('/api/order/:id', validateToken, validateRolToken(['client']), orderController.getOrder)
 orderRouters.delete('/api/order/:id', validateToken, validateRolToken(['client']), orderController.deleteOrder)
 orderRouters.get('/api/order/bill/:id', validateToken, validateRolToken(['client']), orderController.getbillOrder)
+orderRouters.put('/api/order/:id', validateToken, validateRolToken(['administrator']), orderController.returnOrder)

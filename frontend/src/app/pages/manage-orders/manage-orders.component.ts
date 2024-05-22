@@ -6,6 +6,8 @@ import { forkJoin } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faX, faReceipt, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage-orders',
@@ -72,5 +74,50 @@ export class ManageOrdersComponent {
   showOrderDetails(id: number) {
     this.showOrder = true
     this.selected = id
+  }
+
+  returnOrder(id: number) {
+    Swal.fire({
+      title: "Are you sure you want to return this order?",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Yes, return it",
+      denyButtonText: `Don't return`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._OrderService.returnOrder(id).subscribe({
+          next: (data) => {
+            Swal.fire({
+              icon: "success",
+              title: `Order #${id} Returned`,
+              text: data.message,
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              window.location.reload()
+            })
+          },
+          error: (e: HttpErrorResponse) => {
+            Swal.fire({
+              icon: "error",
+              title: "Could not Return Order",
+              text: e.error.message,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: "info",
+          title: `Order was not returned `,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+
+
+
   }
 }

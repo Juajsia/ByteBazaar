@@ -177,3 +177,8 @@ p {
 .name {
     font-weight: bold;
 }
+
+.returned {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
