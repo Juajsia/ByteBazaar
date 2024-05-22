@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faBagShopping,
   faBars,
   faSearch,
   faX,
@@ -15,7 +16,8 @@ import {
   faRotateRight,
   faCircleUser,
   faHeart,
-  faChartSimple
+  faChartSimple,
+  faHandHoldingDollar
 } from '@fortawesome/free-solid-svg-icons';
 import { loginStatus } from '../../guards/login.guard';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
@@ -49,6 +51,8 @@ export class NavbarComponent {
   userIcon = faCircleUser
   favIcon = faHeart
   chartIcon = faChartSimple
+  manageOrderIcon = faHandHoldingDollar
+  bagIcon = faBagShopping
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')

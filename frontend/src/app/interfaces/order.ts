@@ -16,3 +16,12 @@ export interface CartProduct {
     createdAt?: string,
     updatedAt?: string
 }
+
+export interface OrderDetail {
+
+    quantity: number,
+    createdAt: string,
+    updatedAt: string,
+    OrderId: number,
+    ProductId: number
+}

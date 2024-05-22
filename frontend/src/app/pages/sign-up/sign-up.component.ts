@@ -29,7 +29,9 @@ export class SignUpComponent {
     firstName: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
     middleName: new FormControl('', [Validators.pattern(this.midNameRegex)]),
     firstSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
-    secondSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)])
+    secondSurname: new FormControl('', [Validators.required, Validators.pattern(this.textRegex)]),
+    terms: new FormControl('', Validators.required)
+
   })
 
   btn = document.querySelector('button')
@@ -72,7 +74,7 @@ export class SignUpComponent {
         });
         this.router.navigate(['/login'])
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -99,11 +101,11 @@ export class SignUpComponent {
     return this.form.value.password === this.form.value.password2
   }
 
-  validateMidName(){
+  validateMidName() {
     return !this.midName || /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/.test(this.midName)
   }
 
-  testMidName(){
+  testMidName() {
     this.midName = document.getElementById('middleName')?.textContent!
     console.log(document.getElementById('middleName'))
     return /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]*$/.test(this.midName)
@@ -114,5 +116,6 @@ export class SignUpComponent {
       this.formStatus = false
     else
       this.formStatus = true
+    console.log(this.form.invalid)
   }
 }

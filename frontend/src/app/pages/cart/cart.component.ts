@@ -18,6 +18,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { switchAll, switchMap } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../interfaces/order';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-cart',
@@ -85,7 +89,7 @@ export class CartComponent {
         });
         window.location.reload()
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -119,7 +123,7 @@ export class CartComponent {
         next: () => {
 
         }, error: (e: HttpErrorResponse) => {
-          if(e.error.forUser){
+          if (e.error.forUser) {
             Swal.fire({
               icon: "error",
               title: e.error.message,
@@ -191,28 +195,38 @@ export class CartComponent {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          if (products.length > 1){
-            this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
-              this.router.navigate(['/'])
-            })
-          } else {
-            const cartProduct: CartProduct = {
-              CartId: this.cartId,
-              ProductId: products[0].id!
+          Swal.fire({
+            title: "Do you want to download your invoice in PDf?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "save",
+            denyButtonText: `Don't save`
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.createpdf()
+              Swal.fire("Saved!", "", "success");
             }
-            this._cartProductService.deleteCartItem(cartProduct).subscribe({
-              next: () => {
-                window.location.reload()
-              }, error: (e: HttpErrorResponse) => {
-                console.log("Error deleting product after purchase")
+            if (products.length > 1) {
+              this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
+                this.router.navigate(['/'])
+              })
+            } else {
+              const cartProduct: CartProduct = {
+                CartId: this.cartId,
+                ProductId: products[0].id!
               }
+              this._cartProductService.deleteCartItem(cartProduct).subscribe({
+                next: () => {
+                  // window.location.reload()
+                }, error: (e: HttpErrorResponse) => {
+                  console.log("Error deleting product after purchase")
+                }
+              })
             }
-            )
-          }
-          this.changes = false
+          })
         });
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -272,5 +286,45 @@ export class CartComponent {
 
   goToProduct(prodName: string) {
     this.router.navigate([`/product/${prodName}`])
+  }
+
+  createpdf() {
+    let body = [[
+      'Product',
+      'Quantity',
+      'Price (USD)',
+    ]]
+    for (const Item of this.cartItems) {
+      body.push([Item.name, String(Item.CartProduct.quantity), String(Item.price)])
+    }
+    const pdfDefinition: any = {
+      content: [
+        { text: 'Purchase Bill', style: 'header' },
+        {
+          table: {
+            widths: ['*', 200, 'auto'],
+            body
+          }
+        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds} USD`, style: 'subheader' }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableheader: {
+          bold: true
+        }
+      }
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
   }
 }

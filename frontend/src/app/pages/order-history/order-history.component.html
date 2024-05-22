@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<main>
+    <h1>Your Order History</h1>
+    <div class="content">
+        <ul class="itemsList">
+            @for (item of orders; track item.id) {
+
+            <li class="order">
+                <p class="date"><b class="date">Date :</b> {{item.createdAt.substring(0,10)}}</p>
+                <p class="orderid"><b class="orderid">Order Id: </b>{{item.id}}</p>
+                @for (product of item.Products; track product.id) {
+            <li class="item">
+                <img class="productImg" src="{{product.image}}" (click)="goToProduct(product.name!)">
+                <section class="productInfo">
+                    <p class="productName" (click)="goToProduct(product.name!)"><b
+                            class="productName">{{product.name}}</b></p>
+                    <p class="quantity"><b>Quantity: </b> {{product.OrderDetail.quantity}}</p>
+                    <p class="provider"><b>Provider:</b> {{product.provider}}</p>
+                </section>
+                <p class="price"><b class="price">${{product.price}}</b></p>
+            </li>
+            <p class="total"><b class="total">Total :</b></p>
+            }
+            </li>
+
+            } @empty {You don't have orders in your purchase history}
+        </ul>
+    </div>
+
+</main>

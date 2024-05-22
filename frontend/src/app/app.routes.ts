@@ -13,6 +13,9 @@ import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
+import { OrderHistoryComponent } from './pages/order-history/order-history.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -95,5 +98,19 @@ export const routes: Routes = [{
     title: 'Reports',
     path: 'reports',
     component: ReportsComponent,
+    canActivate: [loginGuard]
+},{
+    title: 'Terms',
+    path: 'terms',
+    component: TermsComponent
+}, {
+    title: 'Manage Orders',
+    path: 'manageOrders',
+    component: ManageOrdersComponent,
+    canActivate: [loginGuard]
+}, {
+    title: 'Order History',
+    path: 'orderHistory',
+    component: OrderHistoryComponent,
     canActivate: [loginGuard]
 }];

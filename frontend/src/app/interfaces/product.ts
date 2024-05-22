@@ -1,4 +1,5 @@
 import { CartProduct } from "./cart"
+import { OrderDetail } from "./order"
 
 export interface Product {
     id?: number,
@@ -15,7 +16,8 @@ export interface Product {
     updatedAt?: string,
     CartProduct?: CartProduct,
     quantity?: number,
-    ordersnum?: string
+    ordersnum?: string,
+    OrderDetail?: OrderDetail
 }
 
 export interface msg {

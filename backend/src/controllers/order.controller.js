@@ -123,6 +123,7 @@ export class OrderController {
 
       return res.status(201).json({ newOrder, Products })
     } catch (error) {
+      console.log(error)
       return res.status(500).json({ message: error.message, forUser: false })
     }
   }
@@ -156,6 +157,38 @@ export class OrderController {
       } else {
         res.status(404).json({ err: 'order not found' })
       }
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
+
+  getClientOrders = async (req, res) => {
+    try {
+      const { clientId } = await req.params
+      const orders = await Order.findAll({
+        where: {
+          clientId
+        },
+        include: {
+          model: Product
+        }
+      })
+      if (orders) {
+        return res.status(200).json(orders)
+      }
+      return res.status(200).json({ message: 'you do not have orders' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message, forUser: false })
+    }
+  }
+
+  returnOrder = async (req, res) => {
+    try {
+      const { id } = await req.params
+      const order = await Order.findByPk(id)
+      order.set(req.body)
+      await order.save()
+      res.status(202).json({ order, message: 'Order successfully returned ' })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }

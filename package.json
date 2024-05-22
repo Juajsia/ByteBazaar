@@ -13,5 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "pdfkit": "^0.15.0",
+    "pdfmake": "^0.2.10"
   }
 }

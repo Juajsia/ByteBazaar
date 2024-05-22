@@ -19,6 +19,14 @@
       @if (rol === 'administrator') {
       <li>
         <a [routerLink]="['/reports']" url="/reports"><fa-icon class="a-icon" [icon]="chartIcon"></fa-icon>Reports</a>
+        <a [routerLink]="['/manageOrders']" url="/manageOrders"><fa-icon class="a-icon"
+            [icon]="manageOrderIcon"></fa-icon>Orders</a>
+      </li>
+      }
+      @if (rol==='client') {
+      <li>
+        <a [routerLink]="['/orderHistory']" url="/orderHistory"><fa-icon class="a-icon"
+            [icon]="bagIcon"></fa-icon>Orders</a>
       </li>
       }
       <li>
