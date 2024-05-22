@@ -13,7 +13,7 @@ import {
   faEyeSlash,
   faHeart
 } from '@fortawesome/free-solid-svg-icons';
-import {faHeart as faHeartNoBG} from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartNoBG } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product';
@@ -29,6 +29,11 @@ import { OrderService } from '../../services/order.service';
 import { WishlistProductService } from '../../services/wishlist-product.service';
 import { WishlistProduct } from '../../interfaces/wishlist';
 import { Observable, lastValueFrom } from 'rxjs';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { OrderDetailsService } from '../../services/order-details.service';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-product',
@@ -88,7 +93,7 @@ export class ProductComponent {
       })
 
       this.productSpecs = res.specs.split('\n')
-      this.addToWishlistIcon = await lastValueFrom (this.isInWishlist())
+      this.addToWishlistIcon = await lastValueFrom(this.isInWishlist())
     })
   }
 
@@ -101,8 +106,9 @@ export class ProductComponent {
   buyProduct() {
     const order: Order = {
       clientId: Number(localStorage.getItem('cid')),
-      Products: [{...this.product, quantity: 1}]
+      Products: [{ ...this.product, quantity: 1 }]
     }
+
     this._orderService.createOrder(order).subscribe({
       next: () => {
         this.product.stock--
@@ -112,9 +118,22 @@ export class ProductComponent {
           text: `Successful purchase`,
           showConfirmButton: false,
           timer: 1500
+        }).then(() => {
+          Swal.fire({
+            title: "Do you want to download your invoice in PDf?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "save",
+            denyButtonText: `Don't save`
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.createpdf()
+              Swal.fire("Saved!", "", "success");
+            }
+          })
         })
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "error",
             title: e.error.message,
@@ -154,7 +173,7 @@ export class ProductComponent {
           window.location.reload()
         });
       }, error: (e: HttpErrorResponse) => {
-        if(e.error.forUser){
+        if (e.error.forUser) {
           Swal.fire({
             icon: "info",
             title: e.error.message,
@@ -240,7 +259,7 @@ export class ProductComponent {
             this.router.navigate(['/'])
           },
           error: (e: HttpErrorResponse) => {
-            if(e.error.forUser){
+            if (e.error.forUser) {
               Swal.fire({
                 icon: "error",
                 title: e.error.message,
@@ -279,33 +298,33 @@ export class ProductComponent {
 
   isInWishlist(): Observable<any> {
     return new Observable<any>((observer) => {
-    this._wishlistProductService.getWishlistItem(Number(localStorage.getItem('wishlist')), this.product.id!).subscribe({
-      next: (res) => {
-        if (res) {
-          observer.next(this.favIcon); 
-          observer.complete();  
-      } else {
-          observer.next(this.favIconNoBG); 
-          observer.complete();
-      }
-      }, error: (error) => {
+      this._wishlistProductService.getWishlistItem(Number(localStorage.getItem('wishlist')), this.product.id!).subscribe({
+        next: (res) => {
+          if (res) {
+            observer.next(this.favIcon);
+            observer.complete();
+          } else {
+            observer.next(this.favIconNoBG);
+            observer.complete();
+          }
+        }, error: (error) => {
           observer.error(error);
-      }
+        }
+      });
     });
-  });
   }
 
-  addToWishlist(){
+  addToWishlist() {
     const wishlistProduct: WishlistProduct = {
       WishlistId: Number(localStorage.getItem('cart')),
       ProductId: this.product.id!,
     }
-    if (this.addToWishlistIcon === this.favIconNoBG){
+    if (this.addToWishlistIcon === this.favIconNoBG) {
       this._wishlistProductService.addWishlistItem(wishlistProduct).subscribe({
         next: () => {
           this.addToWishlistIcon = this.favIcon
         }, error: (e: HttpErrorResponse) => {
-          if(e.error.forUser){
+          if (e.error.forUser) {
             Swal.fire({
               icon: "error",
               title: e.error.message,
@@ -329,7 +348,7 @@ export class ProductComponent {
         next: () => {
           this.addToWishlistIcon = this.favIconNoBG
         }, error: (e: HttpErrorResponse) => {
-          if(e.error.forUser){
+          if (e.error.forUser) {
             Swal.fire({
               icon: "error",
               title: e.error.message,
@@ -349,5 +368,61 @@ export class ProductComponent {
         }
       })
     }
+  }
+
+  createpdf() {
+    let body = [[
+      'Product',
+      'Quantity',
+      'Price (USD)',
+    ]]
+
+    body.push([this.product.name, '1', String(this.product.price)])
+    const pdfDefinition: any = {
+      content: [
+        { text: 'Purchase Bill', style: 'header' },
+        `Company Information:
+
+        Company Name: ByteBazaar
+        Address: Cra. 48 #7 151, El Poblado, Medellin
+        Telephone: +57 314535114
+        Email: contacto@bytebazaar.com
+        
+        `,
+        {
+          table: {
+            widths: ['*', 200, 'auto'],
+            body
+          }
+        }, { text: `Total : ${this.product.price} USD`, style: 'subheader' },
+        `Terms and Conditions:
+
+        Payment must be made within 15 days from the date of issue.
+        Returns of software licenses once activated are not accepted.
+        For technical support, contact support@bytebazaar.com.
+        Additional notes:
+        
+        Thank you for your purchase at ByteBazaar.
+If you have any questions or need additional assistance, please do not hesitate to contact us.`
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableheader: {
+          bold: true
+        }
+      }
+    }
+
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
   }
 }

@@ -301,12 +301,29 @@ export class CartComponent {
     const pdfDefinition: any = {
       content: [
         { text: 'Purchase Bill', style: 'header' },
+        `Company Information:
+
+        Company Name: ByteBazaar
+        Address: Cra. 48 #7 151, El Poblado, Medellin
+        Telephone: +57 314535114
+        Email: contacto@bytebazaar.com
+        
+        `,
         {
           table: {
             widths: ['*', 200, 'auto'],
             body
           }
-        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds} USD`, style: 'subheader' }
+        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds}.substring USD`, style: 'subheader' },
+        `Terms and Conditions:
+
+        Payment must be made within 15 days from the date of issue.
+        Returns of software licenses once activated are not accepted.
+        For technical support, contact support@bytebazaar.com.
+        Additional notes:
+        
+        Thank you for your purchase at ByteBazaar.
+If you have any questions or need additional assistance, please do not hesitate to contact us.`
       ],
       styles: {
         header: {
