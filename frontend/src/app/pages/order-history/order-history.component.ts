@@ -28,7 +28,7 @@ export class OrderHistoryComponent {
   getClientHistory() {
     this._orderService.getClientHistory(localStorage.getItem('cid')).subscribe({
       next: (data) => {
-        this.orders = data
+        this.orders = data.reverse()
       }, error: (e: HttpErrorResponse) => {
         if (e.error.forUser) {
           Swal.fire({

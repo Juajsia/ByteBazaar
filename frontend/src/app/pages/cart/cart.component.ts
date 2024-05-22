@@ -315,7 +315,7 @@ export class CartComponent {
             widths: ['*', 200, 'auto'],
             body
           }
-        }, { text: `Total : ${(this.summary.adCosts + this.summary.totProds).toFixed(2)}.substring USD`, style: 'subheader' },
+        }, { text: `Total : ${(this.summary.adCosts + this.summary.totProds).toFixed(2)} USD`, style: 'subheader' },
         `Terms and Conditions:
 
         Payment must be made within 15 days from the date of issue.
