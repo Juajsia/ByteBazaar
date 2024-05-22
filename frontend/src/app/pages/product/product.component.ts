@@ -61,6 +61,7 @@ export class ProductComponent {
   allCategories: Category[] = []
   addToWishlistIcon = this.favIconNoBG
   inWishlist = false
+  wishlistId  = Number(localStorage.getItem('wishlist'))
 
   constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
@@ -88,7 +89,8 @@ export class ProductComponent {
       })
 
       this.productSpecs = res.specs.split('\n')
-      this.addToWishlistIcon = await lastValueFrom (this.isInWishlist())
+      if (localStorage.getItem('token'))
+        this.addToWishlistIcon = await lastValueFrom (this.isInWishlist())
     })
   }
 
@@ -100,8 +102,9 @@ export class ProductComponent {
 
   buyProduct() {
     const order: Order = {
-      clientId: Number(localStorage.getItem('cid')),
-      Products: [{...this.product, quantity: 1}]
+      clientId: localStorage.getItem('cid')!,
+      Products: [{...this.product, quantity: 1}],
+      total: this.product.price
     }
     this._orderService.createOrder(order).subscribe({
       next: () => {
@@ -114,6 +117,7 @@ export class ProductComponent {
           timer: 1500
         })
       }, error: (e: HttpErrorResponse) => {
+        console.log(e)
         if(e.error.forUser){
           Swal.fire({
             icon: "error",
@@ -154,6 +158,7 @@ export class ProductComponent {
           window.location.reload()
         });
       }, error: (e: HttpErrorResponse) => {
+        console.log(e)
         if(e.error.forUser){
           Swal.fire({
             icon: "info",
@@ -279,9 +284,9 @@ export class ProductComponent {
 
   isInWishlist(): Observable<any> {
     return new Observable<any>((observer) => {
-    this._wishlistProductService.getWishlistItem(Number(localStorage.getItem('wishlist')), this.product.id!).subscribe({
+    this._wishlistProductService.checkWishlistItemExistence(this.wishlistId, this.product.id!).subscribe({
       next: (res) => {
-        if (res) {
+        if (!res.message) {
           observer.next(this.favIcon); 
           observer.complete();  
       } else {

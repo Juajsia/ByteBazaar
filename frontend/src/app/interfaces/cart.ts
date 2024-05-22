@@ -1,6 +1,6 @@
 export interface Cart {
     id: number,
-    clientId: number,
+    clientId: number | bigint | string,
     Products?: object[],
     createdAt?: string,
     updatedAt?: string

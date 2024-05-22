@@ -74,7 +74,6 @@ export class OrderDetailController {
       FROM public."BestSellers" 
       ${limit};`
       const bestSellers = await sequelize.query(query, { model: Product, mapToModel: true })
-      console.log('length: ', bestSellers.length)
       if (bestSellers) {
         res.status(200).json(bestSellers)
       } else {

@@ -55,9 +55,11 @@
                     Edit <fa-icon class="btnIcon" [icon]="editIcon"></fa-icon>
                 </button>
                 } @else {
+                @if (role === 'client') {
                 <button type="button" class="btn" (click)="addToCart()">
                     Add <fa-icon class="btnIcon" [icon]="cart"></fa-icon>
                 </button>
+                }
                 }
             </div>
 

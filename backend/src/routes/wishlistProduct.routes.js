@@ -10,3 +10,4 @@ wishlistProductRouter.get('/api/wishlistProduct', validateToken, validateRolToke
 wishlistProductRouter.post('/api/wishlistProduct', validateToken, validateRolToken(['client']), wishlistProductController.createWishlistProduct)
 wishlistProductRouter.get('/api/wishlistProduct/:WishlistId/:ProductId', validateToken, validateRolToken(['client']), wishlistProductController.getWishlistProduct)
 wishlistProductRouter.delete('/api/wishlistProduct/:WishlistId/:ProductId', validateToken, validateRolToken(['client']), wishlistProductController.deleteWishlistProduct)
+wishlistProductRouter.get('/api/wishlistProduct/check/:WishlistId/:ProductId', validateToken, validateRolToken(['client']), wishlistProductController.checkWishlistProductExistence)

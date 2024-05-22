@@ -7,6 +7,10 @@ export const Order = sequelize.define('Order', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+
+  total: {
+    type: DataTypes.FLOAT
   }
 })
 

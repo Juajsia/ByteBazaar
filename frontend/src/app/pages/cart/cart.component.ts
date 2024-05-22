@@ -178,8 +178,9 @@ export class CartComponent {
 
   createOrder(products: Product[]) {
     const order: Order = {
-      clientId: Number(localStorage.getItem('cid')),
-      Products: products
+      clientId: localStorage.getItem('cid')!,
+      Products: products,
+      total: this.summary. totProds + this.summary.adCosts
     }
     this._orderService.createOrder(order).subscribe({
       next: () => {
@@ -208,6 +209,7 @@ export class CartComponent {
             }
             )
           }
+          this.changes = false
         });
       }, error: (e: HttpErrorResponse) => {
         if(e.error.forUser){

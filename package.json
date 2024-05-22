@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"cd backend && npm run dev\" \"cd ..\" \"cd frontend && ng serve\"",
     "install": "concurrently \"cd backend && npm install\" \"cd ..\" \"cd frontend && npm install\"",
-    "sync": "node ./backend/src/sync.js"
+    "sync": "node ./backend/src/sync.js && node ./backend/src/database/dataInsertion/sqlInstructionsExecution.js"
   },
   "keywords": [],
   "author": "",
