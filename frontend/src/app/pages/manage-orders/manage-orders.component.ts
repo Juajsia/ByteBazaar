@@ -4,17 +4,24 @@ import { OrderService } from '../../services/order.service';
 import { ClientService } from '../../services/client.service';
 import { forkJoin } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faX, faReceipt, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-manage-orders',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, FontAwesomeModule],
   templateUrl: './manage-orders.component.html',
   styleUrl: './manage-orders.component.css'
 })
 export class ManageOrdersComponent {
 
   orders: any[] = []
+  xIcon = faX
+  detailsIcon = faReceipt
+  returnIcon = faRotateLeft
+  selected = 0
+  showOrder = false
 
   constructor(private _OrderService: OrderService, private _ClientService: ClientService) {
 
@@ -62,4 +69,8 @@ export class ManageOrdersComponent {
     });
   }
 
+  showOrderDetails(id: number) {
+    this.showOrder = true
+    this.selected = id
+  }
 }
