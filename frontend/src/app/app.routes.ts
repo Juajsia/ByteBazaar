@@ -14,6 +14,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
+import { OrderHistoryComponent } from './pages/order-history/order-history.component';
 
 export const routes: Routes = [{
     title: 'Home',
@@ -100,5 +101,10 @@ export const routes: Routes = [{
     title: 'Manage Orders',
     path: 'manageOrders',
     component: ManageOrdersComponent,
+    canActivate: [loginGuard]
+}, {
+    title: 'Order History',
+    path: 'orderHistory',
+    component: OrderHistoryComponent,
     canActivate: [loginGuard]
 }];

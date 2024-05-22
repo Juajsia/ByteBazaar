@@ -3,9 +3,6 @@ import { Product } from '../models/product.model.js'
 import { OrderDetail } from '../models/orderDetails.model.js'
 import { transporter } from '../utilities/mailer.js'
 import { Credential } from '../models/Credential.model.js'
-import Pdfkit from 'pdfkit'
-import fs from 'fs'
-import path from 'path'
 
 export class OrderController {
   getAllOrder = async (req, res) => {
@@ -167,26 +164,23 @@ export class OrderController {
     }
   }
 
-  getbillOrder = async (req, res) => {
-    console.log('mondaaaaaaaaaaaaaaaaaaaaaaa')
-    const doc = new Pdfkit()
-    const filePath = path.join('C:/Users/Administrator/Documents/visualstudio/ByteBazaar', 'output.pdf')
-
-    const writeStream = fs.createWriteStream(filePath)
-
-    writeStream.on('finish', () => {
-      console.log('PDF generado y guardado en el servidor en:', filePath)
-      res.json({ message: 'PDF generado y guardado en el servidor', filePath })
-    })
-
-    writeStream.on('error', (err) => {
-      console.error('Error al guardar el PDF en el servidor:', err)
-      res.status(500).json({ error: 'Error al guardar el PDF en el servidor', details: err })
-    })
-
-    doc.pipe(writeStream)
-    doc.fontSize(20)
-    doc.text('Hola, este es un PDF generado desde un endpoint de API REST.')
-    doc.end()
+  getClientOrders = async (req, res) => {
+    try {
+      const { clientId } = await req.params
+      const orders = await Order.findAll({
+        where: {
+          clientId
+        },
+        include: {
+          model: Product
+        }
+      })
+      if (orders) {
+        return res.status(200).json(orders)
+      }
+      return res.status(200).json({ message: 'you do not have orders' })
+    } catch (error) {
+      return res.status(500).json({ message: error.message, forUser: false })
+    }
   }
 }

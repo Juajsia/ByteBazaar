@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faBagShopping,
   faBars,
   faSearch,
   faX,
@@ -49,6 +50,7 @@ export class NavbarComponent {
   userIcon = faCircleUser
   favIcon = faHeart
   manageOrderIcon = faHandHoldingDollar
+  bagIcon = faBagShopping
 
   loginStatus = loginStatus()
   rol = localStorage.getItem('rol')

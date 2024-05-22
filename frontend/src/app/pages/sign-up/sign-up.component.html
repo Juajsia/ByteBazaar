@@ -42,7 +42,7 @@
                 }
             </article>
             <article class="field">
-                <label for="password">Password-2</label>
+                <label for="password">Confirm Password</label>
                 <input type="password" name="password2" placeholder="Confirm password" formControlName="password2"
                     required (change)="pwdsEq = validatePwd(); validateFields()">
                 @if (form.get('password2')?.hasError('required') && form.get('password2')?.touched) {
@@ -65,7 +65,7 @@
                 }
             </article>
             <article class="field">
-                <label for="middleName">middleName (optional)</label>
+                <label for="middleName">MiddleName (optional)</label>
                 <input type="text" id="middleName" name="middleName" placeholder="Middle Name (optional)"
                     formControlName="middleName" (change)="validateFields()">
                 @if (form.get('middleName')?.hasError('pattern') && form.get('middleName')?.touched) {

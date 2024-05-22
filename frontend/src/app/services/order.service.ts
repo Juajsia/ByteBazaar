@@ -31,6 +31,10 @@ export class OrderService {
   getAllOrders(): Observable<any> {
     return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/`)
   }
+  getClientHistory(clientId: string): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.myAppUrl}${this.myApiUrl}/history/${clientId}`)
+  }
+
 }
 
 

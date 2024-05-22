@@ -289,21 +289,6 @@ export class CartComponent {
     this.router.navigate([`/product/${prodName}`])
   }
 
-  /* downloadPdf(id: number): void {
-    this._orderService.generatePdf(id).subscribe(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Factura${Date.now()}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, error => {
-      console.error('Error downloading the PDF', error);
-    });
-  } */
-
   createpdf() {
     let body = [[
       'Product',
@@ -315,7 +300,7 @@ export class CartComponent {
     }
     const pdfDefinition: any = {
       content: [
-        { text: 'Tables', style: 'header' },
+        { text: 'Purchase Bill', style: 'header' },
         {
           table: {
             widths: ['*', 200, 'auto'],

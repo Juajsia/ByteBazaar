@@ -10,4 +10,4 @@ orderRouters.get('/api/order', validateToken, validateRolToken(['client', 'admin
 orderRouters.post('/api/order', validateToken, validateRolToken(['client']), orderController.createOrder)
 orderRouters.get('/api/order/:id', validateToken, validateRolToken(['client']), orderController.getOrder)
 orderRouters.delete('/api/order/:id', validateToken, validateRolToken(['client']), orderController.deleteOrder)
-orderRouters.get('/api/order/bill/:id', validateToken, validateRolToken(['client']), orderController.getbillOrder)
+orderRouters.get('/api/order/history/:clientId', validateToken, validateRolToken(['client']), orderController.getClientOrders)

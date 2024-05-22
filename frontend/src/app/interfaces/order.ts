@@ -3,7 +3,7 @@ import { Product } from "./product"
 export interface Order {
     id?: number,
     clientId: number,
-    Products?: object[] | Product[],
+    Products?: Product[],
     createdAt?: string,
     updatedAt?: string
 }
@@ -14,4 +14,13 @@ export interface CartProduct {
     quantity?: number,
     createdAt?: string,
     updatedAt?: string
+}
+
+export interface OrderDetail {
+
+    quantity: number,
+    createdAt: string,
+    updatedAt: string,
+    OrderId: number,
+    ProductId: number
 }
