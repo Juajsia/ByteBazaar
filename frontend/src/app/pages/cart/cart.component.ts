@@ -305,7 +305,7 @@ export class CartComponent {
             widths: ['*', 200, 'auto'],
             body
           }
-        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds} USD`, style: 'subheader' }
+        }, { text: `Total : ${(this.summary.adCosts + this.summary.totProds).toFixed(2)} USD`, style: 'subheader' }
       ],
       styles: {
         header: {
