@@ -8,6 +8,9 @@ export const Order = sequelize.define('Order', {
     primaryKey: true,
     autoIncrement: true
   },
+  total: {
+    type: DataTypes.FLOAT
+  },
   isReturned: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

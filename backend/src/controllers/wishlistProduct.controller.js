@@ -50,4 +50,18 @@ export class WishlistProductController {
       return res.status(500).json({ message: error.message, forUser: false })
     }
   }
+
+  checkWishlistProductExistence = async (req, res) => {
+    try {
+      const { WishlistId, ProductId } = req.params
+      const wishlistProduct = await WishlistProduct.findOne({ where: { WishlistId, ProductId } })
+      if (wishlistProduct) {
+        res.json(wishlistProduct)
+      } else {
+        res.status(200).json({ message: 'WishlistProduct record not found' })
+      }
+    } catch (error) {
+      return res.status(500).json({ message: error.message })
+    }
+  }
 }

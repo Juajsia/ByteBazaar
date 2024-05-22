@@ -14,7 +14,8 @@ export const validateToken = (req, res, next) => {
     }
   } else {
     res.status(401).json({
-      err: 'access denied'
+      err: 'access denied',
+      forUser: false
     })
   }
 }
@@ -28,7 +29,8 @@ export const validateRolToken = (rol = []) => (req, res, next) => {
     next()
   } else {
     res.status(401).json({
-      err: 'permissions denied'
+      err: 'permissions denied',
+      forUser: false
     })
   }
 }

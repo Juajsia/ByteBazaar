@@ -183,7 +183,8 @@ export class CartComponent {
   createOrder(products: Product[]) {
     const order: Order = {
       clientId: Number(localStorage.getItem('cid')),
-      Products: products
+      Products: products,
+      total: this.summary.totProds + this.summary.adCosts
     }
     this._orderService.createOrder(order).subscribe({
       next: () => {
@@ -314,7 +315,7 @@ export class CartComponent {
             widths: ['*', 200, 'auto'],
             body
           }
-        }, { text: `Total : ${this.summary.adCosts + this.summary.totProds}.substring USD`, style: 'subheader' },
+        }, { text: `Total : ${(this.summary.adCosts + this.summary.totProds).toFixed(2)}.substring USD`, style: 'subheader' },
         `Terms and Conditions:
 
         Payment must be made within 15 days from the date of issue.

@@ -9,7 +9,6 @@ import { Cart } from './cart.model.js'
 import { Wishlist } from './wishlist.model.js'
 import { Category } from './category.model.js'
 import { ProductController } from '../controllers/product.controller.js'
-import { sequelize } from '../database/connection.js'
 
 export async function inserts () {
   const newAdmin = {
@@ -459,25 +458,4 @@ export async function inserts () {
       }
     })
   })
-
-  // views creation
-  await sequelize.query(`CREATE OR REPLACE VIEW public."BestSellers"
-AS
-SELECT count(od."ProductId") AS ordersnum,
-   od."ProductId",
-   p.name,
-   p.description,
-   p.image,
-   p.price,
-   p.provider,
-   p.specs,
-   p.status,
-   p.stock
-  FROM "OrderDetails" od
-    JOIN "Products" p ON od."ProductId" = p.id
- GROUP BY od."ProductId", p.name, p.description, p.image, p.price, p.provider, p.specs, p.status, p.stock
- ORDER BY (count(od."ProductId")) DESC;
-
-ALTER TABLE public."BestSellers"
-   OWNER TO "ByteBazaar";`)
 }

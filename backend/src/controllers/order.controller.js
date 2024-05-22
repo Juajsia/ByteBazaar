@@ -33,9 +33,9 @@ export class OrderController {
       if (items.length > 0) {
         return res.status(400).json({ message: 'Order declined', text: items.pop() + ', This product does not have the requested quantity ', forUser: true })
       }
-      const { clientId } = req.body
-      const newOrder = await Order.create({ clientId })
-      let total = 0
+      let { clientId, total } = req.body
+      const newOrder = await Order.create({ clientId, total })
+      total = 0
       let html = `<!DOCTYPE html>
 <html lang="en">
 
@@ -110,14 +110,12 @@ export class OrderController {
 
         try {
           const cred = await Credential.findByPk(clientId)
-          const info = await transporter.sendMail({
+          await transporter.sendMail({
             from: '"Bytebazaar" <juanpaadams20@gmail.com>',
             to: cred.email,
             subject: 'Thank you for shopping at Bytebazaar',
             html: `${html}`
           })
-          console.log(cred.email)
-          console.log('Message sent: %s', info.messageId)
         } catch (error) {
 
         }

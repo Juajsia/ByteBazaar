@@ -18,6 +18,9 @@
       </li>
       @if (rol === 'administrator') {
       <li>
+        <a [routerLink]="['/reports']" url="/reports"><fa-icon class="a-icon" [icon]="chartIcon"></fa-icon>Reports</a>
+      </li>
+      <li>
         <a [routerLink]="['/manageOrders']" url="/manageOrders"><fa-icon class="a-icon"
             [icon]="manageOrderIcon"></fa-icon>Orders</a>
       </li>

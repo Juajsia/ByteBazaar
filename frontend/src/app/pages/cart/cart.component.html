@@ -78,14 +78,14 @@
                     <p class="costElem">Aditional costs:</p>
                 </div>
                 <div>
-                    <p class="costElem">${{summary.totProds}}</p>
+                    <p class="costElem">${{summary.totProds.toFixed(2)}}</p>
                     <p class="costElem">${{summary.adCosts}}</p>
                 </div>
             </div>
             <div class="line"></div>
             <div class="total">
                 <p class="totalElem">Total:</p>
-                <p class="totalElem">${{summary.totProds + summary.adCosts}}</p>
+                <p class="totalElem">${{(summary.totProds + summary.adCosts).toFixed(2)}}</p>
             </div>
             @if (cartItems.length === 0){
             <button type="button" class="btn disabled" id="btnCheckout" [disabled]="[true]">

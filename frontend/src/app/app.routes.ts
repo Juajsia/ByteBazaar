@@ -12,6 +12,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AgentChatComponent } from './pages/agent-chat/agent-chat.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ManageOrdersComponent } from './pages/manage-orders/manage-orders.component';
 import { OrderHistoryComponent } from './pages/order-history/order-history.component';
@@ -94,6 +95,11 @@ export const routes: Routes = [{
     component: WishlistComponent,
     canActivate: [loginGuard]
 }, {
+    title: 'Reports',
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [loginGuard]
+},{
     title: 'Terms',
     path: 'terms',
     component: TermsComponent

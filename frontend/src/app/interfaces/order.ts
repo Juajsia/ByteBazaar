@@ -2,10 +2,11 @@ import { Product } from "./product"
 
 export interface Order {
     id?: number,
-    clientId: number,
+    clientId: number | bigint | string,
     Products?: Product[],
     createdAt?: string,
-    updatedAt?: string
+    updatedAt?: string,
+    total: number
 }
 
 export interface CartProduct {

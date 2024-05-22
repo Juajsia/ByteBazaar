@@ -24,6 +24,10 @@ export class WishlistProductService {
     return this.http.get<Wishlist>(`${this.myAppUrl}${this.myApiUrl}/${wishlistId}/${prodId}`)
   }
 
+  checkWishlistItemExistence (wishlistId: number, prodId: number): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}/check/${wishlistId}/${prodId}`)
+  }
+
   deleteWishlistItem(wishlistProduct: WishlistProduct): Observable<void> {
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${wishlistProduct.WishlistId}/${wishlistProduct.ProductId}`)
   }
