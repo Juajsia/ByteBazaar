@@ -16,11 +16,23 @@
                 <p id="stock">Stock: {{product.stock}}</p>
                 }
             </div>
+            @if (product.totalReviews > 0) {
+            <article class="score">
+                <div>
+                    <span id="score">{{product.score}}</span>
+                    <span id="numReviews">{{product.totalReviews}} reviews</span>
+                </div>
+                <ngx-charts-bar-horizontal [view]="[200, 100]" [scheme]="colorScheme" [results]="scoreCounting"
+                    [gradient]="false" [xAxis]="false" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
+                    [showYAxisLabel]="false" [tooltipDisabled]="true">
+                </ngx-charts-bar-horizontal>
+            </article>
+            }
             <div id="lowerInfo">
                 @if (product.price !== 0) {
-                <p id="price">${{product.price}}</p>
+                <span id="price">${{product.price}}</span>
                 } @else {
-                <p id="price">Free</p>
+                <span id="price">Free</span>
                 }
                 @if (role === 'client') {
                 <button type="button" class="btn" (click)="buyProduct()">
@@ -112,6 +124,49 @@
                 }
                 <p>{{item}}</p>
                 }
+            </div>
+        </section>
+        <section class="infoItem">
+            <h2 class="itemTitle">Reviews</h2>
+            <div class="line"></div>
+            <div id="reviewsContainer">
+                @if (product.totalReviews > 0) {
+                <article class="score" id="scoreReviewsSection">
+                    <div>
+                        <span id="score">{{product.score}}</span>
+                        <span id="numReviews">{{product.totalReviews}} reviews</span>
+                    </div>
+                    <ngx-charts-bar-horizontal [view]="[1000, 200]" [scheme]="colorScheme" [results]="scoreCounting"
+                        [gradient]="false" [xAxis]="false" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
+                        [showYAxisLabel]="false" [tooltipDisabled]="true">
+                    </ngx-charts-bar-horizontal>
+                </article>
+                }
+                <article class="reviews">
+                    @for (item of reviews; track $index) {
+                    <article class="review">
+                        <section class="clientInfo">
+                            <i class="userIcon">
+                                <fa-icon id="userIcon" [icon]="userIcon"></fa-icon>
+                            </i>
+                            <span class="clientName">{{item.Client.Person.firstName + ' ' +
+                                (item.Client.Person.secondName ?
+                                item.Client.Person.secondName : '') + ' ' +
+                                item.Client.Person.lastName1 + ' ' + (item.Client.Person.lastName2 ?
+                                item.Client.Person.lastName2 : '')}}</span>
+                        </section>
+                        <section class="reviewInfo">
+                            <div>
+                                <span id="reviewScore">Score: {{item.score}}</span>
+                                <span id="reviewDate">{{item.createdAt.substring(0,10)}}</span>
+                            </div>
+                            <p class="reviewComment">
+                                {{item.comment}}
+                            </p>
+                        </section>
+                    </article>
+                    } @empty { <span>This product doesn't have reviews yet</span> }
+                </article>
             </div>
         </section>
     </article>

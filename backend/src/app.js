@@ -14,6 +14,7 @@ import { cartProductRouter } from './routes/cartProduct.routes.js'
 import { wishlistRouter } from './routes/wishlist.routes.js'
 import { wishlistProductRouter } from './routes/wishlistProduct.routes.js'
 import { reportsRouter } from './routes/reports.routes.js'
+import { reviewRouter } from './routes/review.routes.js'
 
 const app = express()
 app.use(cors())
@@ -31,5 +32,6 @@ app.use(cartProductRouter)
 app.use(wishlistRouter)
 app.use(wishlistProductRouter)
 app.use(reportsRouter)
+app.use(reviewRouter)
 
 export default app

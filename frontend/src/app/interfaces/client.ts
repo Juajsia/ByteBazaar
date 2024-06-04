@@ -6,5 +6,6 @@ export interface Client {
     lastName2?: string | null,
     email: string,
     password: string,
-    createdAt?: string
+    createdAt?: string,
+    updatedAt?: string
 }

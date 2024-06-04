@@ -11,7 +11,8 @@ import {
   faPenToSquare,
   faCircleCheck,
   faEyeSlash,
-  faHeart
+  faHeart,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartNoBG } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -32,13 +33,17 @@ import { Observable, lastValueFrom } from 'rxjs';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderDetailsService } from '../../services/order-details.service';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Review } from '../../interfaces/review';
+import { ReviewService } from '../../services/review.service';
+import { simpleChartInfo } from '../../interfaces/reports';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent],
+  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, NgxChartsModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -54,6 +59,7 @@ export class ProductComponent {
   desableIcon = faEyeSlash
   favIcon = faHeart
   favIconNoBG = faHeartNoBG
+  userIcon = faUser
 
   role = localStorage.getItem('rol')
   showForm = false
@@ -67,8 +73,13 @@ export class ProductComponent {
   addToWishlistIcon = this.favIconNoBG
   inWishlist = false
   wishlistId = Number(localStorage.getItem('wishlist'))
+  colorScheme: any = {
+    domain: ['#057FD7'],
+  };
+  scoreCounting: Array<simpleChartInfo> = []
+  reviews: Review[] = []
 
-  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private _reviewService: ReviewService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
@@ -94,8 +105,11 @@ export class ProductComponent {
       })
 
       this.productSpecs = res.specs.split('\n')
-      if (localStorage.getItem('token'))
+      if (localStorage.getItem('token') && localStorage.getItem('rol') === 'client')
         this.addToWishlistIcon = await lastValueFrom(this.isInWishlist())
+
+      this.getScoreCounting(this.product.id)
+      this.getReviews(this.product.id)
     })
   }
 
@@ -427,5 +441,22 @@ If you have any questions or need additional assistance, please do not hesitate 
 
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
+  }
+
+  //reviews logic
+  getReviews(productId: number) {
+    this._reviewService.getReviewsByProduct(productId).subscribe({
+      next: (res) => {
+        this.reviews = res
+      }
+    })
+  }
+
+  getScoreCounting(productId: number){
+    this._reviewService.getScoreCounting(productId).subscribe({
+      next: (res) => {
+        this.scoreCounting = res
+      }
+    })
   }
 }

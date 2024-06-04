@@ -29,7 +29,7 @@ export async function inserts () {
   const newClients = [{
     id: 11111,
     firstName: 'Isac',
-    lastName1: 'Cortes',
+    lastName1: 'Cortés',
     lastName2: 'Buitrago'
   }, {
     id: 22222,
@@ -39,10 +39,9 @@ export async function inserts () {
     lastName2: 'Parra'
   }, {
     id: 33333,
-    firstName: 'Juan',
-    secondName: 'Pablo',
-    lastName1: 'Adams',
-    lastName2: 'Parra'
+    firstName: 'Emmanuel',
+    lastName1: 'Bolívar',
+    lastName2: 'Marín'
   }, {
     id: 44444,
     firstName: 'Juan',

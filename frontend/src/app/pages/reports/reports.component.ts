@@ -34,60 +34,6 @@ export class ReportsComponent {
   // options pie chart simple
   legendPosition = 'right';
 
-  single1 = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    },
-      {
-      "name": "UK",
-      "value": 6200000
-    }
-  ];
-
-  single2 = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    }
-  ];
-
-  // multi = [
-  //   {
-  //     "name": "Sales",
-  //     "series": [
-  //       {
-  //         "name": '1990',
-  //         "value": 62000000,
-  //       },
-  //       {
-  //         "name": "2010",
-  //         "value": 73000000,
-  //       },
-  //       {
-  //         "name": "2011",
-  //         "value": 89400000,
-  //       }
-  //     ]
-  //   } 
-  // ];
-
   salesData: Array<Sales> = []
   addtionalSalesData = {} as AdditionalSalesInfo
   bestSellersData: Array<simpleChartInfo> = []
@@ -99,7 +45,6 @@ export class ReportsComponent {
   hourlyIcon = this.emptyCircleIcon
 
   constructor(private _reportsService: ReportsService) {
-    Object.assign(this, { single: this.single1 });
     this.monthlyIcon = this.fullCircleIcon
   }
 
@@ -170,29 +115,6 @@ export class ReportsComponent {
       });
     });
   }
-
-  onSelect(data: any): void {
-    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    // console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-
-  // selectFilter(iconId: string){
-  //   const clickedTag = document.getElementById(iconId) as HTMLElement
-  //   const noSelectedIcon = clickedTag?.getAttribute('ng-reflect-icon')!
-  //   const selectedTag = document.getElementsByClassName('selected')[0] as HTMLElement
-  //   const selectedIcon = selectedTag?.getAttribute('ng-reflect-icon')!
-  //   console.log(selectedIcon)
-  //   clickedTag?.setAttribute('ng-reflect-icon', selectedIcon)
-  //   clickedTag?.classList.add('selected')
-  //   selectedTag.setAttribute('ng-reflect-icon', noSelectedIcon)
-  // }
 
   selectFilter(iconId: string){
     const currentFilter = document.getElementsByClassName('selected')[0]

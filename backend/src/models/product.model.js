@@ -58,5 +58,20 @@ export const Product = sequelize.define('Product', {
     validate: {
       isAlphanumeric: true
     }
+  },
+  score: {
+    type: DataTypes.FLOAT,
+    validate: {
+      isFloat: true,
+      min: 1
+    }
+  },
+  totalReviews: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    validate: {
+      isInt: true,
+      min: 0
+    }
   }
 })

@@ -11,6 +11,8 @@ export interface Product {
     image: string,
     status?: boolean,
     provider: string,
+    score?: number,
+    totalReviews?: number,
     categories: string[],
     createdAt?: string,
     updatedAt?: string,

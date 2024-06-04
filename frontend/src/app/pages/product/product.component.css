@@ -53,6 +53,22 @@ main {
     font-size: 30px;
 }
 
+.score {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.score div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#score {
+    font-size: 50px;
+}
+
 #price {
     font-size: 30px;
 }
@@ -233,6 +249,67 @@ span {
     cursor: pointer;
 }
 
+/* Reviews styles */
+#reviewsContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+#scoreReviewsSection {
+    position: sticky;
+}
+
+.reviews {
+    /* padding: 0 20% 0 20%; */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.review {
+    width: 22%;
+    height: 300px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.clientInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px
+}
+
+.userIcon {
+    font-size: 40px;
+}
+
+.reviewInfo div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+#reviewScore {
+    font-size: 25px;
+    color: #55D555;
+}
+
+#reviewDate {
+    font-size: 15px;
+    font-weight: normal;
+}
 
 @media screen and (max-width:1200px) {
     h1 {

@@ -95,3 +95,57 @@ END;
 $BODY$;
 ALTER PROCEDURE public.get_avg_order_value(character varying)
     OWNER TO "ByteBazaar";
+
+
+-- PROCEDURE: public.set_product_scores()
+
+-- DROP PROCEDURE IF EXISTS public.set_product_scores();
+
+CREATE OR REPLACE PROCEDURE public.set_product_scores(
+	)
+LANGUAGE 'sql'
+AS $BODY$
+
+DO $$
+DECLARE
+    prod RECORD;
+    myCursor CURSOR FOR
+        SELECT id, score, "totalReviews", name, stock, price, description, specs, image, status, provider, "createdAt", "updatedAt"
+        FROM public."Products";
+BEGIN
+    -- Create a temporary table to store scores
+    CREATE TEMP TABLE scores AS
+        SELECT "ProductId", round(avg(score), 2) as score, count(score) totalReviews
+        FROM public."Reviews"
+        GROUP BY "ProductId"
+		ORDER BY name DESC;
+
+    -- Open the cursor
+    OPEN myCursor;
+
+    -- Loop through each product in the cursor
+    LOOP
+        FETCH myCursor INTO prod;
+        EXIT WHEN NOT FOUND;
+
+        -- Update the product's score
+        UPDATE public."Products"
+        SET score = (SELECT score FROM scores WHERE "ProductId" = prod.id),
+		"totalReviews" = (SELECT totalReviews FROM scores WHERE "ProductId" = prod.id)
+        WHERE id = prod.id;
+
+        -- Optionally, delete the product from the scores table if needed
+        DELETE FROM scores WHERE "ProductId" = prod.id;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE myCursor;
+
+    -- Drop the temporary table
+    DROP TABLE scores;
+END $$;
+$BODY$;
+ALTER PROCEDURE public.set_product_scores()
+    OWNER TO "ByteBazaar";
+
+

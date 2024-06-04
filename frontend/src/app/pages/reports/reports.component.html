@@ -1,57 +1,57 @@
 <app-navbar></app-navbar>
 <main>
-    <h1>Reports</h1>
-    <div class="content">
-        <article class="chartContainer" id="sales">
-            <h2>Sales</h2>
-            <section class="filters">
-                <p class="filterBtn" (click)="selectFilter('yearly')"><fa-icon class="check" [icon]="yearlyIcon"
-                        id="yearly"></fa-icon> Yearly</p>
-                <p class="filterBtn" (click)="selectFilter('monthly')"><fa-icon class="check selected"
-                        [icon]="monthlyIcon" id="monthly"></fa-icon>
-                    Monthly</p>
-                <p class="filterBtn" (click)="selectFilter('daily')"><fa-icon class="check" [icon]="dailyIcon"
-                        id="daily"></fa-icon> Daily</p>
-                <p class="filterBtn" (click)="selectFilter('hourly')"><fa-icon class="check" [icon]="hourlyIcon"
-                        id="hourly"></fa-icon> Hourly</p>
-            </section>
-            <ngx-charts-line-chart class="chart" id="salesChart" [view]="salesChartSize" scheme="cool" [legend]="false"
-                [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true"
-                [xAxisLabel]="SalesXAxisLabel" [yAxisLabel]="SalesYAxisLabel" [timeline]="true" [results]="salesData"
-                (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
-            </ngx-charts-line-chart>
-            <section class="addInfo">
-                <p for="" class="addData"><b>Average order Value:</b> {{addtionalSalesData.avg_order_value}} USD</p>
-                <p for="" class="addData"><b>Average number of products per order:</b>
-                    {{addtionalSalesData.avg_num_products_per_order}}</p>
-                <p for="" class="addData"><b>Average number of orders per client:</b>
-                    {{addtionalSalesData.avg_num_orders_per_client}}</p>
-            </section>
-        </article>
-        <div class="line"></div>
-        <article class="chartContainer">
-            <h2>Top-selling products</h2>
-            <ngx-charts-bar-vertical class="chart" [view]="bestSellersChartSize" scheme="cool"
-                [results]="bestSellersData" [gradient]=false [xAxis]="true" [yAxis]="true" [legend]="false"
-                [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Products" yAxisLabel="Number of orders"
-                (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
-        </article>
-        <div class="line"></div>
-        <article class="chartContainer">
-            <h2>Number of products by category</h2>
-            <ngx-charts-pie-chart class="chart" [view]="categoriesChartSize" scheme="cool" [results]="categoriesData"
-                [gradient]="true" [legend]="true" legendTitle="Categories" [labels]="true" [doughnut]="false"
-                (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
-            </ngx-charts-pie-chart>
-        </article>
-        <div class="line"></div>
-        <article class="chartContainer">
-            <h2>Registered Users</h2>
-            <ngx-charts-advanced-pie-chart class="chart" [view]="usersChartSize" scheme="cool" [results]="usersData"
-                [gradient]="true" (select)="onSelect($event)" (activate)="onActivate($event)"
-                (deactivate)="onDeactivate($event)">
-            </ngx-charts-advanced-pie-chart>
-        </article>
+    <div class="background">
+        <h1>Reports</h1>
+        <div class="content">
+            <article class="chartContainer" id="sales">
+                <h2>Sales</h2>
+                <section class="filters">
+                    <p class="filterBtn" (click)="selectFilter('yearly')"><fa-icon class="check" [icon]="yearlyIcon"
+                            id="yearly"></fa-icon> Yearly</p>
+                    <p class="filterBtn" (click)="selectFilter('monthly')"><fa-icon class="check selected"
+                            [icon]="monthlyIcon" id="monthly"></fa-icon>
+                        Monthly</p>
+                    <p class="filterBtn" (click)="selectFilter('daily')"><fa-icon class="check" [icon]="dailyIcon"
+                            id="daily"></fa-icon> Daily</p>
+                    <p class="filterBtn" (click)="selectFilter('hourly')"><fa-icon class="check" [icon]="hourlyIcon"
+                            id="hourly"></fa-icon> Hourly</p>
+                </section>
+                <ngx-charts-line-chart class="chart" id="salesChart" [view]="salesChartSize" scheme="cool"
+                    [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true"
+                    [xAxisLabel]="SalesXAxisLabel" [yAxisLabel]="SalesYAxisLabel" [timeline]="true"
+                    [results]="salesData">
+                </ngx-charts-line-chart>
+                <section class="addInfo">
+                    <p for="" class="addData"><b>Average order Value:</b> {{addtionalSalesData.avg_order_value}} USD</p>
+                    <p for="" class="addData"><b>Average number of products per order:</b>
+                        {{addtionalSalesData.avg_num_products_per_order}}</p>
+                    <p for="" class="addData"><b>Average number of orders per client:</b>
+                        {{addtionalSalesData.avg_num_orders_per_client}}</p>
+                </section>
+            </article>
+            <div class="line"></div>
+            <article class="chartContainer">
+                <h2>Top-selling products</h2>
+                <ngx-charts-bar-vertical class="chart" [view]="bestSellersChartSize" scheme="cool"
+                    [results]="bestSellersData" [gradient]=false [xAxis]="true" [yAxis]="true" [legend]="false"
+                    [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Products" yAxisLabel="Number of orders">
+                </ngx-charts-bar-vertical>
+            </article>
+            <div class="line"></div>
+            <article class="chartContainer">
+                <h2>Number of products by category</h2>
+                <ngx-charts-pie-chart class="chart" [view]="categoriesChartSize" scheme="cool"
+                    [results]="categoriesData" [gradient]="true" [legend]="true" legendTitle="Categories"
+                    [labels]="true" [doughnut]="false">
+                </ngx-charts-pie-chart>
+            </article>
+            <div class="line"></div>
+            <article class="chartContainer">
+                <h2>Registered Users</h2>
+                <ngx-charts-advanced-pie-chart class="chart" [view]="usersChartSize" scheme="cool" [results]="usersData"
+                    [gradient]="true">
+                </ngx-charts-advanced-pie-chart>
+            </article>
+        </div>
     </div>
 </main>
