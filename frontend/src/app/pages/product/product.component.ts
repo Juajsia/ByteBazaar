@@ -104,6 +104,7 @@ export class ProductComponent {
   getProduct() {
     this._productService.getProduct(this.productName).subscribe(async (res: Product) => {
       this.product = res
+      this.productPlats = []
       this.productCats = res.categories.filter(v => {
         if (["Computer", "Smartphone", "Tablet"].includes(v)) {
           this.productPlats.push(v)
