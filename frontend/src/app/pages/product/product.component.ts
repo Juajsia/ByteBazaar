@@ -12,7 +12,7 @@ import {
   faCircleCheck,
   faEyeSlash,
   faHeart,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartNoBG } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -29,7 +29,7 @@ import { Order } from '../../interfaces/order';
 import { OrderService } from '../../services/order.service';
 import { WishlistProductService } from '../../services/wishlist-product.service';
 import { WishlistProduct } from '../../interfaces/wishlist';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, TimeoutError, lastValueFrom } from 'rxjs';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderDetailsService } from '../../services/order-details.service';
@@ -37,13 +37,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Review } from '../../interfaces/review';
 import { ReviewService } from '../../services/review.service';
 import { simpleChartInfo } from '../../interfaces/reports';
+import { ReviewFormComponent } from '../../components/review-form/review-form.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, NgxChartsModule],
+  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, NgxChartsModule, ReviewFormComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -78,6 +79,13 @@ export class ProductComponent {
   };
   scoreCounting: Array<simpleChartInfo> = []
   reviews: Review[] = []
+  myReview: Review = {
+    score: 0,
+    comment: '',
+    createdAt: '0000-00-00'
+  }
+  isCreateMode: boolean = true
+  reviewForm = false
 
   constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private _reviewService: ReviewService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
@@ -91,6 +99,10 @@ export class ProductComponent {
       this.showForm = true
     else
       this.showForm = false
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem('pid')
   }
 
   getProduct() {
@@ -108,8 +120,10 @@ export class ProductComponent {
       if (localStorage.getItem('token') && localStorage.getItem('rol') === 'client')
         this.addToWishlistIcon = await lastValueFrom(this.isInWishlist())
 
+      localStorage.setItem('pid', String(this.product.id))
       this.getScoreCounting(this.product.id)
       this.getReviews(this.product.id)
+      this.getReview(localStorage.getItem('cid'), this.product.id)
     })
   }
 
@@ -458,5 +472,32 @@ If you have any questions or need additional assistance, please do not hesitate 
         this.scoreCounting = res
       }
     })
+  }
+
+  getReview(clientId: string, productId: number){
+    this._reviewService.getReview(clientId, productId).subscribe({
+      next: (res) => {
+        if (res){
+          this.myReview = res
+          this.reviewForm= false
+        } else {
+          this.reviewForm = true
+        }
+      }
+    })
+  }
+
+  handleReviewFormEvent(event: any) {
+    if (event === 'successful'){
+      this.getReviews(this.product.id)
+      this.getScoreCounting(this.product.id)
+      this.getProduct()
+    }
+    this.getReview(localStorage.getItem('cid'), this.product.id)
+  }
+
+  onUpdateClick() {
+    this.isCreateMode = false;
+    this.reviewForm = true
   }
 }

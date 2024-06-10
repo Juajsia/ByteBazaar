@@ -64,6 +64,7 @@ Review.addHook('afterCreate', async (review, options) => {
 
 Review.addHook('beforeUpdate', async (review, options) => {
   await sequelize.transaction(async (t) => {
+    console.log(review.ClientId)
     const oldReview = await Review.findOne({
       where: {
         ClientId: review.ClientId,

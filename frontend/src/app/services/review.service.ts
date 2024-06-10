@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Review } from '../interfaces/review';
+import { Msg, Review } from '../interfaces/review';
 import { Observable } from 'rxjs';
 import { simpleChartInfo } from '../interfaces/reports';
 
@@ -17,8 +17,8 @@ export class ReviewService {
     this.myApiUrl = 'api/review'
   }
 
-  createReview(Review: Review): Observable<Review | object> {
-    return this.http.post<Review | object>(`${this.myAppUrl}${this.myApiUrl}/`, Review)
+  createReview(Review: Review): Observable<Review | Msg> {
+    return this.http.post<Review | Msg>(`${this.myAppUrl}${this.myApiUrl}/`, Review)
   }
 
   getAllReviews(): Observable<Review[]> {
@@ -33,8 +33,8 @@ export class ReviewService {
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`)
   }
   
-  updateReview(ClientId: string, ProductId: number, Review: Review): Observable<Review> {
-    return this.http.put<Review>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`, Review)
+  updateReview(ClientId: string, ProductId: number, Review: Review): Observable<Review | Msg> {
+    return this.http.put<Review | Msg>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`, Review)
   }
 
   getReviewsByProduct(ProductId: number): Observable<Review[]> {

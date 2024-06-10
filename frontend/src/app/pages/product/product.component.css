@@ -254,23 +254,32 @@ span {
     margin: 20px 0 20px 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     gap: 50px;
 }
 
-.reviews {
+.reviewsHeader {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    align-items: start;
+    justify-content: space-between;
+    gap: 20px
+}
+
+.reviews {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 .review {
-    width: 22%;
+    width: 350px;
     height: 300px;
+    padding: 15px;
     border-radius: 15px;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -278,7 +287,29 @@ span {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+#myReview {
+    width: 550px;
+    height: 265px;
+}
+
+#reviewTitle {
+    font-size: 25px;
+}
+
+#reviewForm {
+    width: 100%;
+}
+
 .clientInfo {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px
+}
+
+.myInfo {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -287,6 +318,35 @@ span {
 
 .userIcon {
     font-size: 40px;
+}
+
+.clientImg {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviewActions {
+    justify-self: flex-end;
+    display: flex;
+    gap: 20px;
+}
+
+.reviewIcon {
+    font-size: 25px;
+}
+
+#deleteIcon {
+    color: #e21010;
+}
+
+#editIcon {
+    color: #057FD7;
+}
+
+#deleteIcon:hover,
+#editIcon:hover {
+    cursor: pointer;
 }
 
 .reviewInfo div {
