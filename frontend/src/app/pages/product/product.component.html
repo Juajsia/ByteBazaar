@@ -153,7 +153,8 @@
                             </div>
                             @if(myReview){
                             <div class="reviewActions">
-                                <i class="reviewIcon"><fa-icon id="deleteIcon" [icon]="trashIcon"></fa-icon></i>
+                                <i class="reviewIcon" (click)="onDeleteClick()"><fa-icon id="deleteIcon"
+                                        [icon]="trashIcon"></fa-icon></i>
                                 <i class="reviewIcon" (click)="onUpdateClick()"><fa-icon id="editIcon"
                                         [icon]="editIcon"></fa-icon></i>
                             </div>
@@ -164,13 +165,22 @@
                             (formEvent)="handleReviewFormEvent($event)"></app-review-form>
                         } @else {
                         <section class="reviewInfo">
+                            @if (myReview) {
                             <div>
-                                <span id="reviewScore">Score: {{myReview.score!}}</span>
-                                <span id="reviewDate">{{myReview.createdAt.substring(0,10)!}}</span>
+                                <span id="reviewScore">Score: {{myReview.score ? myReview.score : 0}}</span>
+                                <span id="reviewDate">{{myReview.createdAt ? myReview.createdAt.substring(0,10) :
+                                    '0000-00-00'}}</span>
                             </div>
                             <p class="reviewComment">
-                                {{myReview.comment}}
+                                {{myReview.comment ? myReview.comment : ''}}
                             </p>
+                            } @else {
+                            <div>
+                                <span id="reviewScore">Score: {{0}}</span>
+                                <span id="reviewDate">{{'0000-00-00'}}</span>
+                            </div>
+                            <p class="reviewComment"></p>
+                            }
                         </section>
                         }
                     </article>

@@ -29,8 +29,8 @@ export class ReviewService {
     return this.http.get<Review>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`)
   }
 
-  deleteReview(ClientId: string, ProductId: number): Observable<void> {
-    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`)
+  deleteReview(ClientId: string, ProductId: number): Observable<Msg> {
+    return this.http.delete<Msg>(`${this.myAppUrl}${this.myApiUrl}/${ClientId}/${ProductId}`)
   }
   
   updateReview(ClientId: string, ProductId: number, Review: Review): Observable<Review | Msg> {

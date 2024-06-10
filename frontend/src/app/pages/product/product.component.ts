@@ -79,11 +79,7 @@ export class ProductComponent {
   };
   scoreCounting: Array<simpleChartInfo> = []
   reviews: Review[] = []
-  myReview: Review = {
-    score: 0,
-    comment: '',
-    createdAt: '0000-00-00'
-  }
+  myReview: Review
   isCreateMode: boolean = true
   reviewForm = false
 
@@ -499,5 +495,55 @@ If you have any questions or need additional assistance, please do not hesitate 
   onUpdateClick() {
     this.isCreateMode = false;
     this.reviewForm = true
+  }
+
+  onDeleteClick() {
+    Swal.fire({
+      icon: "info",
+      title: "Are you sure you want to delete your review?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: 'Cancel'
+    })
+    .then((result)=> {
+      if (result.isConfirmed) {
+        this._reviewService.deleteReview(localStorage.getItem('cid'), this.product.id).subscribe({
+          next: () => {
+              Swal.fire({
+                icon: "success",
+                title: "Review deleted successfully",
+                text: 'Your review as deleted',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.myReview = null
+              this.isCreateMode = true
+              this.reviewForm = true
+              this.getReviews(this.product.id)
+              this.getScoreCounting(this.product.id)
+              this.getProduct()
+          }, error: (e: HttpErrorResponse) => {
+            this.reviewForm = false
+            if(e.error.forUser){
+              Swal.fire({
+                icon: "error",
+                title: e.error.message,
+                text: e.error.text,
+                showConfirmButton: false,
+                timer: 2000
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error deleting review",
+                text: 'Your review could not be deleted, try again later',
+                showConfirmButton: false,
+                timer: 2000
+              })
+            }
+          }
+        })
+      }
+    })
   }
 }

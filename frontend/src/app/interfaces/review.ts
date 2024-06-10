@@ -20,6 +20,6 @@ export interface Review {
 
 export interface Msg {
     message: string, 
-    text: string, 
-    forUser: boolean
+    text?: string, 
+    forUser?: boolean
 }
