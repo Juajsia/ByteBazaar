@@ -15,8 +15,17 @@ import { wishlistRouter } from './routes/wishlist.routes.js'
 import { wishlistProductRouter } from './routes/wishlistProduct.routes.js'
 import { reportsRouter } from './routes/reports.routes.js'
 import { reviewRouter } from './routes/review.routes.js'
+import { router } from './routes/uploadImagen.routes.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const app = express()
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
+
 app.use(cors())
 app.use(express.json())
 
@@ -33,5 +42,6 @@ app.use(wishlistRouter)
 app.use(wishlistProductRouter)
 app.use(reportsRouter)
 app.use(reviewRouter)
+app.use(router)
 
 export default app

@@ -65,6 +65,7 @@ export class NavbarComponent {
   cartItemsCount = 0
   id = localStorage.getItem('cid')
   name = ''
+  userPhotoUrl = ''
 
   @ViewChild('nav') nav!: ElementRef;
   @ViewChild('searchIcon') searchIcon!: ElementRef;
@@ -120,7 +121,7 @@ export class NavbarComponent {
     localStorage.removeItem('cart')
     localStorage.removeItem('cid')
     localStorage.removeItem('wishlist')
-    localStorage.setItem('logout','yes')
+    localStorage.setItem('logout', 'yes')
     await Swal.fire({
       icon: "success",
       title: "Successful logout",
@@ -134,6 +135,12 @@ export class NavbarComponent {
   getPersonData() {
     this._ClientService.getClient(this.id!).subscribe(data => {
       this.name = data.firstName + ' ' + data.lastName1
+      if (data.photoUrl !== 'https://cdn-icons-png.flaticon.com/512/149/149071.png') {
+        this.userPhotoUrl = 'http://localhost:3000/' + data.photoUrl
+      } else {
+        this.userPhotoUrl = data.photoUrl
+      }
+
     })
   }
 

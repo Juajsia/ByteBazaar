@@ -35,5 +35,9 @@ export const Person = sequelize.define('Person', {
     validate: {
       is: /^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/i
     }
+  },
+  photoUrl: {
+    type: DataTypes.STRING,
+    defaultValue: 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
   }
 })
