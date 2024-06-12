@@ -135,12 +135,7 @@ export class NavbarComponent {
   getPersonData() {
     this._ClientService.getClient(this.id!).subscribe(data => {
       this.name = data.firstName + ' ' + data.lastName1
-      if (data.photoUrl !== 'https://cdn-icons-png.flaticon.com/512/149/149071.png') {
-        this.userPhotoUrl = 'http://localhost:3000/' + data.photoUrl
-      } else {
-        this.userPhotoUrl = data.photoUrl
-      }
-
+      this.userPhotoUrl = data.photoUrl
     })
   }
 

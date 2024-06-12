@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"cd backend && npm run dev\" \"cd ..\" \"cd frontend && ng serve\"",
-    "install": "concurrently \"cd backend && npm install\" \"cd ..\" \"cd frontend && npm install\"",
-    "sync": "node ./backend/src/sync.js && node ./backend/src/database/dataInsertion/sqlInstructionsExecution.js"
+    "install": "concurrently \"cd backend && npm install\" \"cd ..\" \"cd frontend && npm install\" \"cd ..\" \"cd backend && mkdir uploads\" ",
+    "sync": "node ./backend/src/sync.js && node ./backend/src/database/dataInsertion/sqlInstructionsExecution.js && npm run folder",
+    "folder": "rmdir /s /q .\\backend\\uploads && mkdir .\\backend\\uploads"
   },
   "keywords": [],
   "author": "",

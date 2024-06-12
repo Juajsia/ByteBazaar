@@ -28,6 +28,7 @@
 
 img {
     width: 200px;
+    height: 200px;
     border-radius: 50%;
 }
 
@@ -107,4 +108,73 @@ img {
 .label-container {
     display: flex;
     flex-direction: column;
+}
+
+#uploadBtn {
+    display: none;
+}
+
+.img-container {
+    position: relative;
+}
+
+#uploadLabel {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.fileIcon {
+    position: absolute;
+    bottom: 5px;
+    left: 20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    background-color: #057FD7;
+    transition: all .5s ease;
+}
+
+.fileMessage {
+    display: none;
+    transition: all .5s ease;
+}
+
+.fileMessage fa-icon {
+    font-size: 30px;
+    margin-bottom: -5px;
+}
+
+#uploadLabel:hover {
+    background-color: #55555588;
+
+    .fileIcon {
+        transform: scale(1);
+        background-color: #55D555;
+    }
+
+    .fileMessage {
+        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        color: #1a1a1a;
+        font-weight: bold;
+    }
 }
