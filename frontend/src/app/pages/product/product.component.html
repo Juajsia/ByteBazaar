@@ -130,19 +130,62 @@
             <h2 class="itemTitle">Reviews</h2>
             <div class="line"></div>
             <div id="reviewsContainer">
-                @if (product.totalReviews > 0) {
-                <article class="score" id="scoreReviewsSection">
-                    <div>
-                        <span id="score">{{product.score}}</span>
-                        <span id="numReviews">{{product.totalReviews}} reviews</span>
-                    </div>
-                    <ngx-charts-bar-horizontal [view]="[1000, 200]" [scheme]="colorScheme" [results]="scoreCounting"
-                        [gradient]="false" [xAxis]="false" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
-                        [showYAxisLabel]="false" [tooltipDisabled]="true">
-                    </ngx-charts-bar-horizontal>
-                </article>
-                }
-                <article class="reviews">
+                <section class="reviewsHeader">
+                    @if (product.totalReviews > 0) {
+                    <article class="score" id="scoreReviewsSection">
+                        <div>
+                            <span id="score">{{product.score}}</span>
+                            <span id="numReviews">{{product.totalReviews}} reviews</span>
+                        </div>
+                        <ngx-charts-bar-horizontal [view]="[800, 265]" [scheme]="colorScheme" [results]="scoreCounting"
+                            [gradient]="false" [xAxis]="false" [yAxis]="true" [legend]="false" [showXAxisLabel]="false"
+                            [showYAxisLabel]="false" [tooltipDisabled]="true">
+                        </ngx-charts-bar-horizontal>
+                    </article>
+                    }
+                    <article class="review" id="myReview">
+                        <section class="myInfo">
+                            <div class="clientImg">
+                                <i class="userIcon">
+                                    <fa-icon id="userIcon" [icon]="userIcon"></fa-icon>
+                                </i>
+                                <span class="clientName">Your review</span>
+                            </div>
+                            @if(myReview){
+                            <div class="reviewActions">
+                                <i class="reviewIcon" (click)="onDeleteClick()"><fa-icon id="deleteIcon"
+                                        [icon]="trashIcon"></fa-icon></i>
+                                <i class="reviewIcon" (click)="onUpdateClick()"><fa-icon id="editIcon"
+                                        [icon]="editIcon"></fa-icon></i>
+                            </div>
+                            }
+                        </section>
+                        @if (reviewForm) {
+                        <app-review-form id="reviewForm" [isCreateMode]="isCreateMode"
+                            (formEvent)="handleReviewFormEvent($event)"></app-review-form>
+                        } @else {
+                        <section class="reviewInfo">
+                            @if (myReview) {
+                            <div>
+                                <span id="reviewScore">Score: {{myReview.score ? myReview.score : 0}}</span>
+                                <span id="reviewDate">{{myReview.createdAt ? myReview.createdAt.substring(0,10) :
+                                    '0000-00-00'}}</span>
+                            </div>
+                            <p class="reviewComment">
+                                {{myReview.comment ? myReview.comment : ''}}
+                            </p>
+                            } @else {
+                            <div>
+                                <span id="reviewScore">Score: {{0}}</span>
+                                <span id="reviewDate">{{'0000-00-00'}}</span>
+                            </div>
+                            <p class="reviewComment"></p>
+                            }
+                        </section>
+                        }
+                    </article>
+                </section>
+                <section class="reviews">
                     @for (item of reviews; track $index) {
                     <article class="review">
                         <section class="clientInfo">
@@ -166,7 +209,7 @@
                         </section>
                     </article>
                     } @empty { <span>This product doesn't have reviews yet</span> }
-                </article>
+                </section>
             </div>
         </section>
     </article>

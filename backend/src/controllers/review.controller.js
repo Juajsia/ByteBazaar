@@ -63,11 +63,7 @@ export class ReviewController {
         }],
         attributes: { exclude: ['ClientId'] }
       })
-      if (review) {
-        res.status(200).json(review)
-      } else {
-        res.status(404).json({ err: 'Your Review wasn not found', text: 'It seems like you do not have a review about this product', forUser: true })
-      }
+      res.status(200).json(review)
     } catch (error) {
       return res.status(500).json({ message: error.message, forUser: false })
     }

@@ -12,7 +12,7 @@ import {
   faCircleCheck,
   faEyeSlash,
   faHeart,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartNoBG } from '@fortawesome/free-regular-svg-icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -29,7 +29,7 @@ import { Order } from '../../interfaces/order';
 import { OrderService } from '../../services/order.service';
 import { WishlistProductService } from '../../services/wishlist-product.service';
 import { WishlistProduct } from '../../interfaces/wishlist';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, TimeoutError, lastValueFrom } from 'rxjs';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { OrderDetailsService } from '../../services/order-details.service';
@@ -37,13 +37,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Review } from '../../interfaces/review';
 import { ReviewService } from '../../services/review.service';
 import { simpleChartInfo } from '../../interfaces/reports';
+import { ReviewFormComponent } from '../../components/review-form/review-form.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, NgxChartsModule],
+  imports: [NavbarComponent, RouterLink, FontAwesomeModule, ProductFormComponent, NgxChartsModule, ReviewFormComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -78,6 +79,9 @@ export class ProductComponent {
   };
   scoreCounting: Array<simpleChartInfo> = []
   reviews: Review[] = []
+  myReview: Review
+  isCreateMode: boolean = true
+  reviewForm = false
 
   constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private _reviewService: ReviewService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
@@ -93,9 +97,14 @@ export class ProductComponent {
       this.showForm = false
   }
 
+  ngOnDestroy(){
+    localStorage.removeItem('pid')
+  }
+
   getProduct() {
     this._productService.getProduct(this.productName).subscribe(async (res: Product) => {
       this.product = res
+      this.productPlats = []
       this.productCats = res.categories.filter(v => {
         if (["Computer", "Smartphone", "Tablet"].includes(v)) {
           this.productPlats.push(v)
@@ -108,8 +117,10 @@ export class ProductComponent {
       if (localStorage.getItem('token') && localStorage.getItem('rol') === 'client')
         this.addToWishlistIcon = await lastValueFrom(this.isInWishlist())
 
+      localStorage.setItem('pid', String(this.product.id))
       this.getScoreCounting(this.product.id)
       this.getReviews(this.product.id)
+      this.getReview(localStorage.getItem('cid'), this.product.id)
     })
   }
 
@@ -456,6 +467,83 @@ If you have any questions or need additional assistance, please do not hesitate 
     this._reviewService.getScoreCounting(productId).subscribe({
       next: (res) => {
         this.scoreCounting = res
+      }
+    })
+  }
+
+  getReview(clientId: string, productId: number){
+    this._reviewService.getReview(clientId, productId).subscribe({
+      next: (res) => {
+        if (res){
+          this.myReview = res
+          this.reviewForm= false
+        } else {
+          this.reviewForm = true
+        }
+      }
+    })
+  }
+
+  handleReviewFormEvent(event: any) {
+    if (event === 'successful'){
+      this.getReviews(this.product.id)
+      this.getScoreCounting(this.product.id)
+      this.getProduct()
+    }
+    this.getReview(localStorage.getItem('cid'), this.product.id)
+  }
+
+  onUpdateClick() {
+    this.isCreateMode = false;
+    this.reviewForm = true
+  }
+
+  onDeleteClick() {
+    Swal.fire({
+      icon: "info",
+      title: "Are you sure you want to delete your review?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: 'Cancel'
+    })
+    .then((result)=> {
+      if (result.isConfirmed) {
+        this._reviewService.deleteReview(localStorage.getItem('cid'), this.product.id).subscribe({
+          next: () => {
+              Swal.fire({
+                icon: "success",
+                title: "Review deleted successfully",
+                text: 'Your review as deleted',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.myReview = null
+              this.isCreateMode = true
+              this.reviewForm = true
+              this.getReviews(this.product.id)
+              this.getScoreCounting(this.product.id)
+              this.getProduct()
+          }, error: (e: HttpErrorResponse) => {
+            this.reviewForm = false
+            if(e.error.forUser){
+              Swal.fire({
+                icon: "error",
+                title: e.error.message,
+                text: e.error.text,
+                showConfirmButton: false,
+                timer: 2000
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error deleting review",
+                text: 'Your review could not be deleted, try again later',
+                showConfirmButton: false,
+                timer: 2000
+              })
+            }
+          }
+        })
       }
     })
   }

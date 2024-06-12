@@ -1,10 +1,11 @@
 export interface Review {
     score: number,
     comment: string,
-    ProductId: number,
+    ProductId?: number,
+    ClientId?: string,
     createdAt?: string,
     updatedAt?: string,
-    Client: {
+    Client?: {
         createdAt?: string,
         updatedAt?: string,
         Person: {
@@ -15,4 +16,10 @@ export interface Review {
             lastName2?: string
           }
     }
+}
+
+export interface Msg {
+    message: string, 
+    text?: string, 
+    forUser?: boolean
 }
