@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <main>
+
+
+    @if (!showform) {
     <h1>Shopping Cart</h1>
     <div class="content">
         <article class="cartItems">
@@ -44,7 +47,7 @@
                             Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
                         </button>
                         } @else {
-                        <button type="button" class="btn" id="btnBuy" (click)="createOrder([cartItems[$index]])">
+                        <button type="button" class="btn" id="btnBuy" (click)="displayForm($index)">
                             Buy <fa-icon class="btnIcon" [icon]="bagIcon"></fa-icon>
                         </button>
                         }
@@ -92,11 +95,168 @@
                 Checkout <fa-icon class="btnIcon" [icon]="cartIcon"></fa-icon>
             </button>
             } @else {
-            <button type="button" class="btn" id="btnCheckout" (click)="checkout()">
+            <button type="button" class="btn" id="btnCheckout" (click)="displayForm(null)">
                 Checkout <fa-icon class="btnIcon" [icon]="cartIcon"></fa-icon>
             </button>
             }
         </aside>
     </div>
+    } @else {
+
+    <div class="container">
+
+        <form action="" [formGroup]="form">
+
+            <div class="row">
+
+                <div class="col">
+
+                    <h3 class="title">billing address</h3>
+
+                    <div class="inputBox">
+                        <span>full name :</span>
+                        <input type="text" placeholder="john deo" formControlName="name" required>
+                        @if (form.get('name')?.hasError('required') &&
+                        form.get('name')?.touched) {
+                        <span class="error">*Required field*</span>
+                        }
+                    </div>
+                    <div class="inputBox">
+                        <span>email :</span>
+                        <input type="email" placeholder="example@example.com" formControlName="email" required>
+                        @if (form.get('email')?.hasError('required') &&
+                        form.get('email')?.touched) {
+                        <span class="error">*Required field*</span>
+                        } @if (form.get('email')?.hasError('pattern')) {
+                        <span class="error">*Invalid email*</span>
+                        }
+                    </div>
+                    <div class="inputBox">
+                        <span>address :</span>
+                        <input type="text" placeholder="room - street - locality" formControlName="address" required>
+                        @if (form.get('address')?.hasError('required') &&
+                        form.get('address')?.touched) {
+                        <span class="error">*Required field*</span>
+                        }
+                    </div>
+                    <div class="inputBox">
+                        <span>city :</span>
+                        <input type="text" placeholder="mumbai" formControlName="city" required>
+                        @if (form.get('city')?.hasError('required') &&
+                        form.get('city')?.touched) {
+                        <span class="error">*Required field*</span>
+                        }
+                    </div>
+
+                    <div class="flex">
+                        <div class="inputBox">
+                            <span>state :</span>
+                            <input type="text" placeholder="india" formControlName="state" required>
+                            @if (form.get('state')?.hasError('required') &&
+                            form.get('state')?.touched) {
+                            <span class="error">*Required field*</span>
+                            }
+                        </div>
+                        <div class="inputBox">
+                            <span>zip code :</span>
+                            <input type="number" placeholder="123 45" formControlName="zipCode" required>
+                            @if (form.get('zipCode')?.hasError('required') &&
+                            form.get('zipCode')?.touched) {
+                            <span class="error">*Required field*</span>
+                            } @if (form.get('zipCode')?.hasError('pattern')) {
+                            <span class="error">*Invalid zip <code></code>*</span>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <h3 class="title">payment</h3>
+
+                    <div class="inputBox">
+                        <span>cards accepted :</span>
+                        <img src="../../../assets/card_img.png" alt="">
+                    </div>
+                    <div class="inputBox">
+                        <span>name on card :</span>
+                        <input type="text" placeholder="mr. john deo" formControlName="nameOnCard" required>
+                        @if (form.get('nameOnCard')?.hasError('required') &&
+                        form.get('nameOnCard')?.touched) {
+                        <span class="error">*Required field*</span>
+                        }
+                    </div>
+                    <div class="inputBox">
+                        <span>credit card number :</span>
+                        <input type="text" placeholder="1111-2222-3333-4444" formControlName="creditCartNumber"
+                            required>
+                        @if (form.get('creditCartNumber')?.hasError('required') &&
+                        form.get('creditCartNumber')?.touched) {
+                        <span class="error">*Required field*</span>
+                        } @if (form.get('creditCartNumber')?.hasError('pattern')) {
+                        <span class="error">*Invalid card number*</span>
+                        }
+                    </div>
+                    <div class="inputBox">
+                        <span>exp month :</span>
+                        <input type="number" placeholder="01" formControlName="expMonth" required>
+                        @if (form.get('expMonth')?.hasError('required') &&
+                        form.get('expMonth')?.touched) {
+                        <span class="error">*Required field*</span>
+                        } @if (form.get('expMonth')?.hasError('pattern')) {
+                        <span class="error">*Invalid month</span>
+                        }
+                    </div>
+
+                    <div class="flex">
+                        <div class="inputBox">
+                            <span>exp year :</span>
+                            <input type="number" placeholder="2022" formControlName="expYear" required>
+                            @if (form.get('expYear')?.hasError('required') &&
+                            form.get('expYear')?.touched) {
+                            <span class="error">*Required field*</span>
+                            } @if (form.get('expYear')?.hasError('pattern')) {
+                            <span class="error">*Invalid year*</span>
+                            }
+                        </div>
+                        <div class="inputBox">
+                            <span>CVV :</span>
+                            <input type="number" placeholder="1234" formControlName="cvv" required>
+                            @if (form.get('cvv')?.hasError('required') &&
+                            form.get('cvv')?.touched) {
+                            <span class="error">*Required field*</span>
+                            } @if (form.get('cvv')?.hasError('pattern')) {
+                            <span class="error">*Invalid CVV*</span>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @if (form.valid) {
+            <button type="button" class="submit-btn" id="btnBuy" (click)="finishPayment()">
+                proceed to checkout
+            </button>
+            }@else {
+            <button [disabled]="[true]" type="button" class="btn disabled2" id="btnBuy" (click)="finishPayment()">
+                proceed to checkout
+            </button>
+
+            }
+
+
+
+            <button type="button" class="submit-btn" id="btnCancel" (click)="showform=false">
+                cancel
+            </button>
+        </form>
+
+    </div>
+    }
+
+
 
 </main>

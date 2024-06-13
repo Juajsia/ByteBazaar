@@ -153,7 +153,7 @@
   @if (userbox) {
   <div class="user-main" (mouseover)="userbox2 = true" (mouseleave)="userbox = false; userbox2 = false">
     <div class="user-container" #menu [style.right.px]="menuRight">
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+      <img src="{{userPhotoUrl}}">
       <h4 class="name">{{name}}</h4>
       <div class="btn-container">
         <button class="log-button user-btn" id="btn" [routerLink]="['/profile']">Profile </button>

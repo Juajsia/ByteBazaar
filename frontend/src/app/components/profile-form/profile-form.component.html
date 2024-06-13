@@ -1,6 +1,12 @@
 <section class="main">
     <form class="container" [formGroup]="form">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+        <div class="img-container">
+            <img [src]="imageUrl" alt="">
+            <label id="uploadLabel" for="uploadBtn"><span class="fileMessage"> <fa-icon [icon]="imageIcon"></fa-icon>
+                    Select Image</span><span class="fileIcon"><fa-icon [icon]="editImageIcon"></fa-icon>
+                </span></label>
+            <input type="file" id="uploadBtn" accept="image/*" #fileInput (change)="onSelectedFile($event)">
+        </div>
         <input type="email" class="input email" name="email" placeholder="Email" formControlName="email">
         <article class="input-container">
             <div class="label-container">
@@ -31,10 +37,10 @@
             <button type="button" class="btn btnCancel" (click)="cancel()">Cancel <fa-icon class="btnIcon"
                     [icon]="xIcon"></fa-icon></button>
             @if (form.invalid) {
-            <button type="button" class="btn disabled" [disabled]="[true]" (click)="save()">Save <fa-icon
+            <button type="button" class="btn disabled" [disabled]="[true]" (click)="save(fileInput)">Save <fa-icon
                     class="btnIcon" [icon]="diskIcon"></fa-icon></button>
             }@else {
-            <button type="button" class="btn" (click)="save()">Save <fa-icon class="btnIcon"
+            <button type="button" class="btn" (click)="save(fileInput)">Save <fa-icon class="btnIcon"
                     [icon]="diskIcon"></fa-icon></button>
             }
         </article>

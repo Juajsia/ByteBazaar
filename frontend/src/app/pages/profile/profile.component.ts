@@ -6,6 +6,7 @@ import { Client } from '../../interfaces/client';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { ProfileFormComponent } from '../../components/profile-form/profile-form.component';
+import { ProfileService } from '../../services/profile.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class ProfileComponent {
     lastName1: '',
     lastName2: '',
     email: '',
-    password: ''
+    password: '',
+    photoUrl: ''
   }
 
 
@@ -43,14 +45,12 @@ export class ProfileComponent {
   getClientData() {
     this._ClientService.getClient(this.id!).subscribe(data => {
       this.client = { ...data }
-
       this._CredentialService.getCred(this.id!).subscribe(data => {
         this.client.email = data.email
         if (!this.client.secondName) {
           this.client.secondName = ''
         }
       })
-
     })
   }
 

@@ -20,13 +20,14 @@ import { OrderService } from '../../services/order.service';
 import { Order } from '../../interfaces/order';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NavbarComponent, FontAwesomeModule, RouterLink],
+  imports: [NavbarComponent, FontAwesomeModule, RouterLink, FormsModule, ReactiveFormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -36,6 +37,32 @@ export class CartComponent {
   trashIcon = faTrash
   plusIcon = faPlus
   minusIcon = faMinus
+
+  emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/
+  expMonthRegex = /^(0?[1-9]|1[0-2])$/
+  zipCodeRegex = /^\d{5}(?:[-\s]\d{4})?$/
+  expYearRegex = /^(202[4-9]|2030)$/
+  cvvRegex = /^\d{3,4}$/
+
+
+  showform = false
+  productIdx: number = null
+
+  form = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+    address: new FormControl('', Validators.required),
+    creditCartNumber: new FormControl('', [Validators.required, Validators.pattern(this.cardNumberRegex)]),
+    nameOnCard: new FormControl('', [Validators.required]),
+    city: new FormControl('', Validators.required),
+    expMonth: new FormControl('', [Validators.required, Validators.pattern(this.expMonthRegex)]),
+    state: new FormControl('', Validators.required),
+    zipCode: new FormControl('', [Validators.required, Validators.pattern(this.zipCodeRegex)]),
+    expYear: new FormControl('', [Validators.required, Validators.pattern(this.expYearRegex)]),
+    cvv: new FormControl('', [Validators.required, Validators.pattern(this.cvvRegex)]),
+
+  })
 
   cartId = Number(localStorage.getItem('cart'))
   cartItems: Product[] = []
@@ -146,16 +173,25 @@ export class CartComponent {
     })
   }
 
-  buyProduct(prodIndex: number) {
-    this.createOrder([this.cartItems[prodIndex]])
+  displayForm(Idx: number) {
+    this.showform = true
+    this.productIdx = Idx
   }
 
-  checkout() {
+  finishPayment() {
+    if (!this.productIdx) {
+      this.checkout()
+    } else {
+      this.createOrder([this.cartItems[this.productIdx]])
+    }
+  }
+
+  async checkout() {
     let error = false
     let i = 0
     while (i < this.cartItems.length && !error) {
       if (this.cartItems[i].stock === 0) {
-        Swal.fire({
+        await Swal.fire({
           icon: "error",
           title: `Product ${this.cartItems[i].name} does not have stock`,
           text: `Please delete it from your cart you want to checkout`,
@@ -165,7 +201,7 @@ export class CartComponent {
         error = true
       }
       if (!this.cartItems[i].status) {
-        Swal.fire({
+        await Swal.fire({
           icon: "error",
           title: `Product ${this.cartItems[i].name} is not available`,
           text: `Please delete it from your cart you want to checkout`,
@@ -180,31 +216,34 @@ export class CartComponent {
       this.createOrder(this.cartItems)
   }
 
-  createOrder(products: Product[]) {
+
+
+  async createOrder(products: Product[]) {
     const order: Order = {
       clientId: Number(localStorage.getItem('cid')),
       Products: products,
       total: this.summary.totProds + this.summary.adCosts
     }
+    console.log(order)
     this._orderService.createOrder(order).subscribe({
-      next: () => {
-        Swal.fire({
+      next: async () => {
+        await Swal.fire({
           icon: "success",
           title: "Order created sucessfully",
           text: `Successful purchase`,
           showConfirmButton: false,
           timer: 1500
-        }).then(() => {
-          Swal.fire({
+        }).then(async () => {
+          await Swal.fire({
             title: "Do you want to download your invoice in PDf?",
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: "save",
             denyButtonText: `Don't save`
-          }).then((result) => {
+          }).then(async (result) => {
             if (result.isConfirmed) {
               this.createpdf()
-              Swal.fire("Saved!", "", "success");
+              await Swal.fire("Saved!", "", "success");
             }
             if (products.length > 1) {
               this._cartProductService.clearCartItem(this.cartId).subscribe(() => {
@@ -227,9 +266,9 @@ export class CartComponent {
           });
         })
 
-      }, error: (e: HttpErrorResponse) => {
+      }, error: async (e: HttpErrorResponse) => {
         if (e.error.forUser) {
-          Swal.fire({
+          await Swal.fire({
             icon: "error",
             title: e.error.message,
             text: e.error.text,
@@ -237,7 +276,7 @@ export class CartComponent {
             timer: 4000
           });
         } else {
-          Swal.fire({
+          await Swal.fire({
             icon: "error",
             title: `Error creating order`,
             text: `something wrong happended, purchase was not completed, try again later`,

@@ -492,6 +492,7 @@ a:hover {
 
 .user-container img {
     width: 120px;
+    height: 120px;
     padding: 10px;
     border-radius: 50%;
 }

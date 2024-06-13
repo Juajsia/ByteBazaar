@@ -94,7 +94,8 @@ export class LoginComponent implements OnInit {
       lastName1: lastName[0],
       lastName2: lastName[1] || " ",
       email: user.email,
-      password: 'P@ssw0rd'
+      password: 'P@ssw0rd',
+      photoUrl: user.photoUrl
     }
 
     this._clientService.createClient(client).subscribe({
