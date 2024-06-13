@@ -2,7 +2,7 @@ import { Product } from "./product"
 
 export interface Order {
     id?: number,
-    clientId: number | bigint | string,
+    clientId: string,
     Products?: Product[],
     createdAt?: string,
     updatedAt?: string,

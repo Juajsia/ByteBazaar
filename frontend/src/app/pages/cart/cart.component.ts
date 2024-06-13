@@ -182,11 +182,13 @@ export class CartComponent {
     if (!this.productIdx) {
       this.checkout()
     } else {
+      this.changeditems.delete(this.productIdx)
       this.createOrder([this.cartItems[this.productIdx]])
     }
   }
 
   async checkout() {
+    this.changeditems = new Set()
     let error = false
     let i = 0
     while (i < this.cartItems.length && !error) {
@@ -218,9 +220,9 @@ export class CartComponent {
 
 
 
-  async createOrder(products: Product[]) {
+  async createOrder(products: Product[]) { 
     const order: Order = {
-      clientId: Number(localStorage.getItem('cid')),
+      clientId: localStorage.getItem('cid'),
       Products: products,
       total: this.summary.totProds + this.summary.adCosts
     }
