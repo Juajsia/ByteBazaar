@@ -20,7 +20,7 @@
           <li class="drop-down-item">
             <input type="range" id="priceRange" name="priceRange" min="0" max="{{maxPrice}}" step="10"
               value="{{maxPrice}}" [(ngModel)]="price" (input)="pricefilter()">
-            <label>Max Price: <span id="priceValue">{{ '$' + price }}</span></label>
+            <label>Max Price: <span id="priceValue">{{price}} USD</span></label>
           </li>
           <li class="drop-down-item">
             <form>
@@ -73,7 +73,7 @@
         <p class="cats">{{prodCatsList[i]}}</p>
       </section>
       @if (item.price !== 0) {
-      <p class="price">${{item.price}}</p>
+      <p class="price">{{item.price}} USD</p>
       } @else {
       <p class="price">Free</p>
       }

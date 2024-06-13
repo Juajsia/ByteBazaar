@@ -30,7 +30,7 @@
             }
             <div id="lowerInfo">
                 @if (product.price !== 0) {
-                <span id="price">${{product.price}}</span>
+                <span id="price">{{product.price}} USD</span>
                 } @else {
                 <span id="price">Free</span>
                 }
@@ -143,6 +143,7 @@
                         </ngx-charts-bar-horizontal>
                     </article>
                     }
+                    @if(role === 'client'){
                     <article class="review" id="myReview">
                         <section class="myInfo">
                             <div class="clientImg">
@@ -184,6 +185,7 @@
                         </section>
                         }
                     </article>
+                    }
                 </section>
                 <section class="reviews">
                     @for (item of reviews; track $index) {

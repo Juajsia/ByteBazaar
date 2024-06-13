@@ -217,7 +217,7 @@ export class CartComponent {
               }
               this._cartProductService.deleteCartItem(cartProduct).subscribe({
                 next: () => {
-                  // window.location.reload()
+                  this.router.navigate(['/'])
                 }, error: (e: HttpErrorResponse) => {
                   console.log("Error deleting product after purchase")
                 }
