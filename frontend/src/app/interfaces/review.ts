@@ -13,8 +13,9 @@ export interface Review {
             firstName: string,
             secondName?: string,
             lastName1: string,
-            lastName2?: string
-          }
+            lastName2?: string,
+            photoUrl?: string
+        }
     }
 }
 

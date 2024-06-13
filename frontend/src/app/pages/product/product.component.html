@@ -147,10 +147,8 @@
                     <article class="review" id="myReview">
                         <section class="myInfo">
                             <div class="clientImg">
-                                <i class="userIcon">
-                                    <fa-icon id="userIcon" [icon]="userIcon"></fa-icon>
-                                </i>
-                                <span class="clientName">Your review</span>
+                                <img src="{{clientInfo.photoUrl}}" class="userIcon">
+                                <span class="clientName">{{clientInfo.firstName}}'s review</span>
                             </div>
                             @if(myReview){
                             <div class="reviewActions">
@@ -191,9 +189,7 @@
                     @for (item of reviews; track $index) {
                     <article class="review">
                         <section class="clientInfo">
-                            <i class="userIcon">
-                                <fa-icon id="userIcon" [icon]="userIcon"></fa-icon>
-                            </i>
+                            <img src="{{item.Client.Person.photoUrl}}" class="userIcon">
                             <span class="clientName">{{item.Client.Person.firstName + ' ' +
                                 (item.Client.Person.secondName ?
                                 item.Client.Person.secondName : '') + ' ' +

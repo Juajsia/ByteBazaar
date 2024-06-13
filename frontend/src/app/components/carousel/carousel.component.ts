@@ -11,9 +11,10 @@ import { Component } from '@angular/core';
 export class CarouselComponent {
   ngOnInit() {
     const images = [
-        '../../../assets/1.jpg',
-        '../../../assets/2.jpg',
-        '../../../assets/3.jpg'
+        '../../../assets/officeExp.jpg',
+        '../../../assets/EverNoteBanner.jpg',
+        '../../../assets/vpnBanner.jpg',
+        '../../../assets/disneyBanner.jpg',
     ];
     const intervalTimeMs = 8000;
     let currentPosition = 0;

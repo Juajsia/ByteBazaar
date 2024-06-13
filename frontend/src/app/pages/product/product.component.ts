@@ -38,6 +38,8 @@ import { Review } from '../../interfaces/review';
 import { ReviewService } from '../../services/review.service';
 import { simpleChartInfo } from '../../interfaces/reports';
 import { ReviewFormComponent } from '../../components/review-form/review-form.component';
+import { ClientService } from '../../services/client.service';
+import { Client } from '../../interfaces/client';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -82,8 +84,9 @@ export class ProductComponent {
   myReview: Review
   isCreateMode: boolean = true
   reviewForm = false
+  clientInfo = {} as Client
 
-  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private _reviewService: ReviewService, private router: Router, private aRouter: ActivatedRoute) {
+  constructor(private _productService: ProductService, private _categoryService: CategoryService, private _cartProductService: CartProductService, private _orderService: OrderService, private _wishlistProductService: WishlistProductService, private _reviewService: ReviewService, private _clientService: ClientService, private router: Router, private aRouter: ActivatedRoute) {
     this.productName = this.aRouter.snapshot.paramMap.get('name')!
   }
 
@@ -121,6 +124,7 @@ export class ProductComponent {
       this.getScoreCounting(this.product.id)
       this.getReviews(this.product.id)
       this.getReview(localStorage.getItem('cid'), this.product.id)
+      this.getClientInfo()
     })
   }
 
@@ -544,6 +548,14 @@ If you have any questions or need additional assistance, please do not hesitate 
             }
           }
         })
+      }
+    })
+  }
+
+  getClientInfo(){
+    this._clientService.getClient(localStorage.getItem('cid')).subscribe({
+      next: (res) => {
+        this.clientInfo = res
       }
     })
   }
